@@ -13,7 +13,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         world_ = new World();
-        worldRenderer_ = new WorldRenderer(world_);
+        worldRenderer_ = new WorldRenderer(world_, true);
     }
 
     @Override
