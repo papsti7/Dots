@@ -17,4 +17,9 @@ public class Player {
         surrounding_ = new Circle(Gdx.graphics.getWidth()/2.f, Gdx.graphics.getHeight()/2.f, 50.f);
         color = new Color(Color.YELLOW);
     }
+
+    public void update(Vector2 new_pos){
+
+        surrounding_.setPosition(new_pos);
+    }
 }

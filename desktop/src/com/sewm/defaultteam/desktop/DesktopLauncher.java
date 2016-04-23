@@ -10,6 +10,8 @@ public class DesktopLauncher {
         //System.setProperty("org.lwjgl.opengl.Display.allowSoftwareOpenGL", "true");
 		config.width = 1920;
 		config.height = 1080;
+		config.vSyncEnabled = true;
+		//config.foregroundFPS = 60;
 		new LwjglApplication(new StartPoint(), config);
 	}
 }
