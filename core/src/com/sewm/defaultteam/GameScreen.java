@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -22,24 +23,41 @@ public class GameScreen implements Screen, InputProcessor {
         flag = true;
     }
 
+    void update(){
+        if(Gdx.input.isTouched())
+        {
+            worldRenderer_.camera_.unproject(worldController_.touchpoint_.set(Gdx.input.getX(),Gdx.input.getY(), 0));
+            Rectangle player = new Rectangle(world_.getPlayer_().surrounding_.x,
+                                             world_.getPlayer_().surrounding_.y,
+                                             world_.getPlayer_().surrounding_.radius * 2,
+                                             world_.getPlayer_().surrounding_.radius * 2);
+            if(OverlapTester.pointInRectangle(player , worldController_.touchpoint_.x, worldController_.touchpoint_.y))
+            {
+                /* touched the player surrounding */
+                worldController_.update(new Vector2(worldController_.touchpoint_.x, worldController_.touchpoint_.y));
+                return;
+            }
+        }
+        worldController_.updateEnemy();
+    }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        //System.out.println("render\n");
-        if(world_.getPlayer_().surrounding_.x < 1200 && flag == true)
-            worldController_.update(new Vector2(world_.getPlayer_().surrounding_.x + 1.f ,world_.getPlayer_().surrounding_.y));
-        else {
-            worldController_.update(new Vector2(world_.getPlayer_().surrounding_.x - 1.f, world_.getPlayer_().surrounding_.y + 1.f));
-            flag = false;
-        }
+
+        update();
         worldRenderer_.render();
+        
     }
 
     @Override
     public void resize(int width, int height) {
 
     }
+
+
+
 
     @Override
     public void pause() {
