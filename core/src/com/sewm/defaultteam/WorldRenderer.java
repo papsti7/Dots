@@ -76,6 +76,8 @@ public class WorldRenderer {
         Rectangle circle = new Rectangle(player.surrounding_.x, player.surrounding_.y, player_texture_.getWidth(), player_texture_.getHeight());
         debugRenderer.setColor(new Color(Color.GOLD));
         debugRenderer.rect(circle.x, circle.y, circle.getWidth(), circle.getHeight());
+        debugRenderer.setColor(new Color(Color.PINK));
+        debugRenderer.circle(player.surrounding_.x, player.surrounding_.y, 10);
         debugRenderer.end();
     }
 }

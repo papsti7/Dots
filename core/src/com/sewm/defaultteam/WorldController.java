@@ -1,5 +1,6 @@
 package com.sewm.defaultteam;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -22,7 +23,6 @@ public class WorldController {
     }
 
     public void update(Vector2 new_pos){
-
         player_.update(new_pos);
         updateEnemy();
 
@@ -31,5 +31,10 @@ public class WorldController {
         for(Enemy enemy : enemies_){
             enemy.update(new Vector2(player_.surrounding_.x, player_.surrounding_.y));
         }
+    }
+
+    public Vector2 getRectCenter(Rectangle rect){
+        Vector2 center = new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2);
+        return center;
     }
 }

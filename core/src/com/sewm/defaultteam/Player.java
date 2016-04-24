@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -21,5 +22,13 @@ public class Player {
     public void update(Vector2 new_pos){
 
         surrounding_.setPosition(new_pos);
+    }
+
+    public Rectangle getRect(){
+        Rectangle rect = new Rectangle(surrounding_.x,
+                                       surrounding_.y,
+                                       surrounding_.radius * 2,
+                                       surrounding_.radius * 2);
+        return rect;
     }
 }
