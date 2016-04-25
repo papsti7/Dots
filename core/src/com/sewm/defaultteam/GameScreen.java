@@ -20,7 +20,7 @@ public class GameScreen implements Screen, InputProcessor {
         world_ = new World();
         worldRenderer_ = new WorldRenderer(world_, true);
         worldController_ = new WorldController(world_);
-        flag = true;
+        flag = false;
     }
 
     void update(){
@@ -28,13 +28,19 @@ public class GameScreen implements Screen, InputProcessor {
         {
             worldRenderer_.camera_.unproject(worldController_.touchpoint_.set(Gdx.input.getX(),Gdx.input.getY(), 0));
             Rectangle player = world_.getPlayer_().getRect();
-            if(OverlapTester.pointInRectangle(player , worldController_.touchpoint_.x, worldController_.touchpoint_.y))
+            if(OverlapTester.pointInRectangle(player , worldController_.touchpoint_.x, worldController_.touchpoint_.y) || flag == true)
             {
                 /* touched the player surrounding */
                 worldController_.update(new Vector2(worldController_.touchpoint_.x, worldController_.touchpoint_.y));
+                flag = true;
                 return;
             }
+
         }
+        else{
+            flag = false;
+        }
+
         worldController_.updateEnemy();
     }
 

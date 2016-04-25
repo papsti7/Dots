@@ -20,8 +20,10 @@ public class Player {
     }
 
     public void update(Vector2 new_pos){
-
-        surrounding_.setPosition(new_pos);
+        System.out.println("old pos: " + surrounding_.x + "|" + surrounding_.y);
+        surrounding_.setPosition(getOriginOfRect(new_pos));
+        System.out.println("updated pos: " + surrounding_.x + "|" + surrounding_.y);
+        System.out.println(" ");
     }
 
     public Rectangle getRect(){
@@ -30,5 +32,11 @@ public class Player {
                                        surrounding_.radius * 2,
                                        surrounding_.radius * 2);
         return rect;
+    }
+
+    Vector2 getOriginOfRect(Vector2 center_pos){
+        Vector2 origin_pos = new Vector2(center_pos.x - surrounding_.radius, center_pos.y - surrounding_.radius);
+        System.out.println("new pos: " + origin_pos.x + "|" + origin_pos.y);
+        return origin_pos;
     }
 }
