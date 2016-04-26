@@ -52,6 +52,7 @@ public class Enemy {
         distance.x = distance.x * (0.005f * speed_);
         distance.y = distance.y * (0.005f * speed_);
         Vector2 new_pos = body_.getPosition(new Vector2());
+
         new_pos.x += distance.x;
         new_pos.y += distance.y;
         body_.setPosition(new_pos);
