@@ -119,14 +119,11 @@ public class Enemy {
         }
         //create new pos for enemy
         Vector2 new_pos = body_.getPosition(new Vector2());
-<<<<<<< c56cd76960bd3ce99e99987248b143a579ccdee8
+        
 
-        new_pos.x += distance.x;
-        new_pos.y += distance.y;
-=======
         new_pos.x += velocity_.x;
         new_pos.y += velocity_.y;
->>>>>>> [MT,LR] refactored enemy constructor and enemy movement
+
         body_.setPosition(new_pos);
     }
 
