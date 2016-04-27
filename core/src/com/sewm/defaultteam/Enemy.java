@@ -13,25 +13,78 @@ import com.badlogic.gdx.math.Vector2;
 public class Enemy {
 
     Rectangle body_;
-    int speed_;
+    int speed_base_;
     int lives_;
     Color color_;
+    Vector2 velocity_;
     Vector2 target_pos_;
+    int gravity_;
+
+
 
     public Enemy (){
         body_ = new Rectangle(20.f, 50.f, 20.f ,20.f);
-        speed_ = 1;
+        speed_base_ = 1;
         lives_ = 3;
-        color_ = new Color(Color.BLUE);
+        color_ = new Color(Color.GREEN);
         target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
+        velocity_ = new Vector2(0,0);
+        gravity_ = 1;
     }
 
-    public Enemy ( Vector2 pos, int speed, int lives){
+    public Enemy ( Vector2 pos, int speed, int lives, int gravity){
         body_ = new Rectangle(pos.x, pos.y, 20.f ,20.f);
-        speed_ = speed;
+        speed_base_ = speed;
         lives_ = lives;
         color_ = new Color(Color.GREEN);
         target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
+        velocity_ = new Vector2(0,0);
+        gravity_ = gravity;
+    }
+
+    public Enemy(Vector2 pos, int difficulty){
+        switch (difficulty){
+            case 1:
+                body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
+                speed_base_ = 1;
+                lives_ = 1;
+                color_ = new Color(Color.RED);
+                target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
+                velocity_ = new Vector2(0,0);
+                gravity_ = 3;
+                break;
+            case 2:
+                body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
+                speed_base_ = 2;
+                lives_ = 2;
+                color_ = new Color(Color.RED);
+                target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
+                velocity_ = new Vector2(0,0);
+                gravity_ = 2;
+                break;
+            case 3:
+                body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
+                speed_base_ = 3;
+                lives_ = 3;
+                color_ = new Color(Color.RED);
+                target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
+                velocity_ = new Vector2(0,0);
+                gravity_ = 1;
+                break;
+            default:
+                body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
+                speed_base_ = 1;
+                lives_ = 1;
+                color_ = new Color(Color.RED);
+                target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
+                velocity_ = new Vector2(0,0);
+                gravity_ = 3;
+                break;
+
+
+
+        }
+
     }
 
     public void update(Vector2 target_pos){
@@ -46,16 +99,42 @@ public class Enemy {
     }
 
     private void updatePosition(){
-        Vector2 distance = body_.getPosition(new Vector2());
-        distance.x = target_pos_.x - distance.x;
-        distance.y = target_pos_.y - distance.y;
-        distance.x = distance.x * (0.005f * speed_);
-        distance.y = distance.y * (0.005f * speed_);
+        Vector2 direction = body_.getPosition(new Vector2());
+        //get direction to target(player)
+        direction.x = target_pos_.x - direction.x;
+        direction.y = target_pos_.y - direction.y;
+        //calculate unit vector to just get the direction with length 1
+        direction = getUnitVector(direction);
+        //set length from diretion to speed
+        direction.x *= (speed_base_ * 10) * Gdx.graphics.getDeltaTime();
+        direction.y *= (speed_base_ * 10) * Gdx.graphics.getDeltaTime();
+        //modify old velocity
+        velocity_.x += (direction.x * 2);
+        velocity_.y += (direction.y * 2);
+        if(velocity_.len() > (5.f * gravity_))
+        {
+            velocity_ = getUnitVector(velocity_);
+            velocity_.x *= 4.5f * gravity_;
+            velocity_.y *= 4.5f * gravity_;
+        }
+        //create new pos for enemy
         Vector2 new_pos = body_.getPosition(new Vector2());
+<<<<<<< c56cd76960bd3ce99e99987248b143a579ccdee8
 
         new_pos.x += distance.x;
         new_pos.y += distance.y;
+=======
+        new_pos.x += velocity_.x;
+        new_pos.y += velocity_.y;
+>>>>>>> [MT,LR] refactored enemy constructor and enemy movement
         body_.setPosition(new_pos);
+    }
+
+    public Vector2 getUnitVector(Vector2 vec){
+        float length = vec.len();
+        vec.x /= length;
+        vec.y /= length;
+        return vec;
     }
 
     public void setLives_(int lives_) {
