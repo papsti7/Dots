@@ -53,7 +53,8 @@ public class WorldRenderer {
 
     void drawEnemies(){
         for(Enemy enemy : world_.getEnemies_()){
-            spriteBatch_.draw(enemy_texture_, enemy.body_.getX(), enemy.body_.y);
+            Rectangle enemy_body = (Rectangle) enemy.body_;
+            spriteBatch_.draw(enemy_texture_, enemy_body.getX(), enemy_body.y);
         }
     }
 
@@ -66,7 +67,8 @@ public class WorldRenderer {
         debugRenderer.begin(ShapeRenderer.ShapeType.Line);
         //rendering enemies
         for(Enemy enemy : world_.getEnemies_()){
-            Rectangle rect = new Rectangle(enemy.body_.getX(), enemy.body_.getY(), enemy_texture_.getWidth(), enemy_texture_.getHeight());
+            Rectangle enemy_body = (Rectangle) enemy.body_;
+            Rectangle rect = new Rectangle(enemy_body.getX(), enemy_body.getY(), enemy_texture_.getWidth(), enemy_texture_.getHeight());
             debugRenderer.setColor(new Color(Color.BLUE));
             debugRenderer.rect(rect.getX(), rect.getY(), rect.width, rect.height);
 

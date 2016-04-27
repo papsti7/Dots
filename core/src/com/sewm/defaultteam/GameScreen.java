@@ -76,6 +76,7 @@ public class GameScreen implements Screen, InputProcessor {
         }
 
         worldController_.updateEnemy();
+        worldController_.updateTarget();
     }
 
     @Override
