@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Created by stefan on 22.04.2016.
  */
-public class Enemy {
+public class Enemy extends GameEntity {
 
     Rectangle body_;
     int speed_base_;
@@ -86,25 +86,19 @@ public class Enemy {
         }
 
     }
-
-    public void update(Vector2 target_pos){
-
-        updateTarget(target_pos);
-        updatePosition();
-    }
-
-    private void updateTarget(Vector2 target_pos){
+    @Override
+    protected void updateTarget(Vector2 target_pos){
         target_pos_.x = target_pos.x;
         target_pos_.y = target_pos.y;
     }
-
-    private void updatePosition(){
+    @Override
+    public void updatePosition(){
         Vector2 direction = body_.getPosition(new Vector2());
         //get direction to target(player)
         direction.x = target_pos_.x - direction.x;
         direction.y = target_pos_.y - direction.y;
         //calculate unit vector to just get the direction with length 1
-        direction = getUnitVector(direction);
+        direction = Utils.getUnitVector(direction);
         //set length from diretion to speed
         direction.x *= (speed_base_ * 10) * Gdx.graphics.getDeltaTime();
         direction.y *= (speed_base_ * 10) * Gdx.graphics.getDeltaTime();
@@ -113,7 +107,7 @@ public class Enemy {
         velocity_.y += (direction.y * 2);
         if(velocity_.len() > (5.f * gravity_))
         {
-            velocity_ = getUnitVector(velocity_);
+            velocity_ = Utils.getUnitVector(velocity_);
             velocity_.x *= 4.5f * gravity_;
             velocity_.y *= 4.5f * gravity_;
         }
@@ -127,22 +121,7 @@ public class Enemy {
         body_.setPosition(new_pos);
     }
 
-    public Vector2 getUnitVector(Vector2 vec){
-        float length = vec.len();
-        vec.x /= length;
-        vec.y /= length;
-        return vec;
-    }
 
-    public void setLives_(int lives_) {
-        this.lives_ = lives_;
-    }
 
-    public int getLives_() {
-        return lives_;
-    }
 
-    public void setColor_(Color color_) {
-        this.color_ = color_;
-    }
 }

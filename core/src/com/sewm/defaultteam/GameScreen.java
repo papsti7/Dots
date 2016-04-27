@@ -11,7 +11,41 @@ import com.badlogic.gdx.math.Vector2;
  * Created by stefan on 22.04.2016.
  */
 public class GameScreen implements Screen, InputProcessor {
+
     World world_;
+
+    public World getWorld_() {
+        return world_;
+    }
+
+    public void setWorld_(World world_) {
+        this.world_ = world_;
+    }
+
+    public WorldRenderer getWorldRenderer_() {
+        return worldRenderer_;
+    }
+
+    public void setWorldRenderer_(WorldRenderer worldRenderer_) {
+        this.worldRenderer_ = worldRenderer_;
+    }
+
+    public boolean is_touched() {
+        return is_touched;
+    }
+
+    public void setIs_touched(boolean is_touched) {
+        this.is_touched = is_touched;
+    }
+
+    public WorldController getWorldController_() {
+        return worldController_;
+    }
+
+    public void setWorldController_(WorldController worldController_) {
+        this.worldController_ = worldController_;
+    }
+
     WorldRenderer worldRenderer_;
     WorldController worldController_;
     boolean is_touched;
