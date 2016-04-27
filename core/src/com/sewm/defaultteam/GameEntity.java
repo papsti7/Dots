@@ -8,12 +8,13 @@ import com.badlogic.gdx.math.Vector2;
  * Created by Lisa on 27.04.2016.
  */
 public abstract class GameEntity {
-    public Shape2D getBodyShape2D() {
-        return bodyShape2D;
+
+    public Shape2D getBody_() {
+        return body_;
     }
 
-    public void setBodyShape2D(Shape2D bodyShape2D) {
-        this.bodyShape2D = bodyShape2D;
+    public void setBody_(Shape2D body_) {
+        this.body_ = body_;
     }
 
     public int getSpeed_base_() {
@@ -56,21 +57,21 @@ public abstract class GameEntity {
         this.target_pos_ = target_pos_;
     }
 
-    public int getGravity_() {
-        return gravity_;
+    public int getInertia_() {
+        return inertia_;
     }
 
-    public void setGravity_(int gravity_) {
-        this.gravity_ = gravity_;
+    public void setInertia_(int inertia_) {
+        this.inertia_ = inertia_;
     }
 
-    Shape2D bodyShape2D;
+    Shape2D body_;
     int speed_base_;
     int lives_;
     Color color_;
     Vector2 velocity_;
     Vector2 target_pos_;
-    int gravity_;
+    int inertia_;
 
     protected abstract void updateTarget(Vector2 target_pos);
     protected abstract void updatePosition();
