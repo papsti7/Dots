@@ -16,7 +16,7 @@ public class Utils {
 
     public static Vector2 getOriginOfRect(Vector2 center_pos, Circle surrounding){
         Vector2 origin_pos = new Vector2(center_pos.x - surrounding.radius, center_pos.y - surrounding.radius);
-        System.out.println("new pos: " + origin_pos.x + "|" + origin_pos.y);
+        //System.out.println("new pos: " + origin_pos.x + "|" + origin_pos.y);
         return origin_pos;
     }
 

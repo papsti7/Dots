@@ -48,7 +48,7 @@ public class GameScreen implements Screen, InputProcessor {
 
     WorldRenderer worldRenderer_;
     WorldController worldController_;
-    boolean is_touched;
+    static boolean is_touched;
     @Override
     public void show() {
         world_ = new World();
@@ -65,7 +65,8 @@ public class GameScreen implements Screen, InputProcessor {
             if(OverlapTester.pointInRectangle(player , worldController_.touchpoint_.x, worldController_.touchpoint_.y) || is_touched == true)
             {
                 /* touched the player surrounding */
-                worldController_.update(new Vector2(worldController_.touchpoint_.x, worldController_.touchpoint_.y));
+                float radius = world_.getPlayer_().surrounding_.radius;
+                worldController_.update(new Vector2(worldController_.touchpoint_.x + radius, worldController_.touchpoint_.y + radius));
                 is_touched = true;
                 return;
             }
@@ -131,7 +132,7 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("touched with " + screenX + " and " + screenY);
+        //System.out.println("touched with " + screenX + " and " + screenY);
         //worldController_.update(new Vector2(screenX, screenY));
         return true;
     }
