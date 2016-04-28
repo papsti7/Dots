@@ -1,6 +1,7 @@
 package com.sewm.defaultteam;
 
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -16,8 +17,10 @@ public class Utils {
 
     public static Vector2 getOriginOfRect(Vector2 center_pos, Circle surrounding){
         Vector2 origin_pos = new Vector2(center_pos.x - surrounding.radius, center_pos.y - surrounding.radius);
-        System.out.println("new pos: " + origin_pos.x + "|" + origin_pos.y);
         return origin_pos;
     }
-
+    public Vector2 getRectCenter(Rectangle rect){
+        Vector2 center = new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2);
+        return center;
+    }
 }

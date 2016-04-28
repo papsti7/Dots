@@ -3,6 +3,8 @@ package com.sewm.defaultteam;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.sun.org.apache.regexp.internal.RE;
@@ -21,6 +23,7 @@ public class Enemy extends GameEntity {
         target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
         velocity_ = new Vector2(0,0);
         inertia_ = 1;
+        texture_ = WorldRenderer.enemy_texture_;
     }
 
     public Enemy ( Vector2 pos, int speed, int lives, int inertia){
@@ -31,9 +34,11 @@ public class Enemy extends GameEntity {
         target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
         velocity_ = new Vector2(0,0);
         inertia_ = inertia;
+        texture_ = WorldRenderer.enemy_texture_;
     }
 
     public Enemy(Vector2 pos, int difficulty){
+        texture_ = WorldRenderer.enemy_texture_;
         switch (difficulty){
             case 1:
                 body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
@@ -113,7 +118,24 @@ public class Enemy extends GameEntity {
         rect_body.setPosition(new_pos);
     }
 
+    @Override
+    protected void onContact() {
 
+    }
+
+    @Override
+    public void draw(SpriteBatch spriteBatch) {
+        Rectangle enemy_body = (Rectangle) body_;
+        spriteBatch.draw(texture_, enemy_body.getX(), enemy_body.y);
+    }
+
+    @Override
+    public void drawDebug(ShapeRenderer debugRenderer) {
+        Rectangle enemy_body = (Rectangle) body_;
+        Rectangle rect = new Rectangle(enemy_body.getX(), enemy_body.getY(), texture_.getWidth(), texture_.getHeight());
+        debugRenderer.setColor(new Color(Color.BLUE));
+        debugRenderer.rect(rect.getX(), rect.getY(), rect.width, rect.height);
+    }
 
 
 }

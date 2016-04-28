@@ -20,8 +20,9 @@ public class WorldRenderer {
     ShapeRenderer debugRenderer = new ShapeRenderer();
     SpriteBatch spriteBatch_;
 
-    Texture enemy_texture_;
-    Texture player_texture_;
+    static public Texture enemy_texture_;
+    static public Texture player_texture_;
+    static public Texture target_texture_;
     boolean debug_;
 
 
@@ -37,45 +38,55 @@ public class WorldRenderer {
 
     public void render(){
         spriteBatch_.begin();
-            drawEnemies();
+
             drawPlayer();
+
+            drawEntities();
         spriteBatch_.end();
 
-        if(debug_ == true)
+        if(debug_)
             drawDebug();
 
 
     }
+
+
     void loadTextures(){
         enemy_texture_ = new Texture(Gdx.files.internal("images/enemy.png"));
         player_texture_ = new Texture(Gdx.files.internal("images/player.png"));
+        target_texture_ = new Texture(Gdx.files.internal("images/target.png"));
+
     }
 
-    void drawEnemies(){
-        for(Enemy enemy : world_.getEnemies_()){
-            spriteBatch_.draw(enemy_texture_, enemy.body_.getX(), enemy.body_.y);
+    void drawEntities()
+    {
+        for (GameEntity entity : world_.getEntities_())
+        {
+            entity.draw(spriteBatch_);
         }
     }
+
+
 
     void drawPlayer(){
         spriteBatch_.draw(player_texture_, world_.getPlayer_().surrounding_.x, world_.getPlayer_().surrounding_.y);
     }
 
+
+
     void drawDebug(){
         debugRenderer.setProjectionMatrix(camera_.combined);
         debugRenderer.begin(ShapeRenderer.ShapeType.Line);
         //rendering enemies
-        for(Enemy enemy : world_.getEnemies_()){
-            Rectangle rect = new Rectangle(enemy.body_.getX(), enemy.body_.getY(), enemy_texture_.getWidth(), enemy_texture_.getHeight());
-            debugRenderer.setColor(new Color(Color.BLUE));
-            debugRenderer.rect(rect.getX(), rect.getY(), rect.width, rect.height);
-
+        for (GameEntity entity : world_.getEntities_())
+        {
+            entity.drawDebug(debugRenderer);
         }
 
         Player player = world_.getPlayer_();
-        Rectangle circle = new Rectangle(player.surrounding_.x, player.surrounding_.y, player_texture_.getWidth(), player_texture_.getHeight());
+        Rectangle rect = new Rectangle(player.surrounding_.x, player.surrounding_.y, player_texture_.getWidth(), player_texture_.getHeight());
         debugRenderer.setColor(new Color(Color.GOLD));
-        debugRenderer.rect(circle.x, circle.y, circle.getWidth(), circle.getHeight());
+        debugRenderer.rect(rect.x, rect.y, rect.getWidth(), rect.getHeight());
         debugRenderer.setColor(new Color(Color.PINK));
         debugRenderer.circle(player.surrounding_.x, player.surrounding_.y, 10);
         debugRenderer.end();

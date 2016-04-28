@@ -1,6 +1,9 @@
 package com.sewm.defaultteam;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 
@@ -65,16 +68,40 @@ public abstract class GameEntity {
         this.inertia_ = inertia_;
     }
 
-    Shape2D body_;
-    int speed_base_;
-    int lives_;
-    Color color_;
-    Vector2 velocity_;
-    Vector2 target_pos_;
-    int inertia_;
+    public boolean isAlive_() {
+        return alive_;
+    }
+
+    public void setAlive_(boolean alive_) {
+        this.alive_ = alive_;
+    }
+
+    public Texture getTexture_() {
+        return texture_;
+    }
+
+    public void setTexture_(Texture texture_) {
+        this.texture_ = texture_;
+    }
+
+
+    protected Shape2D body_;
+    protected int speed_base_;
+    protected int lives_;
+    protected Color color_;
+    protected Vector2 velocity_;
+    protected Vector2 target_pos_;
+    protected int inertia_;
+    protected boolean alive_ = true;
+
+
+    protected Texture texture_;
 
     protected abstract void updateTarget(Vector2 target_pos);
     protected abstract void updatePosition();
+    protected abstract void onContact();
+    public abstract void draw(SpriteBatch spriteBatch);
+    public abstract void drawDebug(ShapeRenderer debugRenderer);
 
     public void update(Vector2 target_pos)
     {
