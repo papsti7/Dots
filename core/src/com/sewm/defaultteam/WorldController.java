@@ -27,6 +27,7 @@ public class WorldController {
     public void update(Vector2 new_pos){
         player_.update(new_pos);
         updateEnemy();
+        updateTarget();
 
     }
     public void updateEnemy(){
@@ -35,14 +36,11 @@ public class WorldController {
         }
     }
 
-    public Vector2 getRectCenter(Rectangle rect){
-        Vector2 center = new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2);
-        return center;
-    }
+
 
     public void updateTarget() {
         for(Target target : targets_){
-            target.update(new Vector2(1.f,1.f)); //needs to be changed
+            target.update(new Vector2(player_.surrounding_.x,player_.surrounding_.y)); //needs to be changed
         }
     }
 }

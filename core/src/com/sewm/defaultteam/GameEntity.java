@@ -75,6 +75,7 @@ public abstract class GameEntity {
 
     protected abstract void updateTarget(Vector2 target_pos);
     protected abstract void updatePosition();
+    protected abstract void onContact();
 
     public void update(Vector2 target_pos)
     {

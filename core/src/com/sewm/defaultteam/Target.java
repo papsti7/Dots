@@ -16,7 +16,7 @@ public class Target extends GameEntity {
     {
         body_ = new Circle(50.f,50.f,10);
         speed_base_ = 1;
-        lives_ = 3;
+        lives_ = 1;
         color_ = new Color(Color.ORANGE);
         target_pos_ = new Vector2(0,0);
         velocity_ = new Vector2(0,0);
@@ -39,11 +39,20 @@ public class Target extends GameEntity {
 
     @Override
     protected void updateTarget(Vector2 target_pos) {
-
+        Circle body = (Circle) body_;
+        if (body.contains(target_pos))
+        {
+            onContact();
+        }
     }
 
     @Override
     protected void updatePosition() {
+
+    }
+
+    @Override
+    protected void onContact() {
 
     }
 }

@@ -113,7 +113,10 @@ public class Enemy extends GameEntity {
         rect_body.setPosition(new_pos);
     }
 
+    @Override
+    protected void onContact() {
 
+    }
 
 
 }
