@@ -20,10 +20,9 @@ public class Player {
     }
 
     public void update(Vector2 new_pos){
-        System.out.println("old pos: " + surrounding_.x + "|" + surrounding_.y);
+
         surrounding_.setPosition(Utils.getOriginOfRect(new_pos, surrounding_));
-        System.out.println("updated pos: " + surrounding_.x + "|" + surrounding_.y);
-        System.out.println(" ");
+
     }
 
     public Rectangle getRect(){

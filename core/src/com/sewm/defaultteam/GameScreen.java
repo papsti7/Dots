@@ -53,6 +53,7 @@ public class GameScreen implements Screen, InputProcessor {
     public void show() {
         world_ = new World();
         worldRenderer_ = new WorldRenderer(world_, true);
+        world_.loadTestLevel();
         worldController_ = new WorldController(world_);
         is_touched = false;
     }
@@ -75,8 +76,7 @@ public class GameScreen implements Screen, InputProcessor {
             is_touched = false;
         }
 
-        worldController_.updateEnemy();
-        worldController_.updateTarget();
+        worldController_.updateEntities();
     }
 
     @Override
@@ -132,7 +132,6 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("touched with " + screenX + " and " + screenY);
         //worldController_.update(new Vector2(screenX, screenY));
         return true;
     }
