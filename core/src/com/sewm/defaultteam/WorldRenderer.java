@@ -22,6 +22,7 @@ public class WorldRenderer {
 
     Texture enemy_texture_;
     Texture player_texture_;
+    Texture target_texture_;
     boolean debug_;
 
 
@@ -39,6 +40,7 @@ public class WorldRenderer {
         spriteBatch_.begin();
             drawEnemies();
             drawPlayer();
+            drawTargets();
         spriteBatch_.end();
 
         if(debug_ == true)
@@ -46,9 +48,12 @@ public class WorldRenderer {
 
 
     }
+
+
     void loadTextures(){
         enemy_texture_ = new Texture(Gdx.files.internal("images/enemy.png"));
         player_texture_ = new Texture(Gdx.files.internal("images/player.png"));
+        target_texture_ = new Texture(Gdx.files.internal("images/target.png"));
     }
 
     void drawEnemies(){
@@ -61,6 +66,14 @@ public class WorldRenderer {
     void drawPlayer(){
         spriteBatch_.draw(player_texture_, world_.getPlayer_().surrounding_.x, world_.getPlayer_().surrounding_.y);
     }
+    private void drawTargets() {
+        for (Target target : world_.getTargets_())
+        {
+            Circle circle = (Circle) target.getBody_();
+            spriteBatch_.draw(target_texture_,circle.x,circle.y);
+        }
+    }
+
 
     void drawDebug(){
         debugRenderer.setProjectionMatrix(camera_.combined);
@@ -72,6 +85,14 @@ public class WorldRenderer {
             debugRenderer.setColor(new Color(Color.BLUE));
             debugRenderer.rect(rect.getX(), rect.getY(), rect.width, rect.height);
 
+        }
+
+        for (Target target : world_.getTargets_())
+        {
+            Circle body = (Circle) target.getBody_();
+            Circle circle = new Circle(body.x + target_texture_.getWidth() / 2, body.y +target_texture_.getHeight()/2, target_texture_.getWidth()/2 + 10.f);
+            debugRenderer.setColor(new Color(Color.BROWN));
+            debugRenderer.circle(circle.x, circle.y,circle.radius);
         }
 
         Player player = world_.getPlayer_();

@@ -14,7 +14,7 @@ public class Target extends GameEntity {
 
     public Target()
     {
-        body_ = new Circle(20.f,20.f,10);
+        body_ = new Circle(50.f,50.f,10);
         speed_base_ = 1;
         lives_ = 3;
         color_ = new Color(Color.ORANGE);

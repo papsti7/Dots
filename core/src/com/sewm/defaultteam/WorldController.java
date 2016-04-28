@@ -42,7 +42,7 @@ public class WorldController {
 
     public void updateTarget() {
         for(Target target : targets_){
-            target.update(new Vector2(1.f,1.f)); //needs to be changes
+            target.update(new Vector2(1.f,1.f)); //needs to be changed
         }
     }
 }

@@ -33,6 +33,7 @@ public class World {
         player_ = new Player();
         enemies_.add(new Enemy());
         enemies_.add(new Enemy(new Vector2(1000.f, 300.f), 2, 1, 3));
+        targets_.add(new Target());
 
         width_ = Gdx.graphics.getWidth();
         height_ = Gdx.graphics.getHeight();
