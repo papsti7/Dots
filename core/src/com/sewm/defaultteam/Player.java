@@ -16,7 +16,7 @@ public class Player {
     Color color;
     public Player(){
         surrounding_ = new Circle(Gdx.graphics.getWidth()/2.f, Gdx.graphics.getHeight()/2.f, 50.f);
-        color = new Color(Color.YELLOW);
+        color = new Color(Color.LIGHT_GRAY);
     }
 
     public void update(Vector2 new_pos){
@@ -26,8 +26,8 @@ public class Player {
     }
 
     public Rectangle getRect(){
-        Rectangle rect = new Rectangle(surrounding_.x,
-                                       surrounding_.y,
+        Rectangle rect = new Rectangle(surrounding_.x - surrounding_.radius,
+                                       surrounding_.y - surrounding_.radius,
                                        surrounding_.radius * 2,
                                        surrounding_.radius * 2);
         return rect;
