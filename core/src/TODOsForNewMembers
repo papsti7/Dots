@@ -12,6 +12,6 @@ Example binary structure:
 
 Implement a method to read-in level data-files.
 
-Create an interface to efficiently create level-data files.
+Create an graphic-interface to efficiently create level-data files.
 
 Design various levels: Specify which entity spawns when and where.
