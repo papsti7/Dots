@@ -43,9 +43,9 @@ public class WorldRenderer {
     }
 
     public void render(){
-            spriteBatch_.begin();
-            drawPlayer();
+        spriteBatch_.begin();
             drawEntities();
+            drawPlayer();
         spriteBatch_.end();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -133,8 +133,6 @@ public class WorldRenderer {
         shapeRenderer.rect(circle.x, circle.y, circle.getWidth(), circle.getHeight());
         shapeRenderer.setColor(new Color(Color.PINK));
         shapeRenderer.circle(player.surrounding_.x, player.surrounding_.y, 10);
-
-
-
+        shapeRenderer.end();
     }
 }

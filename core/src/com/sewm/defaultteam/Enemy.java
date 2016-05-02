@@ -15,6 +15,7 @@ import com.sun.org.apache.regexp.internal.RE;
  */
 public class Enemy extends GameEntity {
 
+    private int difficulty_;
     public Enemy (){
         body_ = new Rectangle(20.f, 50.f, 20.f ,20.f);
         speed_base_ = 1;
@@ -24,9 +25,10 @@ public class Enemy extends GameEntity {
         velocity_ = new Vector2(0,0);
         inertia_ = 1;
         texture_ = WorldRenderer.enemy_texture_;
+        difficulty_ = 1;
     }
 
-    public Enemy ( Vector2 pos, int speed, int lives, int inertia){
+    public Enemy ( Vector2 pos, int speed, int lives, int inertia, int difficulty){
         body_ = new Rectangle(pos.x, pos.y, 20.f ,20.f);
         speed_base_ = speed;
         lives_ = lives;
@@ -35,6 +37,7 @@ public class Enemy extends GameEntity {
         velocity_ = new Vector2(0,0);
         inertia_ = inertia;
         texture_ = WorldRenderer.enemy_texture_;
+        difficulty_ = difficulty;
     }
 
     public Enemy(Vector2 pos, int difficulty){
@@ -47,25 +50,28 @@ public class Enemy extends GameEntity {
                 color_ = new Color(Color.RED);
                 target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
                 velocity_ = new Vector2(0,0);
-                inertia_ = 3;
+                inertia_ = 4;
+                difficulty_ = 1;
                 break;
             case 2:
                 body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
-                speed_base_ = 2;
+                speed_base_ = 8;
                 lives_ = 2;
                 color_ = new Color(Color.RED);
                 target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
                 velocity_ = new Vector2(0,0);
-                inertia_ = 2;
+                inertia_ = 13;
+                difficulty_ = 2;
                 break;
             case 3:
                 body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
-                speed_base_ = 3;
+                speed_base_ = 13;
                 lives_ = 3;
                 color_ = new Color(Color.RED);
                 target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
                 velocity_ = new Vector2(0,0);
-                inertia_ = 1;
+                inertia_ = 8;
+                difficulty_ = 3;
                 break;
             default:
                 body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
@@ -75,6 +81,7 @@ public class Enemy extends GameEntity {
                 target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
                 velocity_ = new Vector2(0,0);
                 inertia_ = 3;
+                difficulty_ = 1;
                 break;
 
 
@@ -97,16 +104,16 @@ public class Enemy extends GameEntity {
         //calculate unit vector to just get the direction with length 1
         direction = Utils.getUnitVector(direction);
         //set length from diretion to speed
-        direction.x *= (speed_base_ * 10) * Gdx.graphics.getDeltaTime();
-        direction.y *= (speed_base_ * 10) * Gdx.graphics.getDeltaTime();
+        direction.x *= (speed_base_ * 5) * Gdx.graphics.getDeltaTime();
+        direction.y *= (speed_base_ * 5) * Gdx.graphics.getDeltaTime();
         //modify old velocity
-        velocity_.x += (direction.x * 2);
-        velocity_.y += (direction.y * 2);
-        if(velocity_.len() > (5.f * inertia_))
+        velocity_.x += (direction.x * 1.5f);
+        velocity_.y += (direction.y * 1.5f);
+        if(velocity_.len() > (2.f * inertia_))
         {
             velocity_ = Utils.getUnitVector(velocity_);
-            velocity_.x *= 4.5f * inertia_;
-            velocity_.y *= 4.5f * inertia_;
+            velocity_.x *= 1.99f * inertia_;
+            velocity_.y *= 1.99f * inertia_;
         }
         //create new pos for enemy
         Vector2 new_pos = rect_body.getPosition(new Vector2());
@@ -133,7 +140,12 @@ public class Enemy extends GameEntity {
     public void drawDebug(ShapeRenderer debugRenderer) {
         Rectangle enemy_body = (Rectangle) body_;
         Rectangle rect = new Rectangle(enemy_body.getX(), enemy_body.getY(), texture_.getWidth(), texture_.getHeight());
-        debugRenderer.setColor(new Color(Color.BLUE));
+        if(this.difficulty_ == 1)
+            debugRenderer.setColor(new Color(Color.BLUE));
+        else if(this.difficulty_ == 2)
+            debugRenderer.setColor(new Color(Color.GREEN));
+        else if(this.difficulty_ == 3)
+            debugRenderer.setColor(new Color(Color.RED));
         debugRenderer.rect(rect.getX(), rect.getY(), rect.width, rect.height);
     }
 
