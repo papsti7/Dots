@@ -1,5 +1,6 @@
 package com.sewm.defaultteam;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -25,7 +26,8 @@ public class WorldController {
         touchpoint_ = new Vector3();
     }
 
-    public void update(Vector2 new_pos){
+    public void update(Vector2 new_pos, WorldRenderer worldRenderer){
+        updateHealths(worldRenderer);
         player_.update(new_pos);
         updateEntities();
         cleanUp();
@@ -49,10 +51,20 @@ public class WorldController {
 
         }
 
-
-
-
     }
+
+    private void updateHealths(WorldRenderer worldRenderer_){
+        worldRenderer_.camera_.unproject(touchpoint_.set(Gdx.input.getX(),Gdx.input.getY(), 0));
+        Rectangle player = world_.getPlayer_().getRect();
+        for(GameEntity enemy : entities_){
+            if(enemy.getInertia_() != 0){
+                if(OverlapTester.overlapRectangles(player , (Rectangle)(enemy.getBody_()))){
+                    player_.decreaseHealth(Gdx.graphics.getDeltaTime());
+                }
+            }
+            }
+        }
+
 
 
 }

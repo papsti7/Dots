@@ -18,7 +18,7 @@ public class Target extends GameEntity {
     {
         body_ = new Circle(50.f,50.f,10);
         speed_base_ = 1;
-        lives_ = 1;
+        health_ = 1;
         color_ = new Color(Color.ORANGE);
         target_pos_ = new Vector2(0,0);
         velocity_ = new Vector2(0,0);
@@ -31,7 +31,7 @@ public class Target extends GameEntity {
     {
         body_ = body;
         speed_base_ = speed_base;
-        lives_ = lives;
+        health_ = lives;
         color_ = new Color(Color.ORANGE);
         target_pos_ = new Vector2(0,0);
         velocity_ = velocity;

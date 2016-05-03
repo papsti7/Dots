@@ -27,7 +27,6 @@ public class WorldRenderer {
     static public Texture target_texture_;
     java.util.Map<Integer, Texture> player_health_map;
     boolean debug_;
-    float counter_;
 
 
     public WorldRenderer(World world, boolean debug){
@@ -39,7 +38,6 @@ public class WorldRenderer {
         spriteBatch_ = new SpriteBatch();
         loadTextures();
         shapeRenderer.setAutoShapeType(true);
-        counter_ = 0;
     }
 
     public void render(){
@@ -49,9 +47,9 @@ public class WorldRenderer {
         spriteBatch_.end();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        if(counter_ < 2)
+        if(world_.getPlayer_().getHealth_() > 2.f)
             shapeRenderer.setColor(new Color(Color.GREEN));
-        else if(counter_ >= 2 && counter_ < 4)
+        else if(world_.getPlayer_().getHealth_() > 1.f && world_.getPlayer_().getHealth_() <= 2.f)
             shapeRenderer.setColor(new Color(Color.ORANGE));
         else
             shapeRenderer.setColor(new Color(Color.RED));
@@ -69,7 +67,6 @@ public class WorldRenderer {
 
         shapeRenderer.end();
 
-        counter_ += Gdx.graphics.getDeltaTime();
         if(debug_ == true)
             drawDebug();
 
@@ -104,9 +101,9 @@ public class WorldRenderer {
         float radius = world_.getPlayer_().surrounding_.radius;
         Vector2 player_pos = new Vector2(world_.getPlayer_().surrounding_.x - radius, world_.getPlayer_().surrounding_.y - radius);
         spriteBatch_.draw(player_texture_, player_pos.x, player_pos.y);
-        if(counter_ < 2)
+        if(world_.getPlayer_().getHealth_() > 2.f)
             spriteBatch_.draw(player_health_map.get(3), player_pos.x, player_pos.y);
-        else if(counter_ >= 2 && counter_ < 4)
+        else if(world_.getPlayer_().getHealth_() > 1.f && world_.getPlayer_().getHealth_() <= 2)
             spriteBatch_.draw(player_health_map.get(2), player_pos.x, player_pos.y);
         else
             spriteBatch_.draw(player_health_map.get(1), player_pos.x, player_pos.y);

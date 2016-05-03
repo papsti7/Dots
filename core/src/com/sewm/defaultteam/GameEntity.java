@@ -36,12 +36,12 @@ public abstract class GameEntity {
         this.color_ = color_;
     }
 
-    public int getLives_() {
-        return lives_;
+    public float getHealth_() {
+        return health_;
     }
 
-    public void setLives_(int lives_) {
-        this.lives_ = lives_;
+    public void setHealth_(float health_) {
+        this.health_ = health_;
     }
 
     public Vector2 getVelocity_() {
@@ -87,12 +87,13 @@ public abstract class GameEntity {
 
     protected Shape2D body_;
     protected int speed_base_;
-    protected int lives_;
+    protected float health_;
     protected Color color_;
     protected Vector2 velocity_;
     protected Vector2 target_pos_;
     protected int inertia_;
     protected boolean alive_ = true;
+    
 
 
     protected Texture texture_;

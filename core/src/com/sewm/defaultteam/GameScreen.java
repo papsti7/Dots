@@ -52,7 +52,7 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         world_ = new World();
-        worldRenderer_ = new WorldRenderer(world_, true);
+        worldRenderer_ = new WorldRenderer(world_, false);
         world_.loadTestLevel();
         worldController_ = new WorldController(world_);
         is_touched = false;
@@ -67,7 +67,7 @@ public class GameScreen implements Screen, InputProcessor {
             {
                 /* touched the player surrounding */
                 float radius = world_.getPlayer_().surrounding_.radius;
-                worldController_.update(new Vector2(worldController_.touchpoint_.x + radius, worldController_.touchpoint_.y + radius));
+                worldController_.update(new Vector2(worldController_.touchpoint_.x + radius, worldController_.touchpoint_.y + radius), worldRenderer_);
                 is_touched = true;
                 return;
             }

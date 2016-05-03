@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.sun.org.apache.regexp.internal.RE;
 
 
 /**
@@ -19,7 +18,7 @@ public class Enemy extends GameEntity {
     public Enemy (){
         body_ = new Rectangle(20.f, 50.f, 20.f ,20.f);
         speed_base_ = 1;
-        lives_ = 3;
+        health_ = 3.f;
         color_ = new Color(Color.GREEN);
         target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
         velocity_ = new Vector2(0,0);
@@ -31,7 +30,7 @@ public class Enemy extends GameEntity {
     public Enemy ( Vector2 pos, int speed, int lives, int inertia, int difficulty){
         body_ = new Rectangle(pos.x, pos.y, 20.f ,20.f);
         speed_base_ = speed;
-        lives_ = lives;
+        health_ = lives;
         color_ = new Color(Color.GREEN);
         target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
         velocity_ = new Vector2(0,0);
@@ -46,7 +45,7 @@ public class Enemy extends GameEntity {
             case 1:
                 body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
                 speed_base_ = 1;
-                lives_ = 1;
+                health_ = 1.f;
                 color_ = new Color(Color.RED);
                 target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
                 velocity_ = new Vector2(0,0);
@@ -56,7 +55,7 @@ public class Enemy extends GameEntity {
             case 2:
                 body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
                 speed_base_ = 8;
-                lives_ = 2;
+                health_ = 2.f;
                 color_ = new Color(Color.RED);
                 target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
                 velocity_ = new Vector2(0,0);
@@ -66,7 +65,7 @@ public class Enemy extends GameEntity {
             case 3:
                 body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
                 speed_base_ = 13;
-                lives_ = 3;
+                health_ = 3.f;
                 color_ = new Color(Color.RED);
                 target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
                 velocity_ = new Vector2(0,0);
@@ -76,7 +75,7 @@ public class Enemy extends GameEntity {
             default:
                 body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
                 speed_base_ = 1;
-                lives_ = 1;
+                health_ = 1.f;
                 color_ = new Color(Color.RED);
                 target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
                 velocity_ = new Vector2(0,0);
