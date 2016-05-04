@@ -15,7 +15,11 @@ public class GameOverScreen implements Screen {
 
     SpriteBatch spriteBatch_ = new SpriteBatch();
     Texture background_ = new Texture(Gdx.files.external("DoTs/assets/images/GameOverScreen.png"));
-
+    TextObject game_over_text_ = new TextObject(WorldRenderer.font_large_,
+                                                spriteBatch_,
+                                                Gdx.graphics.getWidth()/4.f,
+                                                Gdx.graphics.getHeight()/2.f,
+                                                "Game Over!");
     @Override
     public void show() {
 
@@ -31,6 +35,7 @@ public class GameOverScreen implements Screen {
         Color color = spriteBatch_.getColor();
         spriteBatch_.setColor(color.r, color.g, color.b, 0.3f);
         spriteBatch_.draw(background_, 0.f, 0.f);
+        game_over_text_.draw();
         spriteBatch_.end();
     }
 
