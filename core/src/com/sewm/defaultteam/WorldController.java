@@ -52,6 +52,18 @@ public class WorldController {
 
     }
 
+    public void updateHealths(WorldRenderer renderer){
+        //renderer.camera_.unproject(touchpoint_.set(Gdx.input.getX(),Gdx.input.getY(), 0));
+        Rectangle player = world_.getPlayer_().getRect();
+        for(GameEntity enemy : world_.getEntities_()){
+            if(enemy.getInertia_() != 0){
+                if(OverlapTester.overlapRectangles(player , (Rectangle)(enemy.getBody_()))){
+                    world_.getPlayer_().decreaseHealth(Gdx.graphics.getDeltaTime());
+                }
+            }
+        }
+    }
+
 
 
 

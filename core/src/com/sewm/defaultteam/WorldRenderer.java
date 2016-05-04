@@ -45,8 +45,8 @@ public class WorldRenderer {
         camera_.update();
         debug_ = debug;
         texts_ = new ArrayList<TextObject>();
-        font_small_ = loadFonts(40);
-        font_large_ = loadFonts(180);
+        font_small_ = loadFonts(Gdx.graphics.getHeight()/20);
+        font_large_ = loadFonts(Gdx.graphics.getHeight()/6);
 
         spriteBatch_ = new SpriteBatch();
 
