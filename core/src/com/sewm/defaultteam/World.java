@@ -51,11 +51,11 @@ public class World {
 
     public void loadTestLevel()
     {
-        /*entities_.add(new Enemy(new Vector2(1000.f, 300.f),1));
+        entities_.add(new Enemy(new Vector2(1000.f, 300.f),1));
         entities_.add(new Enemy(new Vector2(100.f, 300.f),1));
         entities_.add(new Enemy(new Vector2(1000.f, 900.f),1));
         entities_.add(new Enemy(new Vector2(1200.f, 300.f),2));
-        entities_.add(new Enemy(new Vector2(800.f, 300.f),3));*/
+        entities_.add(new Enemy(new Vector2(800.f, 300.f),3));
         entities_.add(new Target());
     }
 
