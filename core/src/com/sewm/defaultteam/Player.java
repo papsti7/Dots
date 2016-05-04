@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Player {
     Circle surrounding_;
     Color color;
+    static int score_ = 0;
 
     public float getHealth_() {
         return health_;
