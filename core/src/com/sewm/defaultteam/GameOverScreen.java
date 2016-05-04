@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 /**
  * Created by Admin on 04.05.2016.
@@ -18,7 +17,7 @@ public class GameOverScreen implements Screen {
     TextObject game_over_text_ = new TextObject(WorldRenderer.font_large_,
                                                 spriteBatch_,
                                                 Gdx.graphics.getWidth()/4.f,
-                                                Gdx.graphics.getHeight()/2.f,
+                                                2*Gdx.graphics.getHeight()/3.f ,
                                                 "Game Over!");
     @Override
     public void show() {

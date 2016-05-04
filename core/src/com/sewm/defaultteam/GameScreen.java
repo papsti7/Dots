@@ -79,20 +79,15 @@ public class GameScreen implements Screen, InputProcessor {
         else{
             is_touched = false;
         }
-        updateHealths();
+        worldController_.updateHealths(worldRenderer_);
         worldController_.updateEntities();
     }
 
-    private void updateHealths(){
-        worldRenderer_.camera_.unproject(worldController_.touchpoint_.set(Gdx.input.getX(),Gdx.input.getY(), 0));
-        Rectangle player = world_.getPlayer_().getRect();
-        for(GameEntity enemy : world_.getEntities_()){
-            if(enemy.getInertia_() != 0){
-                if(OverlapTester.overlapRectangles(player , (Rectangle)(enemy.getBody_()))){
-                    world_.getPlayer_().decreaseHealth(Gdx.graphics.getDeltaTime());
-                }
-            }
-        }
+
+
+    @Override
+    public void resize(int width, int height) {
+
     }
 
     @Override
@@ -102,11 +97,6 @@ public class GameScreen implements Screen, InputProcessor {
 
         update();
         worldRenderer_.render();
-
-    }
-
-    @Override
-    public void resize(int width, int height) {
 
     }
 
