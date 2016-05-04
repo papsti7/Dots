@@ -46,6 +46,9 @@ public class GameScreen implements Screen, InputProcessor {
         this.worldController_ = worldController_;
     }
 
+
+
+
     WorldRenderer worldRenderer_;
     WorldController worldController_;
     static boolean is_touched;

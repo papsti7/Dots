@@ -3,6 +3,8 @@ package com.sewm.defaultteam;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -10,6 +12,8 @@ import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.BufferUtils;
+import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.util.HashMap;
 
@@ -18,7 +22,7 @@ import java.util.HashMap;
  */
 public class WorldRenderer {
     World world_;
-    OrthographicCamera camera_;
+    static OrthographicCamera camera_;
     ShapeRenderer shapeRenderer = new ShapeRenderer();
     SpriteBatch spriteBatch_;
 
@@ -103,11 +107,18 @@ public class WorldRenderer {
         spriteBatch_.draw(player_texture_, player_pos.x, player_pos.y);
         if(world_.getPlayer_().getHealth_() > 2.f)
             spriteBatch_.draw(player_health_map.get(3), player_pos.x, player_pos.y);
-        else if(world_.getPlayer_().getHealth_() > 1.f && world_.getPlayer_().getHealth_() <= 2)
+        else if(world_.getPlayer_().getHealth_() > 1.f && world_.getPlayer_().getHealth_() <= 2.f)
             spriteBatch_.draw(player_health_map.get(2), player_pos.x, player_pos.y);
-        else
+        else if(world_.getPlayer_().getHealth_() <= 1.f && world_.getPlayer_().getHealth_() > 0.f)
             spriteBatch_.draw(player_health_map.get(1), player_pos.x, player_pos.y);
+        else{
+            byte[] pixels = ScreenUtils.getFrameBufferPixels(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), true);
 
+            Pixmap pixmap = new Pixmap(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), Pixmap.Format.RGBA8888);
+            BufferUtils.copy(pixels, 0, pixmap.getPixels(), pixels.length);
+            PixmapIO.writePNG(Gdx.files.external("DoTs/assets/images/GameOverScreen.png"), pixmap);
+            StartPoint.startPoint_.setScreen(new GameOverScreen());
+        }
 
     }
 
