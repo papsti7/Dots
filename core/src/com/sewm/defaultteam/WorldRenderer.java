@@ -27,7 +27,7 @@ public class WorldRenderer {
     static OrthographicCamera camera_;
     ShapeRenderer shapeRenderer = new ShapeRenderer();
     static public SpriteBatch spriteBatch_;
-    
+
     java.util.Map<Integer, Texture> player_health_map;
     boolean debug_;
     static public ArrayList<TextObject> texts_;
