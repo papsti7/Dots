@@ -1,6 +1,7 @@
 package com.sewm.defaultteam;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
@@ -25,7 +26,7 @@ public class Target extends GameEntity {
         target_pos_ = new Vector2(0,0);
         velocity_ = new Vector2(0,0);
         inertia_ = 0;
-        texture_ = WorldRenderer.target_texture_;
+        texture_ = new Texture(Gdx.files.internal("images/target.png"));
     }
 
 
@@ -38,7 +39,7 @@ public class Target extends GameEntity {
         target_pos_ = new Vector2(0,0);
         velocity_ = velocity;
         inertia_ = inertia;
-        texture_ = WorldRenderer.target_texture_;
+        texture_ = new Texture(Gdx.files.internal("images/target.png"));
     }
 
     @Override

@@ -27,10 +27,7 @@ public class WorldRenderer {
     static OrthographicCamera camera_;
     ShapeRenderer shapeRenderer = new ShapeRenderer();
     static public SpriteBatch spriteBatch_;
-
-    static public Texture enemy_texture_;
-    static public Texture player_texture_;
-    static public Texture target_texture_;
+    
     java.util.Map<Integer, Texture> player_health_map;
     boolean debug_;
     static public ArrayList<TextObject> texts_;
@@ -111,12 +108,7 @@ public class WorldRenderer {
         }
     }
 
-
-    void loadTextures(){
-        enemy_texture_ = new Texture(Gdx.files.internal("images/enemy.png"));
-        player_texture_ = new Texture(Gdx.files.internal("images/player_new.png"));
-        target_texture_ = new Texture(Gdx.files.internal("images/target.png"));
-
+    public void loadTextures(){
         player_health_map = new HashMap<Integer, Texture>();
         player_health_map.put(3, new Texture(Gdx.files.internal("images/player_health_high.png")));
         player_health_map.put(2, new Texture(Gdx.files.internal("images/player_health_medium.png")));
@@ -138,7 +130,7 @@ public class WorldRenderer {
 
         float radius = world_.getPlayer_().surrounding_.radius;
         Vector2 player_pos = new Vector2(world_.getPlayer_().surrounding_.x - radius, world_.getPlayer_().surrounding_.y - radius);
-        spriteBatch_.draw(player_texture_, player_pos.x, player_pos.y);
+        spriteBatch_.draw(world_.getPlayer_().getTexture(), player_pos.x, player_pos.y);
         if(world_.getPlayer_().getHealth_() > 2.f)
             spriteBatch_.draw(player_health_map.get(3), player_pos.x, player_pos.y);
         else if(world_.getPlayer_().getHealth_() > 1.f && world_.getPlayer_().getHealth_() <= 2.f)
