@@ -3,6 +3,7 @@ package com.sewm.defaultteam;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -23,7 +24,7 @@ public class Enemy extends GameEntity {
         target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
         velocity_ = new Vector2(0,0);
         inertia_ = 1;
-        texture_ = WorldRenderer.enemy_texture_;
+        texture_ = new Texture(Gdx.files.internal("images/enemy.png"));
         difficulty_ = 1;
     }
 
@@ -35,12 +36,12 @@ public class Enemy extends GameEntity {
         target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
         velocity_ = new Vector2(0,0);
         inertia_ = inertia;
-        texture_ = WorldRenderer.enemy_texture_;
+        texture_ = new Texture(Gdx.files.internal("images/enemy.png"));
         difficulty_ = difficulty;
     }
 
     public Enemy(Vector2 pos, int difficulty){
-        texture_ = WorldRenderer.enemy_texture_;
+        texture_ = new Texture(Gdx.files.internal("images/enemy.png"));
         switch (difficulty){
             case 1:
                 body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
@@ -82,12 +83,16 @@ public class Enemy extends GameEntity {
                 inertia_ = 3;
                 difficulty_ = 1;
                 break;
-
-
-
         }
 
     }
+
+    public Enemy(int x, int y, int difficulty, String texture)
+    {
+        this(new Vector2(x, y), difficulty);
+        texture_ = new Texture(Gdx.files.internal(texture));
+    }
+
     @Override
     protected void updateTarget(Vector2 target_pos){
         target_pos_.x = target_pos.x;
