@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import java.io.FileNotFoundException;
+
 /**
  * Created by stefan on 22.04.2016.
  */
@@ -41,7 +43,12 @@ public class Player {
         color = new Color(Color.LIGHT_GRAY);
         health_ = new Float(health);
         get_damaged_ = false;
-        texture_ = new Texture(Gdx.files.internal(texture));
+        try {
+            texture_ = new Texture(Gdx.files.internal(texture));
+        } catch ( Exception e) {
+            System.out.println("Working Directory = " +
+                    System.getProperty("user.dir"));
+        }
     }
 
     public void update(Vector2 new_pos){
