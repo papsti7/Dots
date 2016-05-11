@@ -113,7 +113,7 @@ public class WorldRenderer {
 
 
     void loadTextures(){
-        enemy_texture_ = new Texture(Gdx.files.internal("images/enemy.png"));
+        enemy_texture_ = new Texture(Gdx.files.internal("images/enemy_health_1.png"));
         player_texture_ = new Texture(Gdx.files.internal("images/player_new.png"));
         target_texture_ = new Texture(Gdx.files.internal("images/target.png"));
 

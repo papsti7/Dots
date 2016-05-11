@@ -18,7 +18,7 @@ public class Target extends GameEntity {
 
     public Target()
     {
-        body_ = new Circle(50.f,50.f,10);
+        body_ = new Circle(50.f,50.f,Gdx.graphics.getWidth() / 80.f);
         speed_base_ = 1;
         health_ = 3;
         color_ = new Color(Color.ORANGE);
