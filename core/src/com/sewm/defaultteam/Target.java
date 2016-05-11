@@ -19,7 +19,7 @@ public class Target extends GameEntity {
 
     public Target()
     {
-        body_ = new Circle(50.f,50.f,Gdx.graphics.getWidth() / 80.f);
+        body_ = new Circle(50.f,50.f,Constants.target_radius);
         speed_base_ = 1;
         health_ = 3;
         color_ = new Color(Color.ORANGE);
@@ -31,28 +31,12 @@ public class Target extends GameEntity {
         points_on_death_ = 3;
     }
 
-    public Target(int x, int y, int radius, int health, String texture)
-    {
+    public Target(int x, int y, int radius, int health, String texture) {
         this();
         //radius not used yet
-        body_ = new Circle(new Float(x), new Float(y), Gdx.graphics.getWidth() / 80.f);
+        body_ = new Circle((float) x, (float) y, Gdx.graphics.getWidth() / 80.f);
         health_ = health;
         texture_ = texture;
-    }
-
-    public Target(Shape2D body, int speed_base, int lives, Vector2 velocity, int inertia,
-                  int points, int points_on_death)
-    {
-        body_ = body;
-        speed_base_ = speed_base;
-        health_ = lives;
-        color_ = new Color(Color.ORANGE);
-        target_pos_ = new Vector2(0,0);
-        velocity_ = velocity;
-        inertia_ = inertia;
-        texture_ = "images/target.png";
-        points_ = points;
-        points_on_death_ = points_on_death;
     }
 
     @Override
@@ -135,6 +119,11 @@ public class Target extends GameEntity {
         Circle circle = new Circle(body.x + texture.getWidth() / 2, body.y +texture.getHeight()/2, texture.getWidth()/2 + 10.f);
         debugRenderer.setColor(new Color(Color.BROWN));
         debugRenderer.circle(circle.x, circle.y,circle.radius);
+    }
+
+    @Override
+    public void kill() {
+
     }
 
     public void decreaseHealth(float value){

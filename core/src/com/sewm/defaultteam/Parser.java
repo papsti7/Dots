@@ -55,8 +55,7 @@ public class Parser {
             return null;
         }
         Scanner s = new Scanner(line).useDelimiter("[,]");
-        Target target = new Target(s.nextInt(), s.nextInt(), s.nextInt(),s.nextInt(),s.next());
-        return target;
+        return new Target(s.nextInt(), s.nextInt(), s.nextInt(),s.nextInt(),s.next());
     }
 
     public Enemy parseEnemy(World world) throws IOException
@@ -88,8 +87,7 @@ public class Parser {
                 enemy_attribute = world.enemy_easy_;
         }
 
-        Enemy enemy = new Enemy(x, y, enemy_attribute, points, points_on_death, texture);
-        return enemy;
+        return  new Enemy(x, y, enemy_attribute, points, points_on_death, texture);
     }
 /*  TODO: uncomment when actionpoints are implemented
     public ActionPoint parseActionpoint()

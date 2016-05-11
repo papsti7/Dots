@@ -15,8 +15,6 @@ public class WorldController {
     World world_;
     Player player_;
     ArrayList<GameEntity> entities_;
-//    ArrayList<Enemy> enemies_;
-//    ArrayList<Target> targets_;
     Vector3 touchpoint_;
 
     public WorldController(World world){

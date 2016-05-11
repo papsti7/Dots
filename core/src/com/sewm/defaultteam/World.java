@@ -17,8 +17,7 @@ public class World {
     public EnemyAttribute enemy_hard_ = new EnemyAttribute(13, 3.f, 8, 3);
     ArrayList<GameEntity> entities_;
 
-//    ArrayList<Enemy> enemies_;
-//    ArrayList<Target> targets_;
+
     int width_;
     int height_;
 
@@ -77,16 +76,6 @@ public class World {
                 entities_.add(actionpoint);
             }
             */
-    }
-
-    public void loadTestLevel()
-    {
-        entities_.add(new Enemy(new Vector2(1000.f, 300.f),enemy_easy_,1,1));
-        entities_.add(new Enemy(new Vector2(100.f, 300.f),enemy_easy_,1,1));
-        entities_.add(new Enemy(new Vector2(1000.f, 900.f),enemy_easy_,1,1));
-        entities_.add(new Enemy(new Vector2(1200.f, 300.f),enemy_medium_,1,3));
-        entities_.add(new Enemy(new Vector2(800.f, 300.f),enemy_hard_,1,5));
-        entities_.add(new Target());
     }
 
 
