@@ -34,7 +34,8 @@ public class Target extends GameEntity {
     public Target(int x, int y, int radius, int health, String texture)
     {
         this();
-        body_ = new Circle(new Float(x), new Float(y), new Float(radius));
+        //radius not used yet
+        body_ = new Circle(new Float(x), new Float(y), Gdx.graphics.getWidth() / 80.f);
         health_ = health;
         texture_ = texture;
     }

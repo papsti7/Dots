@@ -85,7 +85,7 @@ public class GameScreen implements Screen, InputProcessor {
             {
                 /* touched the player surrounding */
                 radius = world_.getPlayer_().surrounding_.radius;
-                position.set(worldController_.touchpoint_.x + radius, worldController_.touchpoint_.y + radius);
+                position.set(worldController_.touchpoint_.x, worldController_.touchpoint_.y);
                 is_touched = true;
             }
 

@@ -48,9 +48,7 @@ public class Player {
 
     public void update(Vector2 new_pos){
 
-        surrounding_.setPosition(Utils.getOriginOfRect(new_pos, surrounding_));
-        System.out.println(this.surrounding_.x + " " + this.surrounding_.y);
-
+        surrounding_.setPosition(new_pos);
     }
 
     public void decreaseHealth(float value){
