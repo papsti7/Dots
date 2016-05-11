@@ -25,7 +25,7 @@ public class Player {
     static boolean get_damaged_;
 
     public Player(){
-        surrounding_ = new Circle(Gdx.graphics.getWidth()/2.f, Gdx.graphics.getHeight()/2.f, Gdx.graphics.getWidth() / 40f);
+        surrounding_ = new Circle((Gdx.graphics.getWidth()/2.f) + Gdx.graphics.getWidth() / 40.f , Gdx.graphics.getHeight()/2.f + Gdx.graphics.getWidth() / 40.f, Gdx.graphics.getWidth() / 40f);
         color = new Color(Color.LIGHT_GRAY);
         health_ = 3.f;
         get_damaged_ = false;

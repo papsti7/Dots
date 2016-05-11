@@ -55,7 +55,7 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         world_ = new World();
-        worldRenderer_ = new WorldRenderer(world_, false);
+        worldRenderer_ = new WorldRenderer(world_, true);
         world_.loadTestLevel();
         worldController_ = new WorldController(world_);
         is_touched = false;

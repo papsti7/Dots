@@ -137,7 +137,7 @@ public class WorldRenderer {
         //spriteBatch_.draw(player_texture_, world_.getPlayer_().surrounding_.x, world_.getPlayer_().surrounding_.y);
 
         float radius = world_.getPlayer_().surrounding_.radius;
-        Vector2 player_pos = new Vector2(world_.getPlayer_().surrounding_.x - radius, world_.getPlayer_().surrounding_.y - radius);
+        Vector2 player_pos = new Vector2(world_.getPlayer_().surrounding_.x - WorldRenderer.player_texture_.getWidth() / 2.f, world_.getPlayer_().surrounding_.y - WorldRenderer.player_texture_.getHeight() / 2.f);
         if(world_.getPlayer_().getHealth_() > 2.f)
             spriteBatch_.draw(player_health_map.get(3), player_pos.x, player_pos.y);
         else if(world_.getPlayer_().getHealth_() > 1.f && world_.getPlayer_().getHealth_() <= 2.f)

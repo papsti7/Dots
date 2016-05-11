@@ -14,6 +14,12 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Enemy extends GameEntity {
 
+    public static enum Difficulty{
+        easy , medium, hard
+    }
+
+
+
     private int difficulty_;
     public Enemy (){
         body_ = new Rectangle(20.f, 50.f, 20.f ,20.f);
@@ -39,54 +45,17 @@ public class Enemy extends GameEntity {
         difficulty_ = difficulty;
     }
 
-    public Enemy(Vector2 pos, int difficulty){
+    public Enemy(Vector2 pos, EnemyAttribute difficulty){
         texture_ = WorldRenderer.enemy_texture_;
-        switch (difficulty){
-            case 1:
-                body_ = new Rectangle(pos.x, pos.y, Gdx.graphics.getWidth() / 20.f, Gdx.graphics.getWidth() / 20.f);
-                speed_base_ = 1;
-                health_ = 1.f;
-                color_ = new Color(Color.RED);
-                target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
-                velocity_ = new Vector2(0,0);
-                inertia_ = 4;
-                difficulty_ = 1;
-                break;
-            case 2:
-                body_ = new Rectangle(pos.x, pos.y, Gdx.graphics.getWidth() / 20.f, Gdx.graphics.getWidth() / 20.f);
-                speed_base_ = 8;
-                health_ = 2.f;
-                color_ = new Color(Color.RED);
-                target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
-                velocity_ = new Vector2(0,0);
-                inertia_ = 13;
-                difficulty_ = 2;
-                break;
-            case 3:
-                body_ = new Rectangle(pos.x, pos.y,Gdx.graphics.getWidth() / 20.f, Gdx.graphics.getWidth() / 20.f);
-                speed_base_ = 13;
-                health_ = 3.f;
-                color_ = new Color(Color.RED);
-                target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
-                velocity_ = new Vector2(0,0);
-                inertia_ = 8;
-                difficulty_ = 3;
-                break;
-            default:
-                body_ = new Rectangle(pos.x, pos.y,Gdx.graphics.getWidth() / 20.f, Gdx.graphics.getWidth() / 20.f);
-                speed_base_ = 1;
-                health_ = 1.f;
-                color_ = new Color(Color.RED);
-                target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
-                velocity_ = new Vector2(0,0);
-                inertia_ = 3;
-                difficulty_ = 1;
-                break;
 
-
-
-        }
-
+        body_ = new Rectangle(pos.x, pos.y, Gdx.graphics.getWidth() / 20.f, Gdx.graphics.getWidth() / 20.f);
+        speed_base_ = difficulty.speed_base_;
+        health_ = difficulty.health_;
+        color_ = new Color(Color.RED);
+        target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
+        velocity_ = new Vector2(0,0);
+        inertia_ = difficulty.inertia_;
+        difficulty_ = difficulty.difficulty_;
     }
     @Override
     protected void updateTarget(Vector2 target_pos){
