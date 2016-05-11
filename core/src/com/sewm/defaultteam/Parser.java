@@ -1,6 +1,7 @@
 package com.sewm.defaultteam;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.io.BufferedReader;
@@ -8,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+
 
 /**
  * Created by Lukas on 10/05/16.
@@ -19,7 +21,7 @@ public class Parser {
     public Parser(String filename) throws FileNotFoundException
     {
         filename_ = filename;
-        file_ = new BufferedReader(new FileReader(filename_));
+        file_ = new BufferedReader(Gdx.files.internal(filename_).reader());
     }
 
     public void parseTextures() throws IOException
@@ -34,7 +36,7 @@ public class Parser {
         }
 
         file_.close();
-        file_ = new BufferedReader(new FileReader(filename_));
+        file_ = new BufferedReader(Gdx.files.internal(filename_).reader());
     }
 
     public Player parsePlayer() throws IOException
@@ -52,7 +54,6 @@ public class Parser {
         {
             return null;
         }
-        System.out.println("parsing target: " + line);
         Scanner s = new Scanner(line).useDelimiter("[,]");
         Target target = new Target(s.nextInt(), s.nextInt(), s.nextInt(),s.nextInt(),s.next());
         return target;

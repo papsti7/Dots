@@ -50,9 +50,8 @@ public class World {
         return width_;
     }
 
-    public void parseLevelFile(String filename) throws FileNotFoundException
+    public void parseLevelFile(String filename) throws IOException
     {
-        try {
             Parser parser = new Parser(filename);
 
             parser.parseTextures();
@@ -76,9 +75,6 @@ public class World {
                 entities_.add(actionpoint);
             }
             */
-        } catch (IOException e) {
-            System.out.println(e);
-        }
     }
 
     public void loadTestLevel()
