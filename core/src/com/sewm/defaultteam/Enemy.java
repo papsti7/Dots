@@ -3,6 +3,7 @@ package com.sewm.defaultteam;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -29,7 +30,7 @@ public class Enemy extends GameEntity {
         target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
         velocity_ = new Vector2(0,0);
         inertia_ = 1;
-        texture_ = WorldRenderer.enemy_texture_;
+        texture_ = "images/enemy.png";
         difficulty_ = 1;
     }
 
@@ -41,13 +42,12 @@ public class Enemy extends GameEntity {
         target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
         velocity_ = new Vector2(0,0);
         inertia_ = inertia;
-        texture_ = WorldRenderer.enemy_texture_;
+        texture_ = "images/enemy.png";
         difficulty_ = difficulty;
     }
 
     public Enemy(Vector2 pos, EnemyAttribute difficulty){
-        texture_ = WorldRenderer.enemy_texture_;
-
+        texture_ = "images/enemy.png";
         body_ = new Rectangle(pos.x, pos.y, Gdx.graphics.getWidth() / 20.f, Gdx.graphics.getWidth() / 20.f);
         speed_base_ = difficulty.speed_base_;
         health_ = difficulty.health_;
@@ -57,6 +57,13 @@ public class Enemy extends GameEntity {
         inertia_ = difficulty.inertia_;
         difficulty_ = difficulty.difficulty_;
     }
+
+    public Enemy(int x, int y, EnemyAttribute difficulty, String texture)
+    {
+        this(new Vector2(x, y), difficulty);
+        texture_ = texture;
+    }
+
     @Override
     protected void updateTarget(Vector2 target_pos){
         target_pos_.x = target_pos.x;
@@ -101,13 +108,13 @@ public class Enemy extends GameEntity {
     @Override
     public void draw(SpriteBatch spriteBatch) {
         Rectangle enemy_body = (Rectangle) body_;
-        spriteBatch.draw(texture_, enemy_body.getX(), enemy_body.y);
+        spriteBatch.draw(WorldRenderer.entities_textures.get(texture_), enemy_body.getX(), enemy_body.y);
     }
 
     @Override
     public void drawDebug(ShapeRenderer debugRenderer) {
         Rectangle enemy_body = (Rectangle) body_;
-        Rectangle rect = new Rectangle(enemy_body.getX(), enemy_body.getY(), texture_.getWidth(), texture_.getHeight());
+        Rectangle rect = new Rectangle(enemy_body.getX(), enemy_body.getY(), WorldRenderer.entities_textures.get(texture_).getWidth(), WorldRenderer.entities_textures.get(texture_).getHeight());
         if(this.difficulty_ == 1)
             debugRenderer.setColor(new Color(Color.BLUE));
         else if(this.difficulty_ == 2)

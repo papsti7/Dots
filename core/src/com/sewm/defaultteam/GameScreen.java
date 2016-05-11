@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 /**
  * Created by stefan on 22.04.2016.
  */
@@ -55,8 +58,16 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         world_ = new World();
+
         worldRenderer_ = new WorldRenderer(world_, true);
-        world_.loadTestLevel();
+        try {
+            world_.parseLevelFile("levels/sample.lvl");
+        } catch (IOException e) {
+            System.out.println("Levelfile not found: " + e);
+            System.out.println("Looked in Working Directory = " +
+                    System.getProperty("user.dir"));
+        }
+
         worldController_ = new WorldController(world_);
         is_touched = false;
     }

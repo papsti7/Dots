@@ -3,6 +3,8 @@ package com.sewm.defaultteam;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -50,6 +52,32 @@ public class World {
         return width_;
     }
 
+    public void parseLevelFile(String filename) throws IOException
+    {
+            Parser parser = new Parser(filename);
+
+            parser.parseTextures();
+
+            player_ = parser.parsePlayer();
+
+            Target target;
+            while((target = parser.parseTarget()) != null) {
+                entities_.add(target);
+            }
+
+            Enemy enemy;
+            while((enemy = parser.parseEnemy(this)) != null) {
+                entities_.add(enemy);
+            }
+
+            //TODO: implement Actionpoints
+            /*
+            Actionpoint actionpoint;
+            while((actionpoint = parser.parseActionpoint())) {
+                entities_.add(actionpoint);
+            }
+            */
+    }
 
     public void loadTestLevel()
     {

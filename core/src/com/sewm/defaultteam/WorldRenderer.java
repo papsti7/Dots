@@ -28,9 +28,7 @@ public class WorldRenderer {
     ShapeRenderer shapeRenderer = new ShapeRenderer();
     static public SpriteBatch spriteBatch_;
 
-    static public Texture enemy_texture_;
-    static public Texture player_texture_;
-    static public Texture target_texture_;
+    static public java.util.Map<String, Texture> entities_textures;
     java.util.Map<Integer, Texture> player_health_map;
     boolean debug_;
     static public ArrayList<TextObject> texts_;
@@ -50,6 +48,7 @@ public class WorldRenderer {
 
         spriteBatch_ = new SpriteBatch();
 
+        entities_textures = new HashMap<String , Texture>();
         loadTextures();
         shapeRenderer.setAutoShapeType(true);
 
@@ -111,12 +110,14 @@ public class WorldRenderer {
         }
     }
 
+    /*
+    public void loadEntityTexture(String filename)
+    {
+        entities_textures.put(filename, new Texture(Gdx.files.internal(filename)));
+    }
+    */
 
     void loadTextures(){
-        enemy_texture_ = new Texture(Gdx.files.internal("images/enemy_health_1.png"));
-        player_texture_ = new Texture(Gdx.files.internal("images/player_new.png"));
-        target_texture_ = new Texture(Gdx.files.internal("images/target.png"));
-
         player_health_map = new HashMap<Integer, Texture>();
         player_health_map.put(3, new Texture(Gdx.files.internal("images/player_health_high.png")));
         player_health_map.put(2, new Texture(Gdx.files.internal("images/player_health_medium.png")));
@@ -137,7 +138,10 @@ public class WorldRenderer {
         //spriteBatch_.draw(player_texture_, world_.getPlayer_().surrounding_.x, world_.getPlayer_().surrounding_.y);
 
         float radius = world_.getPlayer_().surrounding_.radius;
-        Vector2 player_pos = new Vector2(world_.getPlayer_().surrounding_.x - WorldRenderer.player_texture_.getWidth() / 2.f, world_.getPlayer_().surrounding_.y - WorldRenderer.player_texture_.getHeight() / 2.f);
+        Texture texture = WorldRenderer.entities_textures.get(world_.getPlayer_().getTexture());
+        Vector2 player_pos = new Vector2(world_.getPlayer_().surrounding_.x - texture.getWidth() / 2.f, world_.getPlayer_().surrounding_.y - texture.getHeight() / 2.f);
+        spriteBatch_.draw(texture, player_pos.x, player_pos.y);
+
         if(world_.getPlayer_().getHealth_() > 2.f)
             spriteBatch_.draw(player_health_map.get(3), player_pos.x, player_pos.y);
         else if(world_.getPlayer_().getHealth_() > 1.f && world_.getPlayer_().getHealth_() <= 2.f)
@@ -153,7 +157,7 @@ public class WorldRenderer {
             gameOverScreen.background_ = new Texture(pixmap);
             StartPoint.startPoint_.setScreen(gameOverScreen);
         }
-        spriteBatch_.draw(player_texture_, player_pos.x, player_pos.y);
+        spriteBatch_.draw(texture, player_pos.x, player_pos.y);
 
     }
 
