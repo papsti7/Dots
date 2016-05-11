@@ -45,7 +45,6 @@ public class Parser {
         return player;
     }
 
-
     public Target parseTarget() throws IOException
     {
         String line = file_.readLine();
