@@ -84,23 +84,18 @@ public abstract class GameEntity {
         this.texture_ = texture_;
     }
 
-    public float getHealth_left_() {
-        return health_left_;
-    }
 
-    public void setHealth_left_(float health_left_) {
-        this.health_left_ = health_left_;
-    }
 
     protected Shape2D body_;
     protected int speed_base_;
     protected float health_;
-    protected float health_left_ = 1.f;
     protected Color color_;
     protected Vector2 velocity_;
     protected Vector2 target_pos_;
     protected int inertia_;
     protected boolean alive_ = true;
+    protected int points_;
+    protected int points_on_death_;
     
 
 

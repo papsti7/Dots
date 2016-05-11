@@ -36,6 +36,7 @@ public class WorldRenderer {
     static public ArrayList<TextObject> texts_;
     static public BitmapFont font_small_;
     static public BitmapFont font_large_;
+    static public String score_text = "Score: ";
 
 
     public WorldRenderer(World world, boolean debug){
@@ -52,6 +53,7 @@ public class WorldRenderer {
 
         loadTextures();
         shapeRenderer.setAutoShapeType(true);
+        texts_.add(new TextObject(font_small_,spriteBatch_,Gdx.graphics.getHeight() * 0.95f,Gdx.graphics.getWidth() * 0.05f, score_text + "0"));
 
     }
 

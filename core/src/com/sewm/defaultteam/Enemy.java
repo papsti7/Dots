@@ -31,6 +31,8 @@ public class Enemy extends GameEntity {
         inertia_ = 1;
         texture_ = WorldRenderer.enemy_texture_;
         difficulty_ = 1;
+        points_ = 1;
+        points_on_death_ = 3;
     }
 
     public Enemy ( Vector2 pos, int speed, int lives, int inertia, int difficulty){
@@ -45,7 +47,7 @@ public class Enemy extends GameEntity {
         difficulty_ = difficulty;
     }
 
-    public Enemy(Vector2 pos, EnemyAttribute difficulty){
+    public Enemy(Vector2 pos, EnemyAttribute difficulty, int points, int points_on_death){
         texture_ = WorldRenderer.enemy_texture_;
 
         body_ = new Rectangle(pos.x, pos.y, Gdx.graphics.getWidth() / 20.f, Gdx.graphics.getWidth() / 20.f);
@@ -56,11 +58,18 @@ public class Enemy extends GameEntity {
         velocity_ = new Vector2(0,0);
         inertia_ = difficulty.inertia_;
         difficulty_ = difficulty.difficulty_;
+        points_ = points;
+        points_on_death_ = points_on_death;
     }
     @Override
     protected void updateTarget(Vector2 target_pos){
         target_pos_.x = target_pos.x;
         target_pos_.y = target_pos.y;
+        Rectangle body = (Rectangle) body_;
+        if (body.contains(target_pos))
+        {
+            onContact();
+        }
     }
     @Override
     public void updatePosition(){
@@ -95,7 +104,10 @@ public class Enemy extends GameEntity {
 
     @Override
     protected void onContact() {
-
+        if(!StartPoint.immortal)
+        {
+            World.player_.decreaseHealth(Gdx.graphics.getDeltaTime());
+        }
     }
 
     @Override

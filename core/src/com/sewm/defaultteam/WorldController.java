@@ -27,7 +27,11 @@ public class WorldController {
     }
 
     public void update(Vector2 new_pos, WorldRenderer worldRenderer){
-        player_.update(new_pos);
+        if (Gdx.input.isTouched())
+        {
+            player_.update(new_pos);
+        }
+        updateEntities();
         cleanUp();
 
     }
@@ -44,6 +48,7 @@ public class WorldController {
         {
             if (!entity.next().isAlive_())
             {
+                System.out.println("Something is dead..");
                 entity.remove();
             }
 
@@ -51,33 +56,9 @@ public class WorldController {
 
     }
 
-    public void updateHealths(){
-        updateTargetsHealth();
-        if(!StartPoint.immortal)
-            updatePlayerHealths();
-    }
 
-    void updateTargetsHealth(){
-        Rectangle player = world_.getPlayer_().getRect();
-        for(GameEntity target : world_.getEntities_()){
-            if(target.getInertia_() == 0){
-                if(OverlapTester.overlapRectangles(player , ((Target)target).getRect())){
-                    target.onContact();
-                }
-            }
-        }
-    }
 
-    void updatePlayerHealths(){
-        Rectangle player = world_.getPlayer_().getRect();
-        for(GameEntity enemy : world_.getEntities_()){
-            if(enemy.getInertia_() != 0){
-                if(OverlapTester.overlapRectangles(player , (Rectangle)(enemy.getBody_()))){
-                    world_.getPlayer_().decreaseHealth(Gdx.graphics.getDeltaTime());
-                }
-            }
-        }
-    }
+
 
 
 

@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
  * Created by stefan on 22.04.2016.
  */
 public class Player {
+
     Circle surrounding_;
     Color color;
     static int score_ = 0;
