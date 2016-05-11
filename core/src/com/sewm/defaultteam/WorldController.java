@@ -53,7 +53,8 @@ public class WorldController {
 
     public void updateHealths(){
         updateTargetsHealth();
-        updatePlayerHealths();
+        if(!StartPoint.immortal)
+            updatePlayerHealths();
     }
 
     void updateTargetsHealth(){

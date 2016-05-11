@@ -150,8 +150,9 @@ public class WorldRenderer {
 
             Pixmap pixmap = new Pixmap(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), Pixmap.Format.RGBA8888);
             BufferUtils.copy(pixels, 0, pixmap.getPixels(), pixels.length);
-            PixmapIO.writePNG(Gdx.files.external("DoTs/assets/images/GameOverScreen.png"), pixmap);
-            StartPoint.startPoint_.setScreen(new GameOverScreen());
+            GameOverScreen gameOverScreen = new GameOverScreen();
+            gameOverScreen.background_ = new Texture(pixmap);
+            StartPoint.startPoint_.setScreen(gameOverScreen);
         }
 
     }

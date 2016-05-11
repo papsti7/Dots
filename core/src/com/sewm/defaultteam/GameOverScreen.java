@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class GameOverScreen implements Screen {
 
     SpriteBatch spriteBatch_ = new SpriteBatch();
-    Texture background_ = new Texture(Gdx.files.external("DoTs/assets/images/GameOverScreen.png"));
+    public Texture background_;
     TextObject game_over_text_ = new TextObject(WorldRenderer.font_large_,
                                                 spriteBatch_,
                                                 Gdx.graphics.getWidth()/4.f,
