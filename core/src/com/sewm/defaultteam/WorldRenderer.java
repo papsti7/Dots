@@ -138,7 +138,6 @@ public class WorldRenderer {
 
         float radius = world_.getPlayer_().surrounding_.radius;
         Vector2 player_pos = new Vector2(world_.getPlayer_().surrounding_.x - radius, world_.getPlayer_().surrounding_.y - radius);
-        spriteBatch_.draw(player_texture_, player_pos.x, player_pos.y);
         if(world_.getPlayer_().getHealth_() > 2.f)
             spriteBatch_.draw(player_health_map.get(3), player_pos.x, player_pos.y);
         else if(world_.getPlayer_().getHealth_() > 1.f && world_.getPlayer_().getHealth_() <= 2.f)
@@ -154,6 +153,7 @@ public class WorldRenderer {
             gameOverScreen.background_ = new Texture(pixmap);
             StartPoint.startPoint_.setScreen(gameOverScreen);
         }
+        spriteBatch_.draw(player_texture_, player_pos.x, player_pos.y);
 
     }
 
