@@ -52,8 +52,8 @@ public class GameScreen implements Screen, InputProcessor {
 
 
 
-    WorldRenderer worldRenderer_;
-    WorldController worldController_;
+    static public WorldRenderer worldRenderer_;
+    static public WorldController worldController_;
     static boolean is_touched;
     @Override
     public void show() {
@@ -73,6 +73,10 @@ public class GameScreen implements Screen, InputProcessor {
     }
 
     void update(){
+
+        Vector2 position = new Vector2(world_.getPlayer_().surrounding_.x, world_.getPlayer_().surrounding_.y);
+        float radius = 0;
+
         if(Gdx.input.isTouched())
         {
             worldRenderer_.camera_.unproject(worldController_.touchpoint_.set(Gdx.input.getX(),Gdx.input.getY(), 0));
@@ -80,8 +84,8 @@ public class GameScreen implements Screen, InputProcessor {
             if(OverlapTester.pointInRectangle(player , worldController_.touchpoint_.x, worldController_.touchpoint_.y) || is_touched == true)
             {
                 /* touched the player surrounding */
-                float radius = world_.getPlayer_().surrounding_.radius;
-                worldController_.update(new Vector2(worldController_.touchpoint_.x + radius, worldController_.touchpoint_.y + radius), worldRenderer_);
+                radius = world_.getPlayer_().surrounding_.radius;
+                position.set(worldController_.touchpoint_.x + radius, worldController_.touchpoint_.y + radius);
                 is_touched = true;
             }
 
@@ -90,9 +94,10 @@ public class GameScreen implements Screen, InputProcessor {
             is_touched = false;
         }
 
-        worldController_.updateHealths();
-        worldController_.updateEntities();
+
+        worldController_.update(position, worldRenderer_);
     }
+
 
 
 

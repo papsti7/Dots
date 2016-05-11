@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
  * Created by stefan on 22.04.2016.
  */
 public class Player {
+
     Circle surrounding_;
     Color color;
     static int score_ = 0;
@@ -48,6 +49,7 @@ public class Player {
     public void update(Vector2 new_pos){
 
         surrounding_.setPosition(Utils.getOriginOfRect(new_pos, surrounding_));
+        System.out.println(this.surrounding_.x + " " + this.surrounding_.y);
 
     }
 

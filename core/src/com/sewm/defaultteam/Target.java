@@ -27,6 +27,8 @@ public class Target extends GameEntity {
         velocity_ = new Vector2(0,0);
         inertia_ = 0;
         texture_ = "images/target.png";
+        points_ = 1;
+        points_on_death_ = 3;
     }
 
     public Target(int x, int y, int radius, int health, String texture)
@@ -37,7 +39,8 @@ public class Target extends GameEntity {
         texture_ = texture;
     }
 
-    public Target(Shape2D body, int speed_base, int lives, Vector2 velocity, int inertia)
+    public Target(Shape2D body, int speed_base, int lives, Vector2 velocity, int inertia,
+                  int points, int points_on_death)
     {
         body_ = body;
         speed_base_ = speed_base;
@@ -47,11 +50,15 @@ public class Target extends GameEntity {
         velocity_ = velocity;
         inertia_ = inertia;
         texture_ = "images/target.png";
+        points_ = points;
+        points_on_death_ = points_on_death;
     }
 
     @Override
     protected void updateTarget(Vector2 target_pos) {
-        Circle body = (Circle) body_;
+        Circle body = new Circle((Circle) body_);
+        body.radius *= 4f;
+        //System.out.println("Radius is: " + body.radius);
         if (body.contains(target_pos))
         {
             onContact();
@@ -63,26 +70,55 @@ public class Target extends GameEntity {
 
     }
 
+    private void jump()
+    {
+        Vector2 new_pos = new Vector2(Utils.random_.nextInt(Gdx.graphics.getWidth()), Utils.random_.nextInt(Gdx.graphics.getHeight()));
+        ((Circle)body_).setPosition(new_pos);
+    }
+
     @Override
     protected void onContact() {
         float value = Gdx.graphics.getDeltaTime();
+        System.out.println("Target contact");
 
-        if(value > health_left_){
+        if (value < health_)
+        {
+            float health_old = health_;
+            health_-= value;
+
+            if (Math.ceil(health_old) > Math.ceil(health_))
+            {
+                GameScreen.worldController_.updateScore(points_);
+                jump();
+            }
+
+        }
+        else
+        {
+            health_ = 0;
+            alive_ = false;
+            System.out.println("Target is dead");
+            GameScreen.worldController_.updateScore(points_on_death_);
+        }
+
+        /*if(value > health_left_){
             health_ -= 1.f;
 
             if(health_ <= 0.f){
                 setAlive_(false);
-                Player.score_ += 1;
+                Player.score_ += points_on_death_;
             }
             else{
                 health_left_ = 1.f;
                 Vector2 new_pos = new Vector2(Utils.random_.nextInt(Gdx.graphics.getWidth()), Utils.random_.nextInt(Gdx.graphics.getHeight()));
                 ((Circle)body_).setPosition(new_pos);
+                Player.score_ += points_;
             }
         }
         else{
             health_left_ -= value;
-        }
+        }*/
+        System.out.println("Health = " + health_);
     }
 
     @Override
