@@ -1,10 +1,12 @@
 50,50,3,images/player_new.png
 ;
-100,100,20,3,images/target.png
+50,50,10,3,images/target.png
 ;
-150,150,2,images/enemy.png
-170,170,1,images/enemy.png
-90,90,3,images/enemy.png
+1000,300,1,images/enemy.png
+100,300,1,images/enemy.png
+1000,900,1,images/enemy.png
+1200,300,2,images/enemy.png
+800,300,3,images/enemy.png
 ;
 10,10|200,200,10,images/actionpoint.png
 ;
