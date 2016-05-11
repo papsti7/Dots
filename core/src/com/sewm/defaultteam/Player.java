@@ -2,14 +2,9 @@ package com.sewm.defaultteam;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-
-import java.io.FileNotFoundException;
 
 /**
  * Created by stefan on 22.04.2016.
@@ -27,22 +22,19 @@ public class Player {
 
     float health_;
 
-    static boolean get_damaged_;
-
 
     public Player()
     {
-        surrounding_ = new Circle((Gdx.graphics.getWidth()/2.f) + Gdx.graphics.getWidth() / 40.f , Gdx.graphics.getHeight()/2.f + Gdx.graphics.getWidth() / 40.f, Gdx.graphics.getWidth() / 40f);
+        surrounding_ = new Circle(Constants.player_spawn_x,  Constants.player_spawn_y, Constants.player_radius);
         color = new Color(Color.LIGHT_GRAY);
         health_ = 3.f;
-        get_damaged_ = false;
         texture_ = "images/player_new.png";
     }
 
     public Player(int health, String texture)
     {
         this();
-        health_ = new Float(health);
+        health_ = (float) health;
         texture_ = texture;
     }
 

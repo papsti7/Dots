@@ -30,7 +30,7 @@ public class GameScreen implements Screen, InputProcessor {
     }
 
     public void setWorldRenderer_(WorldRenderer worldRenderer_) {
-        this.worldRenderer_ = worldRenderer_;
+        worldRenderer_ = worldRenderer_;
     }
 
     public boolean is_touched() {
@@ -38,7 +38,7 @@ public class GameScreen implements Screen, InputProcessor {
     }
 
     public void setIs_touched(boolean is_touched) {
-        this.is_touched = is_touched;
+        is_touched = is_touched;
     }
 
     public WorldController getWorldController_() {
@@ -46,7 +46,7 @@ public class GameScreen implements Screen, InputProcessor {
     }
 
     public void setWorldController_(WorldController worldController_) {
-        this.worldController_ = worldController_;
+        worldController_ = worldController_;
     }
 
 
@@ -54,7 +54,7 @@ public class GameScreen implements Screen, InputProcessor {
 
     static public WorldRenderer worldRenderer_;
     static public WorldController worldController_;
-    static boolean is_touched;
+    static public boolean is_touched;
     @Override
     public void show() {
         world_ = new World();
@@ -79,9 +79,9 @@ public class GameScreen implements Screen, InputProcessor {
 
         if(Gdx.input.isTouched())
         {
-            worldRenderer_.camera_.unproject(worldController_.touchpoint_.set(Gdx.input.getX(),Gdx.input.getY(), 0));
+            WorldRenderer.camera_.unproject(worldController_.touchpoint_.set(Gdx.input.getX(),Gdx.input.getY(), 0));
             Rectangle player = world_.getPlayer_().getRect();
-            if(OverlapTester.pointInRectangle(player , worldController_.touchpoint_.x, worldController_.touchpoint_.y) || is_touched == true)
+            if(OverlapTester.pointInRectangle(player , worldController_.touchpoint_.x, worldController_.touchpoint_.y) || is_touched)
             {
                 /* touched the player surrounding */
                 radius = world_.getPlayer_().surrounding_.radius;

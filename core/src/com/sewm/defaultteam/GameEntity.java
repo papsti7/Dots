@@ -106,8 +106,9 @@ public abstract class GameEntity {
     protected abstract void onContact();
     public abstract void draw(SpriteBatch spriteBatch);
     public abstract void drawDebug(ShapeRenderer debugRenderer);
+    public abstract void kill();
 
-    public void update(Vector2 target_pos)
+    public final void update(Vector2 target_pos)
     {
         updateTarget(target_pos);
         updatePosition();

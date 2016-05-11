@@ -50,7 +50,7 @@ public class Enemy extends GameEntity {
 
     public Enemy(Vector2 pos, EnemyAttribute difficulty, int points, int points_on_death){
         texture_ = "images/enemy.png";
-        body_ = new Rectangle(pos.x, pos.y, Gdx.graphics.getWidth() / 20.f, Gdx.graphics.getWidth() / 20.f);
+        body_ = new Rectangle(pos.x, pos.y, Constants.enemy_width, Constants.enemy_height);
         speed_base_ = difficulty.speed_base_;
         health_ = difficulty.health_;
         color_ = new Color(Color.RED);
@@ -134,6 +134,11 @@ public class Enemy extends GameEntity {
         else if(this.difficulty_ == 3)
             debugRenderer.setColor(new Color(Color.RED));
         debugRenderer.rect(rect.getX(), rect.getY(), rect.width, rect.height);
+    }
+
+    @Override
+    public void kill() {
+
     }
 
 
