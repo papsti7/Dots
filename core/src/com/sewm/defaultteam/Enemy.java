@@ -62,9 +62,9 @@ public class Enemy extends GameEntity {
         points_on_death_ = points_on_death;
     }
 
-    public Enemy(int x, int y, EnemyAttribute difficulty, String texture)
+    public Enemy(int x, int y, EnemyAttribute difficulty, int points, int points_on_death, String texture)
     {
-        this(new Vector2(x, y), difficulty);
+        this(new Vector2(x, y), difficulty, points, points_on_death);
         texture_ = texture;
     }
 

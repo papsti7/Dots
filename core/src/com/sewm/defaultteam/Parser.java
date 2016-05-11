@@ -88,9 +88,7 @@ public class Parser {
                 enemy_attribute = world.enemy_easy_;
         }
 
-        Enemy enemy = new Enemy(x, y, enemy_attribute, texture);
-        //TODO: use this when points & point_on_death are implemented
-        //Enemy enemy = new Enemy(x, y, enemy_attribute, points, points_on_death, texture);
+        Enemy enemy = new Enemy(x, y, enemy_attribute, points, points_on_death, texture);
         return enemy;
     }
 /*  TODO: uncomment when actionpoints are implemented
