@@ -1,8 +1,10 @@
 package com.sewm.defaultteam;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 
@@ -16,9 +18,9 @@ public class Target extends GameEntity {
 
     public Target()
     {
-        body_ = new Circle(50.f,50.f,10);
+        body_ = new Circle(50.f,50.f,Gdx.graphics.getWidth() / 80.f);
         speed_base_ = 1;
-        health_ = 1;
+        health_ = 3;
         color_ = new Color(Color.ORANGE);
         target_pos_ = new Vector2(0,0);
         velocity_ = new Vector2(0,0);
@@ -55,7 +57,24 @@ public class Target extends GameEntity {
 
     @Override
     protected void onContact() {
+        float value = Gdx.graphics.getDeltaTime();
 
+        if(value > health_left_){
+            health_ -= 1.f;
+
+            if(health_ <= 0.f){
+                setAlive_(false);
+                Player.score_ += 1;
+            }
+            else{
+                health_left_ = 1.f;
+                Vector2 new_pos = new Vector2(Utils.random_.nextInt(Gdx.graphics.getWidth()), Utils.random_.nextInt(Gdx.graphics.getHeight()));
+                ((Circle)body_).setPosition(new_pos);
+            }
+        }
+        else{
+            health_left_ -= value;
+        }
     }
 
     @Override
@@ -70,6 +89,19 @@ public class Target extends GameEntity {
         Circle circle = new Circle(body.x + texture_.getWidth() / 2, body.y +texture_.getHeight()/2, texture_.getWidth()/2 + 10.f);
         debugRenderer.setColor(new Color(Color.BROWN));
         debugRenderer.circle(circle.x, circle.y,circle.radius);
+    }
+
+    public void decreaseHealth(float value){
+        if(health_ > value)
+            health_ -= value;
+        else
+            setAlive_(false);
+    }
+
+    public Rectangle getRect(){
+        Vector2 pos = Utils.getOriginOfRect(new Vector2(((Circle)body_).x, ((Circle)body_).y), ((Circle)body_));
+        Rectangle rect = new Rectangle(pos.x, pos.y, ((Circle)body_).radius * 2.f, ((Circle)body_).radius * 2.f);
+        return rect;
     }
 
 }

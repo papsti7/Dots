@@ -46,6 +46,9 @@ public class GameScreen implements Screen, InputProcessor {
         this.worldController_ = worldController_;
     }
 
+
+
+
     WorldRenderer worldRenderer_;
     WorldController worldController_;
     static boolean is_touched;
@@ -69,7 +72,6 @@ public class GameScreen implements Screen, InputProcessor {
                 float radius = world_.getPlayer_().surrounding_.radius;
                 worldController_.update(new Vector2(worldController_.touchpoint_.x + radius, worldController_.touchpoint_.y + radius), worldRenderer_);
                 is_touched = true;
-                return;
             }
 
         }
@@ -77,7 +79,15 @@ public class GameScreen implements Screen, InputProcessor {
             is_touched = false;
         }
 
+        worldController_.updateHealths();
         worldController_.updateEntities();
+    }
+
+
+
+    @Override
+    public void resize(int width, int height) {
+
     }
 
     @Override
@@ -87,11 +97,6 @@ public class GameScreen implements Screen, InputProcessor {
 
         update();
         worldRenderer_.render();
-
-    }
-
-    @Override
-    public void resize(int width, int height) {
 
     }
 

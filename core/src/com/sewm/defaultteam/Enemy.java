@@ -43,7 +43,7 @@ public class Enemy extends GameEntity {
         texture_ = WorldRenderer.enemy_texture_;
         switch (difficulty){
             case 1:
-                body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
+                body_ = new Rectangle(pos.x, pos.y, Gdx.graphics.getWidth() / 20.f, Gdx.graphics.getWidth() / 20.f);
                 speed_base_ = 1;
                 health_ = 1.f;
                 color_ = new Color(Color.RED);
@@ -53,7 +53,7 @@ public class Enemy extends GameEntity {
                 difficulty_ = 1;
                 break;
             case 2:
-                body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
+                body_ = new Rectangle(pos.x, pos.y, Gdx.graphics.getWidth() / 20.f, Gdx.graphics.getWidth() / 20.f);
                 speed_base_ = 8;
                 health_ = 2.f;
                 color_ = new Color(Color.RED);
@@ -63,7 +63,7 @@ public class Enemy extends GameEntity {
                 difficulty_ = 2;
                 break;
             case 3:
-                body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
+                body_ = new Rectangle(pos.x, pos.y,Gdx.graphics.getWidth() / 20.f, Gdx.graphics.getWidth() / 20.f);
                 speed_base_ = 13;
                 health_ = 3.f;
                 color_ = new Color(Color.RED);
@@ -73,7 +73,7 @@ public class Enemy extends GameEntity {
                 difficulty_ = 3;
                 break;
             default:
-                body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
+                body_ = new Rectangle(pos.x, pos.y,Gdx.graphics.getWidth() / 20.f, Gdx.graphics.getWidth() / 20.f);
                 speed_base_ = 1;
                 health_ = 1.f;
                 color_ = new Color(Color.RED);
