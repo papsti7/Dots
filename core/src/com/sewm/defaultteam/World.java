@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -51,29 +52,33 @@ public class World {
 
     public void parseLevelFile(String filename) throws FileNotFoundException
     {
-        Parser parser = new Parser(filename);
+        try {
+            Parser parser = new Parser(filename);
 
-        parser.parseTextures();
+            parser.parseTextures();
 
-        player_ = parser.parsePlayer();
+            player_ = parser.parsePlayer();
 
-        Target target;
-        while((target = parser.parseTarget()) != null) {
-            entities_.add(target);
+            Target target;
+            while((target = parser.parseTarget()) != null) {
+                entities_.add(target);
+            }
+
+            Enemy enemy;
+            while((enemy = parser.parseEnemy()) != null) {
+                entities_.add(enemy);
+            }
+
+            //TODO: implement Actionpoints
+            /*
+            Actionpoint actionpoint;
+            while((actionpoint = parser.parseActionpoint())) {
+                entities_.add(actionpoint);
+            }
+            */
+        } catch (IOException e) {
+            System.out.println(e);
         }
-
-        Enemy enemy;
-        while((enemy = parser.parseEnemy()) != null) {
-            entities_.add(enemy);
-        }
-
-        //TODO: implement Actionpoints
-        /*
-        Actionpoint actionpoint;
-        while((actionpoint = parser.parseActionpoint())) {
-            entities_.add(actionpoint);
-        }
-        */
     }
 
     public void loadTestLevel()

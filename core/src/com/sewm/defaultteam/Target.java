@@ -29,6 +29,13 @@ public class Target extends GameEntity {
         texture_ = "images/target.png";
     }
 
+    public Target(int x, int y, int radius, int health, String texture)
+    {
+        this();
+        body_ = new Circle(new Float(x), new Float(y), new Float(radius));
+        health_ = health;
+        texture_ = texture;
+    }
 
     public Target(Shape2D body, int speed_base, int lives, Vector2 velocity, int inertia)
     {

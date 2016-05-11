@@ -61,8 +61,8 @@ public class GameScreen implements Screen, InputProcessor {
         try {
             world_.parseLevelFile("levels/sample.lvl");
         } catch (FileNotFoundException e) {
-            System.out.println("File nott found: " + e);
-            System.out.println("Working Directory = " +
+            System.out.println("Levelfile not found: " + e);
+            System.out.println("Looked in Working Directory = " +
                     System.getProperty("user.dir"));
         }
 

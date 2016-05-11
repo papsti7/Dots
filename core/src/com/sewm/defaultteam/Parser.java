@@ -22,43 +22,52 @@ public class Parser {
         file_ = new BufferedReader(new FileReader(filename_));
     }
 
-    public void parseTextures()
+    public void parseTextures() throws IOException
     {
-        try {
-            for (String line = file_.readLine(); line != null; line = file_.readLine())
-            {
-                String[] tokens = line.split(",|;");
-                String texture_filename = tokens[tokens.length - 1];
-                WorldRenderer.entities_textures.put(texture_filename, new Texture(Gdx.files.internal(texture_filename)));
-            }
-
-            file_.close();
-            file_ = new BufferedReader(new FileReader(filename_));
-
-        } catch (IOException e) {
-            System.out.println(e);
+        for (String line = file_.readLine(); line != null; line = file_.readLine())
+        {
+            if(line.contains(";"))
+                continue;
+            String[] tokens = line.split(",");
+            String texture_filename = tokens[tokens.length - 1];
+            WorldRenderer.entities_textures.put(texture_filename, new Texture(Gdx.files.internal(texture_filename)));
         }
+
+        file_.close();
+        file_ = new BufferedReader(new FileReader(filename_));
     }
 
-    public Player parsePlayer()
+    public Player parsePlayer() throws IOException
     {
-        Scanner s = new Scanner(file_).useDelimiter("[;,\\n]");
+        Scanner s = new Scanner(file_.readLine()).useDelimiter("[;,\\n]");
         Player player = new Player(s.nextInt(),s.nextInt(),s.nextInt(), s.next());
+        file_.readLine();
         return player;
     }
 
 
-    public Target parseTarget()
+    public Target parseTarget() throws IOException
     {
-        Target target = new Target();
-
+        String line = file_.readLine();
+        if (line.contains(";"))
+        {
+            return null;
+        }
+        System.out.println("parsing target: " + line);
+        Scanner s = new Scanner(line).useDelimiter("[,]");
+        Target target = new Target(s.nextInt(), s.nextInt(), s.nextInt(),s.nextInt(),s.next());
         return target;
     }
 
-    public Enemy parseEnemy()
+    public Enemy parseEnemy() throws IOException
     {
-        Enemy enemy = new Enemy();
-
+        String line = file_.readLine();
+        if (line.contains(";"))
+        {
+            return null;
+        }
+        Scanner s = new Scanner(line).useDelimiter("[,]");
+        Enemy enemy = new Enemy(s.nextInt(), s.nextInt(), s.nextInt(), s.next());
         return enemy;
     }
 /*  TODO: uncomment when actionpoints are implemented
