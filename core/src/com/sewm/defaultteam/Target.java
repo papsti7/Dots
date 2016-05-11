@@ -26,7 +26,7 @@ public class Target extends GameEntity {
         target_pos_ = new Vector2(0,0);
         velocity_ = new Vector2(0,0);
         inertia_ = 0;
-        texture_ = new Texture(Gdx.files.internal("images/target.png"));
+        texture_ = "images/target.png";
     }
 
 
@@ -39,7 +39,7 @@ public class Target extends GameEntity {
         target_pos_ = new Vector2(0,0);
         velocity_ = velocity;
         inertia_ = inertia;
-        texture_ = new Texture(Gdx.files.internal("images/target.png"));
+        texture_ = "images/target.png";
     }
 
     @Override
@@ -81,13 +81,14 @@ public class Target extends GameEntity {
     @Override
     public void draw(SpriteBatch spriteBatch) {
         Circle circle = (Circle) body_;
-        spriteBatch.draw(texture_,circle.x,circle.y);
+        spriteBatch.draw(WorldRenderer.entities_textures.get(texture_),circle.x,circle.y);
     }
 
     @Override
     public void drawDebug(ShapeRenderer debugRenderer) {
         Circle body = (Circle) body_;
-        Circle circle = new Circle(body.x + texture_.getWidth() / 2, body.y +texture_.getHeight()/2, texture_.getWidth()/2 + 10.f);
+        Texture texture = WorldRenderer.entities_textures.get(texture_);
+        Circle circle = new Circle(body.x + texture.getWidth() / 2, body.y +texture.getHeight()/2, texture.getWidth()/2 + 10.f);
         debugRenderer.setColor(new Color(Color.BROWN));
         debugRenderer.circle(circle.x, circle.y,circle.radius);
     }

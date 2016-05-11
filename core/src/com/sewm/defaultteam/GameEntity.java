@@ -76,11 +76,11 @@ public abstract class GameEntity {
         this.alive_ = alive_;
     }
 
-    public Texture getTexture_() {
+    public String getTexture_() {
         return texture_;
     }
 
-    public void setTexture_(Texture texture_) {
+    public void setTexture_(String texture_) {
         this.texture_ = texture_;
     }
 
@@ -104,7 +104,7 @@ public abstract class GameEntity {
     
 
 
-    protected Texture texture_;
+    protected String texture_;
 
     protected abstract void updateTarget(Vector2 target_pos);
     protected abstract void updatePosition();

@@ -57,6 +57,7 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         world_ = new World();
+        worldRenderer_ = new WorldRenderer(world_, false);
         try {
             world_.parseLevelFile("levels/sample.lvl");
         } catch (FileNotFoundException e) {
@@ -65,7 +66,7 @@ public class GameScreen implements Screen, InputProcessor {
                     System.getProperty("user.dir"));
         }
 
-        worldRenderer_ = new WorldRenderer(world_, false);
+
         // world_.loadTestLevel();
 
         worldController_ = new WorldController(world_);

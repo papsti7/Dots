@@ -24,7 +24,7 @@ public class Enemy extends GameEntity {
         target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
         velocity_ = new Vector2(0,0);
         inertia_ = 1;
-        texture_ = new Texture(Gdx.files.internal("images/enemy.png"));
+        texture_ = "images/enemy.png";
         difficulty_ = 1;
     }
 
@@ -36,12 +36,12 @@ public class Enemy extends GameEntity {
         target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
         velocity_ = new Vector2(0,0);
         inertia_ = inertia;
-        texture_ = new Texture(Gdx.files.internal("images/enemy.png"));
+        texture_ = "images/enemy.png";
         difficulty_ = difficulty;
     }
 
     public Enemy(Vector2 pos, int difficulty){
-        texture_ = new Texture(Gdx.files.internal("images/enemy.png"));
+        texture_ = "images/enemy.png";
         switch (difficulty){
             case 1:
                 body_ = new Rectangle(pos.x, pos.y, 20.f, 20.f);
@@ -90,7 +90,7 @@ public class Enemy extends GameEntity {
     public Enemy(int x, int y, int difficulty, String texture)
     {
         this(new Vector2(x, y), difficulty);
-        texture_ = new Texture(Gdx.files.internal(texture));
+        texture_ = texture;
     }
 
     @Override
@@ -137,13 +137,13 @@ public class Enemy extends GameEntity {
     @Override
     public void draw(SpriteBatch spriteBatch) {
         Rectangle enemy_body = (Rectangle) body_;
-        spriteBatch.draw(texture_, enemy_body.getX(), enemy_body.y);
+        spriteBatch.draw(WorldRenderer.entities_textures.get(texture_), enemy_body.getX(), enemy_body.y);
     }
 
     @Override
     public void drawDebug(ShapeRenderer debugRenderer) {
         Rectangle enemy_body = (Rectangle) body_;
-        Rectangle rect = new Rectangle(enemy_body.getX(), enemy_body.getY(), texture_.getWidth(), texture_.getHeight());
+        Rectangle rect = new Rectangle(enemy_body.getX(), enemy_body.getY(), WorldRenderer.entities_textures.get(texture_).getWidth(), WorldRenderer.entities_textures.get(texture_).getHeight());
         if(this.difficulty_ == 1)
             debugRenderer.setColor(new Color(Color.BLUE));
         else if(this.difficulty_ == 2)
