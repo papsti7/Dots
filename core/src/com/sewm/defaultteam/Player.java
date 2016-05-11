@@ -18,7 +18,7 @@ public class Player {
     Circle surrounding_;
     Color color;
     static int score_ = 0;
-    Texture texture_;
+    String texture_;
 
     public float getHealth_() {
         return health_;
@@ -34,7 +34,7 @@ public class Player {
         color = new Color(Color.LIGHT_GRAY);
         health_ = 3.f;
         get_damaged_ = false;
-        texture_ = new Texture(Gdx.files.internal("images/player_new.png"));
+        texture_ = "images/player_new.png";
     }
 
     public Player(int x, int y, int health, String texture)
@@ -43,12 +43,7 @@ public class Player {
         color = new Color(Color.LIGHT_GRAY);
         health_ = new Float(health);
         get_damaged_ = false;
-        try {
-            texture_ = new Texture(Gdx.files.internal(texture));
-        } catch ( Exception e) {
-            System.out.println("Working Directory = " +
-                    System.getProperty("user.dir"));
-        }
+        texture_ = texture;
     }
 
     public void update(Vector2 new_pos){
@@ -61,7 +56,7 @@ public class Player {
         health_ -= value;
     }
 
-    public Texture getTexture()
+    public String getTexture()
     {
         return texture_;
     }

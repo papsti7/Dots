@@ -53,6 +53,8 @@ public class World {
     {
         Parser parser = new Parser(filename);
 
+        parser.parseTextures();
+
         player_ = parser.parsePlayer();
 
         Target target;

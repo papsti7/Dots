@@ -28,6 +28,7 @@ public class WorldRenderer {
     ShapeRenderer shapeRenderer = new ShapeRenderer();
     static public SpriteBatch spriteBatch_;
 
+    static public java.util.Map<String, Texture> entities_textures;
     java.util.Map<Integer, Texture> player_health_map;
     boolean debug_;
     static public ArrayList<TextObject> texts_;
@@ -47,6 +48,7 @@ public class WorldRenderer {
 
         spriteBatch_ = new SpriteBatch();
 
+        entities_textures = new HashMap<String , Texture>();
         loadTextures();
         shapeRenderer.setAutoShapeType(true);
 
@@ -108,6 +110,13 @@ public class WorldRenderer {
         }
     }
 
+    /*
+    public void loadEntityTexture(String filename)
+    {
+        entities_textures.put(filename, new Texture(Gdx.files.internal(filename)));
+    }
+    */
+
     public void loadTextures(){
         player_health_map = new HashMap<Integer, Texture>();
         player_health_map.put(3, new Texture(Gdx.files.internal("images/player_health_high.png")));
@@ -130,7 +139,8 @@ public class WorldRenderer {
 
         float radius = world_.getPlayer_().surrounding_.radius;
         Vector2 player_pos = new Vector2(world_.getPlayer_().surrounding_.x - radius, world_.getPlayer_().surrounding_.y - radius);
-        spriteBatch_.draw(world_.getPlayer_().getTexture(), player_pos.x, player_pos.y);
+        Texture texture = WorldRenderer.entities_textures.get(world_.getPlayer_().getTexture());
+        spriteBatch_.draw(texture, player_pos.x, player_pos.y);
         if(world_.getPlayer_().getHealth_() > 2.f)
             spriteBatch_.draw(player_health_map.get(3), player_pos.x, player_pos.y);
         else if(world_.getPlayer_().getHealth_() > 1.f && world_.getPlayer_().getHealth_() <= 2.f)
