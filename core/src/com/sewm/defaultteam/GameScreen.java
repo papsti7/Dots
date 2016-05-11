@@ -72,14 +72,14 @@ public class GameScreen implements Screen, InputProcessor {
                 float radius = world_.getPlayer_().surrounding_.radius;
                 worldController_.update(new Vector2(worldController_.touchpoint_.x + radius, worldController_.touchpoint_.y + radius), worldRenderer_);
                 is_touched = true;
-                return;
             }
 
         }
         else{
             is_touched = false;
         }
-        worldController_.updateHealths(worldRenderer_);
+
+        worldController_.updateHealths();
         worldController_.updateEntities();
     }
 

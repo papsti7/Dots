@@ -28,7 +28,6 @@ public class WorldController {
 
     public void update(Vector2 new_pos, WorldRenderer worldRenderer){
         player_.update(new_pos);
-        updateEntities();
         cleanUp();
 
     }
@@ -52,8 +51,23 @@ public class WorldController {
 
     }
 
-    public void updateHealths(WorldRenderer renderer){
-        //renderer.camera_.unproject(touchpoint_.set(Gdx.input.getX(),Gdx.input.getY(), 0));
+    public void updateHealths(){
+        updateTargetsHealth();
+        updatePlayerHealths();
+    }
+
+    void updateTargetsHealth(){
+        Rectangle player = world_.getPlayer_().getRect();
+        for(GameEntity target : world_.getEntities_()){
+            if(target.getInertia_() == 0){
+                if(OverlapTester.overlapRectangles(player , ((Target)target).getRect())){
+                    target.onContact();
+                }
+            }
+        }
+    }
+
+    void updatePlayerHealths(){
         Rectangle player = world_.getPlayer_().getRect();
         for(GameEntity enemy : world_.getEntities_()){
             if(enemy.getInertia_() != 0){
@@ -63,6 +77,10 @@ public class WorldController {
             }
         }
     }
+
+
+
+
 
 
 
