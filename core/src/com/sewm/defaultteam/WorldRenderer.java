@@ -53,7 +53,7 @@ public class WorldRenderer {
 
         loadTextures();
         shapeRenderer.setAutoShapeType(true);
-        texts_.add(new TextObject(font_small_,spriteBatch_,Gdx.graphics.getHeight() * 0.95f,Gdx.graphics.getWidth() * 0.05f, score_text + "0"));
+        texts_.add(new TextObject(font_small_,spriteBatch_, Gdx.graphics.getWidth() * 0.05f, Gdx.graphics.getHeight() * 0.95f, score_text + "0"));
 
     }
 
@@ -179,5 +179,24 @@ public class WorldRenderer {
         shapeRenderer.setColor(new Color(Color.PINK));
         shapeRenderer.circle(player.surrounding_.x, player.surrounding_.y, 10);
         shapeRenderer.end();
+    }
+
+    public void updateScore(int score) {
+        int index = -1;
+        for (int element = 0; element < texts_.size(); element++)
+        {
+            String text = texts_.get(element).getText_();
+            text = text.substring(0,text.indexOf(' '));
+            text += " ";
+            System.out.println(text);
+            if (text.equals(score_text))
+            {
+                index = element;
+                break;
+            }
+        }
+
+        texts_.get(index).setText_(score_text + score);
+
     }
 }

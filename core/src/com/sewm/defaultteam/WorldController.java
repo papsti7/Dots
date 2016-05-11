@@ -27,7 +27,7 @@ public class WorldController {
     }
 
     public void update(Vector2 new_pos, WorldRenderer worldRenderer){
-        if (Gdx.input.isTouched())
+        if (GameScreen.is_touched)
         {
             player_.update(new_pos);
         }
@@ -57,15 +57,9 @@ public class WorldController {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
+    public void updateScore(int delta)
+    {
+        Player.score_ += delta;
+        GameScreen.worldRenderer_.updateScore(Player.score_);
+    }
 }

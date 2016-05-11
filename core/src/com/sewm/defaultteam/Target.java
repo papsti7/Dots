@@ -80,7 +80,7 @@ public class Target extends GameEntity {
 
             if (Math.ceil(health_old) > Math.ceil(health_))
             {
-                Player.score_ += points_;
+                GameScreen.worldController_.updateScore(points_);
                 jump();
             }
 
@@ -90,7 +90,7 @@ public class Target extends GameEntity {
             health_ = 0;
             alive_ = false;
             System.out.println("Target is dead");
-            Player.score_ += points_on_death_;
+            GameScreen.worldController_.updateScore(points_on_death_);
         }
 
         /*if(value > health_left_){
