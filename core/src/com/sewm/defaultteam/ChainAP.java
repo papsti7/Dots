@@ -8,12 +8,21 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class ChainAP extends ActionPoint {
 
-    public ChainAP(Vector2 position, boolean active, ActionPoint next)
+    public ChainAP(int x, int y, boolean active, ActionPoint next, int number)
     {
-        texture_ = "images/ChainAP.png";
-        body_ = new Rectangle(position.x, position.y, Constants.action_point_width, Constants.action_point_height);
-        active_ = active;
+        if (active)
+        {
+            activate();
+        }
+        else
+        {
+            texture_ = "images/action_point.png";
+            active_ = false;
+        }
+
+        body_ = new Rectangle(x, y, Constants.action_point_width, Constants.action_point_height);
         next_ = next;
+        text_ = new TextObject(WorldRenderer.font_small_,WorldRenderer.spriteBatch_,x,y, "" + number);
     }
     @Override
     protected void trigger() {
@@ -22,6 +31,6 @@ public class ChainAP extends ActionPoint {
 
     @Override
     public void kill() {
-        
+
     }
 }

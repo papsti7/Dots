@@ -1,6 +1,7 @@
 package com.sewm.defaultteam;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 import java.io.FileNotFoundException;
@@ -79,4 +80,20 @@ public class World {
     }
 
 
+    public void loadTestLevel() {
+        WorldRenderer.entities_textures.put("images/player_new.png", new Texture(Gdx.files.internal("images/player_new.png")));
+        WorldRenderer.entities_textures.put("images/target.png", new Texture(Gdx.files.internal("images/target.png")));
+        WorldRenderer.entities_textures.put("images/enemy_health_1.png", new Texture(Gdx.files.internal("images/enemy_health_1.png")));
+        WorldRenderer.entities_textures.put("images/enemy_health_2.png", new Texture(Gdx.files.internal("images/enemy_health_2.png")));
+        WorldRenderer.entities_textures.put("images/enemy_health_3.png", new Texture(Gdx.files.internal("images/enemy_health_3.png")));
+        WorldRenderer.entities_textures.put("images/action_point.png", new Texture(Gdx.files.internal("images/action_point.png")));
+        WorldRenderer.entities_textures.put("images/action_point_active.png", new Texture(Gdx.files.internal("images/action_point_active.png")));
+
+        player_ = new Player();
+        entities_.add(new Target(50,50,10,3,"images/target.png"));
+        entities_.add(new Enemy(800,300,enemy_medium_,1,1,"images/enemy_health_3.png"));
+        entities_.add(new ChainAP(400,400,false,null,0));
+        entities_.add(new ChainAP(450,400,true,null,0));
+
+    }
 }
