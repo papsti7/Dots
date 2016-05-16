@@ -15,6 +15,8 @@ public abstract class ActionPoint extends GameEntity{
 
     protected ActionPoint next_ = null;
 
+    protected TextObject text_ = null;
+
     public ActionPoint getNext() {
         return next_;
     }
@@ -66,14 +68,19 @@ public abstract class ActionPoint extends GameEntity{
     public void draw(SpriteBatch spriteBatch) {
         Rectangle body = (Rectangle) body_;
         spriteBatch.draw(WorldRenderer.entities_textures.get(texture_), body.x,body.y);
+        /*if (text_ != null)
+        {
+            text_.draw();
+        }*/
+
     }
 
     @Override
     public void drawDebug(ShapeRenderer debugRenderer) {
         Rectangle body = (Rectangle) body_;
         Rectangle rect = new Rectangle(body.getX(), body.getY(),
-                WorldRenderer.entities_textures.get(texture_).getWidth(),
-                WorldRenderer.entities_textures.get(texture_).getHeight());
+                WorldRenderer.entities_textures.get(texture_).getWidth()+1,
+                WorldRenderer.entities_textures.get(texture_).getHeight()+1);
         debugRenderer.setColor(Color.GOLD);
         debugRenderer.rect(rect.getX(), rect.getY(), rect.width, rect.height);
     }
@@ -81,6 +88,7 @@ public abstract class ActionPoint extends GameEntity{
     public void activate()
     {
         active_ = true;
+        texture_ = "images/action_point_active.png";
     }
 
     protected abstract void trigger();

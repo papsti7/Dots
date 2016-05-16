@@ -73,9 +73,6 @@ public class WorldRenderer {
             drawEntities();
             drawPlayer();
             drawText();
-
-
-
         spriteBatch_.end();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -86,7 +83,7 @@ public class WorldRenderer {
         else
             shapeRenderer.setColor(new Color(Color.RED));
 
-        if(GameScreen.is_touched == true)
+        if(GameScreen.is_touched)
         {
             float new_radius = world_.getPlayer_().surrounding_.radius * 1.5f;
             shapeRenderer.circle(world_.getPlayer_().surrounding_.x, world_.getPlayer_().surrounding_.y,new_radius);
@@ -99,7 +96,7 @@ public class WorldRenderer {
 
         shapeRenderer.end();
 
-        if(debug_ == true)
+        if(debug_)
             drawDebug();
 
 

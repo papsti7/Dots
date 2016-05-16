@@ -1,6 +1,7 @@
 package com.sewm.defaultteam;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.utils.random.ConstantDoubleDistribution;
 import com.badlogic.gdx.graphics.Color;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -83,8 +84,18 @@ public class Enemy extends GameEntity {
        Rectangle rect_body = (Rectangle)body_;
         Vector2 direction = rect_body.getPosition(new Vector2());
         //get direction to target(player)
-        direction.x = target_pos_.x - direction.x;
-        direction.y = target_pos_.y - direction.y;
+        if (Constants.random.nextDouble() > 0.97)
+        {
+            System.out.println("Random behavior");
+            direction.x = Constants.random.nextFloat() - direction.x;
+            direction.y = Constants.random.nextFloat() - direction.y;
+        }
+        else
+        {
+            direction.x = target_pos_.x - direction.x;
+            direction.y = target_pos_.y - direction.y;
+        }
+
         //calculate unit vector to just get the direction with length 1
         direction = Utils.getUnitVector(direction);
         //set length from diretion to speed
@@ -111,7 +122,7 @@ public class Enemy extends GameEntity {
 
     @Override
     protected void onContact() {
-        if(!StartPoint.immortal)
+        if(!Constants.immortal)
         {
             World.player_.decreaseHealth(Gdx.graphics.getDeltaTime());
         }

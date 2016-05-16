@@ -53,11 +53,10 @@ public class Player {
     }
 
     public Rectangle getRect(){
-        Rectangle rect = new Rectangle(surrounding_.x - surrounding_.radius,
+       return new Rectangle(surrounding_.x - surrounding_.radius,
                                        surrounding_.y - surrounding_.radius,
                                        surrounding_.radius * 2,
                                        surrounding_.radius * 2);
-        return rect;
     }
 
 
