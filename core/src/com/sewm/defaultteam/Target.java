@@ -88,7 +88,11 @@ public class Target extends GameEntity {
 
     @Override
     public void kill() {
-
+        health_ = 0;
+        alive_ = false;
+        System.out.println("Target is dead");
+        GameScreen.worldController_.updateScore(points_on_death_);
+        GameScreen.worldController_.world_.decreaseTargetCount();
     }
 
     public void decreaseHealth(float value){
@@ -106,10 +110,7 @@ public class Target extends GameEntity {
         }
         else
         {
-            health_ = 0;
-            alive_ = false;
-            System.out.println("Target is dead");
-            GameScreen.worldController_.updateScore(points_on_death_);
+            kill();
         }
     }
 

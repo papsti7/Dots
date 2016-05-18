@@ -1,9 +1,12 @@
 package com.sewm.defaultteam;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.ChainShape;
+import com.badlogic.gdx.utils.BufferUtils;
+import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,6 +21,7 @@ public class World {
     public EnemyAttribute enemy_medium_ = new EnemyAttribute(8, 2.f, 13, 2);
     public EnemyAttribute enemy_hard_ = new EnemyAttribute(13, 3.f, 8, 3);
     ArrayList<GameEntity> entities_;
+    int target_count_;
 
 
     int width_;
@@ -92,6 +96,7 @@ public class World {
 
         player_ = new Player();
         entities_.add(new Target(50,50,10,3,"images/target.png"));
+        target_count_++;
         entities_.add(new Enemy(800,300,enemy_easy_,1,1,"images/enemy_health_3.png"));
         ChainAP f1 = new ChainAP(400,400,true,0);
         ChainAP f2 = new ChainAP(500,450,false,0);
@@ -108,5 +113,23 @@ public class World {
 
 
 
+    }
+
+    public void decreaseTargetCount() {
+        if(target_count_ > 1)
+        {
+            target_count_--;
+        }
+        else
+        {
+            target_count_ = 0;
+            byte[] pixels = ScreenUtils.getFrameBufferPixels(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), true);
+
+            Pixmap pixmap = new Pixmap(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), Pixmap.Format.RGBA8888);
+            BufferUtils.copy(pixels, 0, pixmap.getPixels(), pixels.length);
+            WinScreen winscreen = new WinScreen();
+            winscreen.background_ = new Texture(pixmap);
+            StartPoint.startPoint_.setScreen(winscreen);
+        }
     }
 }
