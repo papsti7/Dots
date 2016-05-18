@@ -11,7 +11,7 @@ import java.util.Random;
  * Created by Lisa on 27.04.2016.
  */
 public class Utils {
-    public static Random random_ = new Random(System.currentTimeMillis());
+    public static final Random random_ = new Random(System.currentTimeMillis());
     public static Vector2 getUnitVector(Vector2 vec){
         float length = vec.len();
         vec.x /= length;

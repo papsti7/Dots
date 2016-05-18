@@ -82,12 +82,12 @@ public class Enemy extends GameEntity {
     @Override
     public void updatePosition(){
        Rectangle rect_body = (Rectangle)body_;
-        Vector2 direction = rect_body.getPosition(new Vector2());
+       Vector2 direction = rect_body.getPosition(new Vector2());
         //get direction to target(player)
-        if (Constants.random.nextDouble() > 1.97)
+        if (Utils.random_.nextDouble() > 1.97)
         {
-            direction.x = Constants.random.nextFloat() - direction.x;
-            direction.y = Constants.random.nextFloat() - direction.y;
+            direction.x = Utils.random_.nextFloat() - direction.x;
+            direction.y = Utils.random_.nextFloat() - direction.y;
         }
         else
         {

@@ -95,7 +95,7 @@ public class World {
         WorldRenderer.entities_textures.put("images/action_point_active.png", new Texture(Gdx.files.internal("images/action_point_active.png")));
 
         player_ = new Player();
-        entities_.add(new Target(50,50,10,3,"images/target.png"));
+        entities_.add(new Target(110,150,10,3,"images/target.png"));
         target_count_++;
         entities_.add(new Enemy(800,300,enemy_easy_,1,1,"images/enemy_health_3.png"));
         ChainAP f1 = new ChainAP(400,400,true,0);

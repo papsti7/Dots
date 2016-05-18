@@ -74,14 +74,15 @@ public class Target extends GameEntity {
     @Override
     public void draw(SpriteBatch spriteBatch) {
         Circle circle = (Circle) body_;
-        spriteBatch.draw(WorldRenderer.entities_textures.get(texture_),circle.x,circle.y);
+        Texture texture = WorldRenderer.entities_textures.get(texture_);
+        spriteBatch.draw(texture,circle.x - texture.getWidth() / 2.f,circle.y - texture.getHeight() / 2.f);
     }
 
     @Override
     public void drawDebug(ShapeRenderer debugRenderer) {
         Circle body = (Circle) body_;
         Texture texture = WorldRenderer.entities_textures.get(texture_);
-        Circle circle = new Circle(body.x + texture.getWidth() / 2, body.y +texture.getHeight()/2, texture.getWidth()/2 + 10.f);
+        Circle circle = new Circle(body.x, body.y, body.radius * 4.f);
         debugRenderer.setColor(new Color(Color.BROWN));
         debugRenderer.circle(circle.x, circle.y,circle.radius);
     }

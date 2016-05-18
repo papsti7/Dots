@@ -8,7 +8,6 @@ import java.util.Random;
  * Created by Max on 11/05/2016.
  */
 public class Constants {
-    public static final Random random = new Random(System.currentTimeMillis());
     public static final boolean no_parse = true;
     public static final boolean debug = true;
     public static final boolean immortal = true;
