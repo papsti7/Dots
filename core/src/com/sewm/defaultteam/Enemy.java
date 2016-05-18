@@ -84,9 +84,8 @@ public class Enemy extends GameEntity {
        Rectangle rect_body = (Rectangle)body_;
         Vector2 direction = rect_body.getPosition(new Vector2());
         //get direction to target(player)
-        if (Constants.random.nextDouble() > 0.97)
+        if (Constants.random.nextDouble() > 1.97)
         {
-            System.out.println("Random behavior");
             direction.x = Constants.random.nextFloat() - direction.x;
             direction.y = Constants.random.nextFloat() - direction.y;
         }
@@ -129,6 +128,30 @@ public class Enemy extends GameEntity {
     }
 
     @Override
+    public void decreaseHealth(float value) {
+
+        if (value < health_)
+        {
+            float health_old = health_;
+            health_-= value;
+
+            if (Math.ceil(health_old) > Math.ceil(health_))
+            {
+                GameScreen.worldController_.updateScore(points_);
+                //Todo: update Texture
+            }
+
+        }
+        else
+        {
+            health_ = 0;
+            alive_ = false;
+            System.out.println("Enemy is dead");
+            GameScreen.worldController_.updateScore(points_on_death_);
+        }
+    }
+
+    @Override
     public void draw(SpriteBatch spriteBatch) {
         Rectangle enemy_body = (Rectangle) body_;
         spriteBatch.draw(WorldRenderer.entities_textures.get(texture_), enemy_body.getX(), enemy_body.y);
@@ -151,6 +174,8 @@ public class Enemy extends GameEntity {
     public void kill() {
 
     }
+
+
 
 
 }

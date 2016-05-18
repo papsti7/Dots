@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class ChainAP extends ActionPoint {
 
-    public ChainAP(int x, int y, boolean active, ActionPoint next, int number)
+    public ChainAP(int x, int y, boolean active, int number)
     {
         if (active)
         {
@@ -21,16 +21,22 @@ public class ChainAP extends ActionPoint {
         }
 
         body_ = new Rectangle(x, y, Constants.action_point_width, Constants.action_point_height);
-        next_ = next;
         text_ = new TextObject(WorldRenderer.font_small_,WorldRenderer.spriteBatch_,x,y, "" + number);
     }
     @Override
     protected void trigger() {
+        for (GameEntity entity : GameScreen.worldController_.entities_){
+            entity.decreaseHealth(1.f);
+        }
+        first_.kill();
 
     }
 
     @Override
     public void kill() {
-
+        setAlive_(false);
+        assert next_ != null;
+        if(next_ != this)
+            next_.kill();
     }
 }

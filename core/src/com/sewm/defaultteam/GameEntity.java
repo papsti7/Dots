@@ -104,6 +104,7 @@ public abstract class GameEntity {
     protected abstract void updateTarget(Vector2 target_pos);
     protected abstract void updatePosition();
     protected abstract void onContact();
+    public abstract void decreaseHealth(float value);
     public abstract void draw(SpriteBatch spriteBatch);
     public abstract void drawDebug(ShapeRenderer debugRenderer);
     public abstract void kill();
