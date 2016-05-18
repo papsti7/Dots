@@ -10,10 +10,10 @@ public class EnemyAttribute {
     public int inertia_;
     public int difficulty_ ;
 
-    EnemyAttribute(int sb, float h, int i, int d){
-        speed_base_ = sb;
-        health_ = h;
-        inertia_ = i;
-        difficulty_ = d;
+    EnemyAttribute(int speed_base, float health, int inertia, int difficulty){
+        speed_base_ = speed_base;
+        health_ = health;
+        inertia_ = inertia;
+        difficulty_ = difficulty;
     }
 }

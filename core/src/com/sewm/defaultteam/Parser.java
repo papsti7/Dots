@@ -1,12 +1,10 @@
 package com.sewm.defaultteam;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -55,7 +53,8 @@ public class Parser {
             return null;
         }
         Scanner s = new Scanner(line).useDelimiter("[,]");
-        return new Target(s.nextInt(), s.nextInt(), s.nextInt(),s.nextInt(),s.next());
+        //TODO: target consructor now needs an array of textures (strings)
+        return null; //new Target(s.nextInt(), s.nextInt(), s.nextInt(),s.nextInt(),s.next());
     }
 
     public Enemy parseEnemy(World world) throws IOException
@@ -87,7 +86,8 @@ public class Parser {
                 enemy_attribute = world.enemy_easy_;
         }
 
-        return  new Enemy(x, y, enemy_attribute, points, points_on_death, texture);
+        //TODO: Enemy constructor now needs an array of textures (strings)
+        return  null;//new Enemy(x, y, enemy_attribute, points, points_on_death, texture);
     }
 /*  TODO: uncomment when actionpoints are implemented
     public ActionPoint parseActionpoint()

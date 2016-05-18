@@ -1,14 +1,13 @@
 package com.sewm.defaultteam;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ai.utils.random.ConstantDoubleDistribution;
 import com.badlogic.gdx.graphics.Color;
-
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+
+import java.util.ArrayList;
 
 
 /**
@@ -23,34 +22,10 @@ public class Enemy extends GameEntity {
 
 
     private int difficulty_;
-    public Enemy (){
-        body_ = new Rectangle(20.f, 50.f, 20.f ,20.f);
-        speed_base_ = 1;
-        health_ = 3.f;
-        color_ = new Color(Color.GREEN);
-        target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
-        velocity_ = new Vector2(0,0);
-        inertia_ = 1;
-        texture_ = "images/enemy.png";
-        difficulty_ = 1;
-        points_ = 1;
-        points_on_death_ = 3;
-    }
-
-    public Enemy ( Vector2 pos, int speed, int lives, int inertia, int difficulty){
-        body_ = new Rectangle(pos.x, pos.y, 20.f ,20.f);
-        speed_base_ = speed;
-        health_ = lives;
-        color_ = new Color(Color.GREEN);
-        target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
-        velocity_ = new Vector2(0,0);
-        inertia_ = inertia;
-        texture_ = "images/enemy.png";
-        difficulty_ = difficulty;
-    }
 
     public Enemy(Vector2 pos, EnemyAttribute difficulty, int points, int points_on_death){
-        texture_ = "images/enemy.png";
+        texture_ = null;
+        texture_array_ = new ArrayList<String>();
         body_ = new Rectangle(pos.x, pos.y, Constants.enemy_width, Constants.enemy_height);
         speed_base_ = difficulty.speed_base_;
         health_ = difficulty.health_;
@@ -63,10 +38,11 @@ public class Enemy extends GameEntity {
         points_on_death_ = points_on_death;
     }
 
-    public Enemy(int x, int y, EnemyAttribute difficulty, int points, int points_on_death, String texture)
+    public Enemy(int x, int y, EnemyAttribute difficulty, int points, int points_on_death, ArrayList<String> textures)
     {
         this(new Vector2(x, y), difficulty, points, points_on_death);
-        texture_ = texture;
+        texture_array_ = new ArrayList<String>(textures);
+        texture_ = texture_array_.get(2);
     }
 
     @Override
@@ -139,6 +115,7 @@ public class Enemy extends GameEntity {
             {
                 GameScreen.worldController_.updateScore(points_);
                 //Todo: update Texture
+                texture_ = texture_array_.get((int)Math.ceil(health_) - 1);
             }
 
         }

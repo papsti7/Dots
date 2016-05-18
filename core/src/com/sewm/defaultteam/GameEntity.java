@@ -1,11 +1,12 @@
 package com.sewm.defaultteam;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
+
+import java.util.ArrayList;
 
 /**
  * Created by Lisa on 27.04.2016.
@@ -100,6 +101,7 @@ public abstract class GameEntity {
 
 
     protected String texture_;
+    protected ArrayList<String> texture_array_;
 
     protected abstract void updateTarget(Vector2 target_pos);
     protected abstract void updatePosition();

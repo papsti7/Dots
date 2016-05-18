@@ -1,15 +1,15 @@
 package com.sewm.defaultteam;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 
-import com.badlogic.gdx.graphics.Color;
+import java.util.ArrayList;
 
 
 /**
@@ -26,17 +26,19 @@ public class Target extends GameEntity {
         target_pos_ = new Vector2(0,0);
         velocity_ = new Vector2(0,0);
         inertia_ = 0;
-        texture_ = "images/target.png";
+        texture_ = null;
+        texture_array_ = new ArrayList<String>();
         points_ = 1;
         points_on_death_ = 3;
     }
 
-    public Target(int x, int y, int radius, int health, String texture) {
+    public Target(int x, int y, int radius, int health, ArrayList<String> textures) {
         this();
         //radius not used yet
         body_ = new Circle((float) x, (float) y, Gdx.graphics.getWidth() / 80.f);
         health_ = health;
-        texture_ = texture;
+        texture_array_ = new ArrayList<String>(textures);
+        texture_ = texture_array_.get(2);
     }
 
     @Override
@@ -100,6 +102,7 @@ public class Target extends GameEntity {
             if (Math.ceil(health_old) > Math.ceil(health_))
             {
                 GameScreen.worldController_.updateScore(points_);
+                texture_ = texture_array_.get((int)Math.ceil(health_) - 1);
                 jump();
             }
 
