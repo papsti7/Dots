@@ -66,43 +66,8 @@ public class Target extends GameEntity {
         float value = Gdx.graphics.getDeltaTime();
         System.out.println("Target contact");
 
-        if (value < health_)
-        {
-            float health_old = health_;
-            health_-= value;
+        decreaseHealth(value);
 
-            if (Math.ceil(health_old) > Math.ceil(health_))
-            {
-                GameScreen.worldController_.updateScore(points_);
-                jump();
-            }
-
-        }
-        else
-        {
-            health_ = 0;
-            alive_ = false;
-            System.out.println("Target is dead");
-            GameScreen.worldController_.updateScore(points_on_death_);
-        }
-
-        /*if(value > health_left_){
-            health_ -= 1.f;
-
-            if(health_ <= 0.f){
-                setAlive_(false);
-                Player.score_ += points_on_death_;
-            }
-            else{
-                health_left_ = 1.f;
-                Vector2 new_pos = new Vector2(Utils.random_.nextInt(Gdx.graphics.getWidth()), Utils.random_.nextInt(Gdx.graphics.getHeight()));
-                ((Circle)body_).setPosition(new_pos);
-                Player.score_ += points_;
-            }
-        }
-        else{
-            health_left_ -= value;
-        }*/
         System.out.println("Health = " + health_);
     }
 
@@ -127,10 +92,25 @@ public class Target extends GameEntity {
     }
 
     public void decreaseHealth(float value){
-        if(health_ > value)
-            health_ -= value;
+        if (value < health_)
+        {
+            float health_old = health_;
+            health_-= value;
+
+            if (Math.ceil(health_old) > Math.ceil(health_))
+            {
+                GameScreen.worldController_.updateScore(points_);
+                jump();
+            }
+
+        }
         else
-            setAlive_(false);
+        {
+            health_ = 0;
+            alive_ = false;
+            System.out.println("Target is dead");
+            GameScreen.worldController_.updateScore(points_on_death_);
+        }
     }
 
     public Rectangle getRect(){

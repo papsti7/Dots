@@ -13,6 +13,12 @@ public abstract class ActionPoint extends GameEntity{
 
     protected boolean active_ = false;
 
+    public void setFirst_(ActionPoint first_) {
+        this.first_ = first_;
+    }
+    public void decreaseHealth(float value){}
+
+    protected ActionPoint first_ = null;
     protected ActionPoint next_ = null;
 
     protected TextObject text_ = null;
@@ -52,6 +58,8 @@ public abstract class ActionPoint extends GameEntity{
                 else
                 {
                     next_.activate();
+                    deactivate();
+
                 }
             }
             catch(NullPointerException e)
@@ -92,4 +100,8 @@ public abstract class ActionPoint extends GameEntity{
     }
 
     protected abstract void trigger();
+    public void deactivate(){
+        active_ = false;
+        texture_ = "images/action_point.png";
+    }
 }
