@@ -1,0 +1,12 @@
+3,images/player_new.png
+;
+50,50,10,3,images/target.png
+;
+1000,300,1,1,1,images/enemy_health_1.png
+100,300,1,1,1,images/enemy_health_1.png
+1000,900,1,1,1,images/enemy_health_1.png
+1200,300,2,1,1,images/enemy_health_2.png
+800,300,3,1,1,images/enemy_health_3.png
+;
+10,10|200,200,10,images/actionpoint.png
+;

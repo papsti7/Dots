@@ -1,0 +1,17 @@
+Get to know libGDX (https://libgdx.badlogicgames.com/)
+
+Get to know the project source code - see App Description and experiment in a test branch.
+
+Draw various entity textures with gimp or similar - format: 100x100, transparent background.
+
+Create tests that ensure the game's requirements are not violated during execution.
+
+Create a meaningful design for storing levels in binary files (level-data files).
+Example binary structure:
+    header - magic number - bytes describing enemy data - magic number - bytes describing target data...
+
+Implement a method to read-in level data-files.
+
+Create an graphic-interface to efficiently create level-data files.
+
+Design various levels: Specify which entity spawns when and where.
