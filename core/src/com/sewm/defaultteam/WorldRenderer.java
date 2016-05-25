@@ -68,7 +68,9 @@ public class WorldRenderer {
     }
 
     public void render(){
+
         spriteBatch_.begin();
+
             drawEntities();
             drawPlayer();
             drawText();
@@ -94,6 +96,17 @@ public class WorldRenderer {
         }
 
         shapeRenderer.end();
+
+        /*Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(1, 1, 0, 0.3f);
+        shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        shapeRenderer.setColor(1, 1, 1, 0f);
+        shapeRenderer.rect(20,20, Gdx.graphics.getWidth() - 20, Gdx.graphics.getHeight() -20);
+        shapeRenderer.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);*/
+
 
         if(debug_)
             drawDebug();
