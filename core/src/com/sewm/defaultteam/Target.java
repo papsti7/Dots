@@ -59,7 +59,10 @@ public class Target extends GameEntity {
 
     private void jump()
     {
-        Vector2 new_pos = new Vector2(Utils.random_.nextInt(Gdx.graphics.getWidth()), Utils.random_.nextInt(Gdx.graphics.getHeight()));
+        WorldRenderer.target_contact_ = 7;
+
+        Vector2 new_pos = new Vector2(Utils.random_.nextInt(Gdx.graphics.getWidth()-64), Utils.random_.nextInt(Gdx.graphics.getHeight()-64));
+        new_pos.add(32,32);
         ((Circle)body_).setPosition(new_pos);
     }
 

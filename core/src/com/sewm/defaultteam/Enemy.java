@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.ArrayList;
-
 
 /**
  * Created by stefan on 22.04.2016.
@@ -70,7 +68,9 @@ public abstract class Enemy extends GameEntity {
         if(!Constants.immortal)
         {
             World.player_.decreaseHealth(Gdx.graphics.getDeltaTime());
+            WorldRenderer.enemy_contact_ = 3;
         }
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.sewm.defaultteam;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -34,6 +35,8 @@ public class WorldRenderer {
     static public BitmapFont font_small_;
     static public BitmapFont font_large_;
     static public String score_text = "Score: ";
+    static public int enemy_contact_;
+    static public int target_contact_;
 
 
     public WorldRenderer(World world, boolean debug){
@@ -68,7 +71,6 @@ public class WorldRenderer {
     }
 
     public void render(){
-
         spriteBatch_.begin();
 
             drawEntities();
@@ -76,6 +78,8 @@ public class WorldRenderer {
             drawText();
         spriteBatch_.end();
 
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         if(world_.getPlayer_().getHealth_() > 2.f)
             shapeRenderer.setColor(new Color(Color.GREEN));
@@ -95,17 +99,31 @@ public class WorldRenderer {
             shapeRenderer.circle(world_.getPlayer_().surrounding_.x, world_.getPlayer_().surrounding_.y, new_radius);
         }
 
-        shapeRenderer.end();
 
-        /*Gdx.gl.glEnable(GL20.GL_BLEND);
-        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(1, 1, 0, 0.3f);
-        shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        shapeRenderer.setColor(1, 1, 1, 0f);
-        shapeRenderer.rect(20,20, Gdx.graphics.getWidth() - 20, Gdx.graphics.getHeight() -20);
+        if (enemy_contact_ > 0) {
+            shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(1, 0, 0, 0.3f);
+            shapeRenderer.rectLine(0,0,Gdx.graphics.getWidth(),0,60);
+            shapeRenderer.rectLine(0,0,0,Gdx.graphics.getHeight(),60);
+            shapeRenderer.rectLine(0,Gdx.graphics.getHeight(),Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),60);
+            shapeRenderer.rectLine(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),Gdx.graphics.getWidth(),0,60);
+            //shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            enemy_contact_--;
+        }
+
+        if (target_contact_ > 0)
+        {
+            shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(0, 1, 0, 0.3f);
+            shapeRenderer.rectLine(0,0,Gdx.graphics.getWidth(),0,60);
+            shapeRenderer.rectLine(0,0,0,Gdx.graphics.getHeight(),60);
+            shapeRenderer.rectLine(0,Gdx.graphics.getHeight(),Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),60);
+            shapeRenderer.rectLine(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),Gdx.graphics.getWidth(),0,60);
+            target_contact_--;
+        }
+
         shapeRenderer.end();
-        Gdx.gl.glDisable(GL20.GL_BLEND);*/
+        Gdx.gl.glDisable(GL20.GL_BLEND);
 
 
         if(debug_)
