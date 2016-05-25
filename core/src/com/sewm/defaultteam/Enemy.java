@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by stefan on 22.04.2016.
  */
-public class Enemy extends GameEntity {
+public abstract class Enemy extends GameEntity {
 
     public static enum Difficulty{
         easy , medium, hard
@@ -21,40 +21,11 @@ public class Enemy extends GameEntity {
 
 
 
-    private int difficulty_;
+    protected int difficulty_;
 
-    public Enemy(Vector2 pos, EnemyAttribute difficulty, int points, int points_on_death){
-        texture_ = null;
-        texture_array_ = new ArrayList<String>();
-        body_ = new Rectangle(pos.x, pos.y, Constants.enemy_width, Constants.enemy_height);
-        speed_base_ = difficulty.speed_base_;
-        health_ = difficulty.health_;
-        color_ = new Color(Color.RED);
-        target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
-        velocity_ = new Vector2(0,0);
-        inertia_ = difficulty.inertia_;
-        difficulty_ = difficulty.difficulty_;
-        points_ = points;
-        points_on_death_ = points_on_death;
-    }
 
-    public Enemy(int x, int y, EnemyAttribute difficulty, int points, int points_on_death, ArrayList<String> textures)
-    {
-        this(new Vector2(x, y), difficulty, points, points_on_death);
-        texture_array_ = new ArrayList<String>(textures);
-        texture_ = texture_array_.get(2);
-    }
 
-    @Override
-    protected void updateTarget(Vector2 target_pos){
-        target_pos_.x = target_pos.x;
-        target_pos_.y = target_pos.y;
-        Rectangle body = (Rectangle) body_;
-        if (body.contains(target_pos))
-        {
-            onContact();
-        }
-    }
+
     @Override
     public void updatePosition(){
        Rectangle rect_body = (Rectangle)body_;

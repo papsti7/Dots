@@ -3,6 +3,7 @@ package com.sewm.defaultteam;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.BufferUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -122,10 +123,13 @@ public class World {
 
         player_ = new Player();
         target_count_++;
-        entities_.add(new Target(50,50,10,3,target_textures));
-        entities_.add(new Enemy(800,300,enemy_easy_,1,1,enemy_easy_textures));
-        entities_.add(new Enemy(800,300,enemy_medium_,2,2,enemy_medium_textures));
-        entities_.add(new Enemy(800,300,enemy_hard_,3,3,enemy_hard_textures));
+        entities_.add(new Target(500,100,10,3,target_textures));
+        entities_.add(new NormalEnemy(800,300,enemy_easy_,1,1,enemy_easy_textures));
+        entities_.add(new NormalEnemy(800,300,enemy_medium_,2,2,enemy_medium_textures));
+        entities_.add(new NormalEnemy(800,300,enemy_hard_,3,3,enemy_hard_textures));
+        entities_.add(new StaticEnemy(enemy_hard_,3,3,enemy_hard_textures, new Vector2(100, 100), new Vector2(500, 600)));
+        entities_.add(new StaticEnemy(enemy_medium_,3,3,enemy_medium_textures, new Vector2(500, 100), new Vector2(500, 600)));
+       // entities_.add(new StaticEnemy(enemy_easy_,3,3,enemy_easy_textures, new Vector2(300, 100), new Vector2(700, 600)));
         ChainAP f1 = new ChainAP(400,400,true,0);
         ChainAP f2 = new ChainAP(500,450,false,0);
         ChainAP f3 = new ChainAP(800,400,false,0);
