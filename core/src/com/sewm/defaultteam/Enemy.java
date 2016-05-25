@@ -93,7 +93,6 @@ public abstract class Enemy extends GameEntity {
         {
             health_ = 0;
             alive_ = false;
-            System.out.println("Enemy is dead");
             GameScreen.worldController_.updateScore(points_on_death_);
         }
     }
@@ -122,7 +121,11 @@ public abstract class Enemy extends GameEntity {
 
     }
 
+    @Override
+    public void onDeath(WorldController worldController)
+    {
 
+    }
 
 
 }

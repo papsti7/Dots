@@ -98,6 +98,11 @@ public class Target extends GameEntity {
         GameScreen.worldController_.world_.decreaseTargetCount();
     }
 
+    @Override
+    public void onDeath(WorldController controller) {
+
+    }
+
     public void decreaseHealth(float value){
         if (value < health_)
         {

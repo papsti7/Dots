@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.utils.BufferUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -20,6 +21,7 @@ public class World {
     public EnemyAttribute enemy_hard_ = new EnemyAttribute(13, 3.f, 8, 3);
     ArrayList<GameEntity> entities_;
     ArrayList<Enemy> inactive_enemies_;
+    ArrayList<ActionPoint> inactive_aps_;
     int target_count_;
     float time_;
 
@@ -43,6 +45,7 @@ public class World {
         player_ = new Player();
         entities_ = new ArrayList<GameEntity>();
         inactive_enemies_ = new ArrayList<Enemy>();
+        inactive_aps_ = new ArrayList<ActionPoint>();
         time_ = 0.f;
 
 
@@ -161,15 +164,27 @@ public class World {
         ChainAP f1 = new ChainAP(400,400,true,0);
         ChainAP f2 = new ChainAP(500,450,false,0);
         ChainAP f3 = new ChainAP(800,400,false,0);
+        ChainAP f4 = new ChainAP(1200,500,true,0);
+        ChainAP f5 = new ChainAP(600,300,false,0);
+        ChainAP f6 = new ChainAP(800,500,false,0);
+        ChainAP f7 = new ChainAP(1000,400,false,0);
         f1.setFirst_(f1);
         f1.setNext(f2);
         f2.setFirst_(f1);
         f2.setNext(f3);
         f3.setFirst_(f1);
         f3.setNext(f3);
-        entities_.add(f1);
-        entities_.add(f2);
-        entities_.add(f3);
+
+        f4.setFirst_(f4);
+        f4.setNext(f5);
+        f5.setFirst_(f4);
+        f5.setNext(f6);
+        f6.setFirst_(f4);
+        f6.setNext(f7);
+        f7.setFirst_(f4);
+        f7.setNext(f7);
+        inactive_aps_.add(f1);
+        inactive_aps_.add(f4);
 
     }
 

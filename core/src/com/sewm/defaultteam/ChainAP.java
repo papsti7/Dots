@@ -25,6 +25,7 @@ public class ChainAP extends ActionPoint {
     }
     @Override
     protected void trigger() {
+
         for (GameEntity entity : GameScreen.worldController_.entities_){
             entity.decreaseHealth(1.f);
         }

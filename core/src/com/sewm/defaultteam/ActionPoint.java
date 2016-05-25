@@ -104,4 +104,14 @@ public abstract class ActionPoint extends GameEntity{
         active_ = false;
         texture_ = "images/action_point.png";
     }
+
+    @Override
+    public void onDeath(WorldController controller)
+    {
+        if (this.equals(first_))
+        {
+            controller.refreshAP();
+
+        }
+    }
 }

@@ -110,6 +110,7 @@ public abstract class GameEntity {
     public abstract void draw(SpriteBatch spriteBatch);
     public abstract void drawDebug(ShapeRenderer debugRenderer);
     public abstract void kill();
+    public abstract void onDeath(WorldController controller);
 
     public final void update(Vector2 target_pos)
     {
