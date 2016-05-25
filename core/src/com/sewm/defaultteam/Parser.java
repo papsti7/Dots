@@ -100,13 +100,38 @@ public class Parser {
 
         return  new Enemy(x, y, enemy_attribute, points, points_on_death, WorldRenderer.entities_texture_strings.get(texture));
     }
-/*  TODO: uncomment when actionpoints are implemented
-    public ActionPoint parseActionpoint()
-    {
-        Actionpoint actionpoint = new Actionpoint();
 
-        return actionpoint;
+    public ArrayList<ActionPoint> parseActionpoints() throws IOException
+    {
+        HashMap<String, ChainAP> actionpoints = new HashMap<String, ChainAP>();
+        ArrayList<ActionPoint> actionpoints_list = new ArrayList<com.sewm.defaultteam.ActionPoint>();
+
+        for (String line = file_.readLine(); line != null; line = file_.readLine()) {
+            if (line.contains(";"))
+                break;
+
+            Scanner s = new Scanner(line).useDelimiter("[,]");
+
+            String ap_name = s.next();
+            String first_ap = s.next();
+            String next_ap = s.next();
+            int x = s.nextInt();
+            int y = s.nextInt();
+            boolean active = s.nextInt() != 0;
+            int number = s.nextInt();
+            String textures = s.next();
+            ChainAP actionpoint = new ChainAP(x, y, active, number, WorldRenderer.entities_texture_strings.get(textures), first_ap, next_ap);
+            actionpoints.put(ap_name, actionpoint);
+            actionpoints_list.add(actionpoint);
+        }
+
+        for (ChainAP chainAP : actionpoints.values()) {
+            chainAP.setFirst_(actionpoints.get(chainAP.first_ap_));
+            chainAP.setNext(actionpoints.get(chainAP.next_ap_));
+        }
+
+        return actionpoints_list;
     }
-*/
+
 }
 

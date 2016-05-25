@@ -54,31 +54,25 @@ public class World {
         return width_;
     }
 
-    public void parseLevelFile(String filename) throws IOException
-    {
-            Parser parser = new Parser(filename);
+    public void parseLevelFile(String filename) throws IOException {
+        Parser parser = new Parser(filename);
 
-            parser.parseTextures();
+        parser.parseTextures();
 
-            player_ = parser.parsePlayer();
+        player_ = parser.parsePlayer();
 
-            Target target;
-            while((target = parser.parseTarget()) != null) {
-                entities_.add(target);
-            }
+        Target target;
+        while ((target = parser.parseTarget()) != null) {
+            entities_.add(target);
+        }
 
-            Enemy enemy;
-            while((enemy = parser.parseEnemy(this)) != null) {
-                entities_.add(enemy);
-            }
+        Enemy enemy;
+        while ((enemy = parser.parseEnemy(this)) != null) {
+            entities_.add(enemy);
+        }
 
-            //TODO: implement Actionpoints
-            /*
-            Actionpoint actionpoint;
-            while((actionpoint = parser.parseActionpoint())) {
-                entities_.add(actionpoint);
-            }
-            */
+
+        entities_.addAll(parser.parseActionpoints());
     }
 
 
@@ -99,6 +93,10 @@ public class World {
         WorldRenderer.entities_textures.put("images/enemy_strong_health_3.png", new Texture(Gdx.files.internal("images/enemy_strong_health_3.png")));
         WorldRenderer.entities_textures.put("images/action_point.png", new Texture(Gdx.files.internal("images/action_point.png")));
         WorldRenderer.entities_textures.put("images/action_point_active.png", new Texture(Gdx.files.internal("images/action_point_active.png")));
+
+        ArrayList<String> action_point_textures = new ArrayList<String>();
+        action_point_textures.add("images/action_point.png");
+        action_point_textures.add("images/action_point_active.png");
 
         ArrayList<String> enemy_easy_textures = new ArrayList<String>();
         enemy_easy_textures.add("images/enemy_health_3.png");
@@ -126,9 +124,9 @@ public class World {
         entities_.add(new Enemy(800,300,enemy_easy_,1,1,enemy_easy_textures));
         entities_.add(new Enemy(800,300,enemy_medium_,2,2,enemy_medium_textures));
         entities_.add(new Enemy(800,300,enemy_hard_,3,3,enemy_hard_textures));
-        ChainAP f1 = new ChainAP(400,400,true,0);
-        ChainAP f2 = new ChainAP(500,450,false,0);
-        ChainAP f3 = new ChainAP(800,400,false,0);
+        ChainAP f1 = new ChainAP(400,400,true,0,action_point_textures,"f1","f2");
+        ChainAP f2 = new ChainAP(500,450,false,0,action_point_textures,"f1","f3");
+        ChainAP f3 = new ChainAP(800,400,false,0,action_point_textures,"f1","f3");
         f1.setFirst_(f1);
         f1.setNext(f2);
         f2.setFirst_(f1);

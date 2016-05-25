@@ -21,6 +21,9 @@ public abstract class ActionPoint extends GameEntity{
     protected ActionPoint first_ = null;
     protected ActionPoint next_ = null;
 
+    protected String texture_active;
+    protected String texture_inactive;
+
     protected TextObject text_ = null;
 
     public ActionPoint getNext() {
@@ -96,12 +99,12 @@ public abstract class ActionPoint extends GameEntity{
     public void activate()
     {
         active_ = true;
-        texture_ = "images/action_point_active.png";
+        texture_ = texture_active;
     }
 
     protected abstract void trigger();
     public void deactivate(){
         active_ = false;
-        texture_ = "images/action_point.png";
+        texture_ = texture_inactive;
     }
 }
