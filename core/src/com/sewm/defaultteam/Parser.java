@@ -2,6 +2,7 @@ package com.sewm.defaultteam;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -69,7 +70,7 @@ public class Parser {
         return new Target(s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt(), WorldRenderer.entities_texture_strings.get(s.next()));
     }
 
-    public Enemy parseEnemy(World world) throws IOException
+    public NormalEnemy parseNormalEnemy(World world) throws IOException
     {
         String line = file_.readLine();
         if (line.contains(";"))
@@ -83,6 +84,7 @@ public class Parser {
         int points = s.nextInt();
         int points_on_death = s.nextInt();
         String texture = s.next();
+        int spawn_time = s.nextInt();
         EnemyAttribute enemy_attribute;
         switch(difficulty) {
             case 0:
@@ -98,7 +100,43 @@ public class Parser {
                 enemy_attribute = world.enemy_easy_;
         }
 
-        return  new Enemy(x, y, enemy_attribute, points, points_on_death, WorldRenderer.entities_texture_strings.get(texture));
+        return  new NormalEnemy(x, y, enemy_attribute, points, points_on_death, WorldRenderer.entities_texture_strings.get(texture), spawn_time);
+    }
+
+    public StaticEnemy parseStaticEnemy(World world) throws IOException
+    {
+        String line = file_.readLine();
+        if (line.contains(";"))
+        {
+            return null;
+        }
+        Scanner s = new Scanner(line).useDelimiter("[,]");
+
+        int difficulty = s.nextInt();
+        int points = s.nextInt();
+        int points_on_death = s.nextInt();
+        String texture = s.next();
+
+        Vector2 start_point = new Vector2(s.nextInt(), s.nextInt());
+        Vector2 end_point = new Vector2(s.nextInt(), s.nextInt());
+        int spawn_time = s.nextInt();
+
+        EnemyAttribute enemy_attribute;
+        switch(difficulty) {
+            case 0:
+                enemy_attribute = world.enemy_easy_;
+                break;
+            case 1:
+                enemy_attribute = world.enemy_medium_;
+                break;
+            case 2:
+                enemy_attribute = world.enemy_hard_;
+                break;
+            default:
+                enemy_attribute = world.enemy_easy_;
+        }
+
+        return  new StaticEnemy(x, y, enemy_attribute, points, points_on_death, WorldRenderer.entities_texture_strings.get(texture), start_point, end_point, spawn_time);
     }
 
     public ArrayList<ActionPoint> parseActionpoints() throws IOException

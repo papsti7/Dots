@@ -8,9 +8,11 @@ enemy_hard_textures,images/enemy_strong_health_3.png,images/enemy_strong_health_
 ;
 50,50,10,3,target_textures
 ;
-800,300,1,1,1,enemy_easy_textures
-800,300,2,2,2,enemy_medium_textures
-800,300,3,3,3,enemy_hard_textures
+800,300,1,1,1,enemy_easy_textures,1
+800,300,2,2,2,enemy_medium_textures,4
+800,300,3,3,3,enemy_hard_textures,7
+;
+3,3,3,enemy_hard_textures,800,300,600,300,1
 ;
 f1,f1,f2,400,400,1,0,action_point_textures
 f2,f1,f3,500,450,0,0,action_point_textures

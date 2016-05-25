@@ -64,10 +64,16 @@ public class World {
         Target target;
         while ((target = parser.parseTarget()) != null) {
             entities_.add(target);
+            target_count_++;
         }
 
-        Enemy enemy;
-        while ((enemy = parser.parseEnemy(this)) != null) {
+        NormalEnemy enemy;
+        while ((enemy = parser.parseNormalEnemy(this)) != null) {
+            entities_.add(enemy);
+        }
+
+        StaticEnemy enemy;
+        while ((enemy = parser.parseStaticEnemy(this)) != null) {
             entities_.add(enemy);
         }
 
