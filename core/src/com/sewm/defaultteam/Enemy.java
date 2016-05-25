@@ -19,8 +19,7 @@ public abstract class Enemy extends GameEntity {
         easy , medium, hard
     }
 
-
-
+    public int spawn_time_;
     protected int difficulty_;
 
 

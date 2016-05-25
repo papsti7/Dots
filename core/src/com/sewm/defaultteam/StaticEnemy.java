@@ -37,9 +37,10 @@ public class StaticEnemy extends Enemy {
         target_pos_ = start_pos;
     }
 
-    public StaticEnemy(EnemyAttribute difficulty, int points, int points_on_death, ArrayList<String> textures, Vector2 start_pos, Vector2 end_pos)
+    public StaticEnemy(EnemyAttribute difficulty, int points, int points_on_death, ArrayList<String> textures, Vector2 start_pos, Vector2 end_pos, int spawn_time)
     {
         this(new Vector2(start_pos.x, start_pos.y), difficulty, points, points_on_death, start_pos, end_pos);
+        spawn_time_ = spawn_time;
         texture_array_ = new ArrayList<String>(textures);
         texture_ = texture_array_.get(2);
     }

@@ -27,9 +27,10 @@ public class NormalEnemy extends Enemy{
         points_on_death_ = points_on_death;
     }
 
-    public NormalEnemy(int x, int y, EnemyAttribute difficulty, int points, int points_on_death, ArrayList<String> textures)
+    public NormalEnemy(int x, int y, EnemyAttribute difficulty, int points, int points_on_death, ArrayList<String> textures, int spawn_time)
     {
         this(new Vector2(x, y), difficulty, points, points_on_death);
+        spawn_time_ = spawn_time;
         texture_array_ = new ArrayList<String>(textures);
         texture_ = texture_array_.get(2);
     }

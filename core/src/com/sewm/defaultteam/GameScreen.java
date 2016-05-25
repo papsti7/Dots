@@ -104,7 +104,7 @@ public class GameScreen implements Screen, InputProcessor {
         }
 
 
-        worldController_.update(position, worldRenderer_);
+        worldController_.update(position);
     }
 
 

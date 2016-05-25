@@ -24,10 +24,19 @@ public class WorldController {
         touchpoint_ = new Vector3();
     }
 
-    public void update(Vector2 new_pos, WorldRenderer worldRenderer){
+    public void update(Vector2 new_pos){
         if (GameScreen.is_touched)
         {
             player_.update(new_pos);
+        }
+        world_.time_ += Gdx.graphics.getDeltaTime();
+        for (Iterator<Enemy> enemy = world_.inactive_enemies_.iterator(); enemy.hasNext();){
+            Enemy current = enemy.next();
+            if((float)(current.spawn_time_) <= world_.time_)
+            {
+                entities_.add(current);
+                enemy.remove();
+            }
         }
         updateEntities();
         cleanUp();
