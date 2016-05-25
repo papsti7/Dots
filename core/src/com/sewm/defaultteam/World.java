@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.utils.BufferUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -164,10 +163,10 @@ public class World {
         ChainAP f1 = new ChainAP(400,400,true,0);
         ChainAP f2 = new ChainAP(500,450,false,0);
         ChainAP f3 = new ChainAP(800,400,false,0);
-        ChainAP f4 = new ChainAP(1200,500,true,0);
+        ChainAP f4 = new ChainAP(700,500,true,0);
         ChainAP f5 = new ChainAP(600,300,false,0);
         ChainAP f6 = new ChainAP(800,500,false,0);
-        ChainAP f7 = new ChainAP(1000,400,false,0);
+        ChainAP f7 = new ChainAP(750,400,false,0);
         f1.setFirst_(f1);
         f1.setNext(f2);
         f2.setFirst_(f1);
