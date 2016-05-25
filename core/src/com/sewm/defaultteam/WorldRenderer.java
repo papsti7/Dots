@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by stefan on 22.04.2016.
@@ -28,6 +29,8 @@ public class WorldRenderer {
     static public SpriteBatch spriteBatch_;
 
     static public java.util.Map<String, Texture> entities_textures;
+    static public java.util.Map<String, ArrayList<String>> entities_texture_strings;
+
     java.util.Map<Integer, Texture> player_health_map;
     boolean debug_;
     static public ArrayList<TextObject> texts_;
@@ -49,6 +52,8 @@ public class WorldRenderer {
         spriteBatch_ = new SpriteBatch();
 
         entities_textures = new HashMap<String , Texture>();
+        entities_texture_strings = new HashMap<String, ArrayList<String>>();
+
         loadTextures();
         shapeRenderer.setAutoShapeType(true);
         texts_.add(new TextObject(font_small_,spriteBatch_, Gdx.graphics.getWidth() * 0.05f, Gdx.graphics.getHeight() * 0.95f, score_text + "0"));

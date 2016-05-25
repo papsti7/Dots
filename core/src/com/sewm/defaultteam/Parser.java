@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 
@@ -26,11 +28,19 @@ public class Parser {
     {
         for (String line = file_.readLine(); line != null; line = file_.readLine())
         {
-            if(line.contains(";"))
-                continue;
+            if (line.contains(";"))
+                return;
+
             String[] tokens = line.split(",");
-            String texture_filename = tokens[tokens.length - 1];
-            WorldRenderer.entities_textures.put(texture_filename, new Texture(Gdx.files.internal(texture_filename)));
+            ArrayList<String> textures = new ArrayList<String>();
+
+            for(int i = 1; i < tokens.length; i++) {
+                String texture_filename = tokens[i];
+                WorldRenderer.entities_textures.put(texture_filename, new Texture(Gdx.files.internal(texture_filename)));
+                textures.add(texture_filename);
+            }
+            WorldRenderer.entities_texture_strings.put(tokens[0], textures);
+
         }
 
         file_.close();
@@ -40,7 +50,10 @@ public class Parser {
     public Player parsePlayer() throws IOException
     {
         Scanner s = new Scanner(file_.readLine()).useDelimiter("[;,\\n]");
-        Player player = new Player(s.nextInt(), s.next());
+        int health = s.nextInt();
+        String texture_filename = s.next();
+        Player player = new Player(health, texture_filename);
+        WorldRenderer.entities_textures.put(texture_filename, new Texture(Gdx.files.internal(texture_filename)));
         file_.readLine();
         return player;
     }
@@ -53,8 +66,7 @@ public class Parser {
             return null;
         }
         Scanner s = new Scanner(line).useDelimiter("[,]");
-        //TODO: target consructor now needs an array of textures (strings)
-        return null; //new Target(s.nextInt(), s.nextInt(), s.nextInt(),s.nextInt(),s.next());
+        return new Target(s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt(), WorldRenderer.entities_texture_strings.get(s.next()));
     }
 
     public Enemy parseEnemy(World world) throws IOException
@@ -86,8 +98,7 @@ public class Parser {
                 enemy_attribute = world.enemy_easy_;
         }
 
-        //TODO: Enemy constructor now needs an array of textures (strings)
-        return  null;//new Enemy(x, y, enemy_attribute, points, points_on_death, texture);
+        return  new Enemy(x, y, enemy_attribute, points, points_on_death, WorldRenderer.entities_texture_strings.get(texture));
     }
 /*  TODO: uncomment when actionpoints are implemented
     public ActionPoint parseActionpoint()

@@ -8,7 +8,7 @@ import java.util.Random;
  * Created by Max on 11/05/2016.
  */
 public class Constants {
-    public static final boolean no_parse = true;
+    public static final boolean no_parse = false;
     public static final boolean debug = false;
     public static final boolean immortal = false;
     public static final float player_spawn_x = Gdx.graphics.getWidth()/2.f + Gdx.graphics.getWidth() / 40.f;
