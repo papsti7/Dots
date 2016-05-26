@@ -2,6 +2,7 @@ package com.sewm.defaultteam;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -67,7 +68,7 @@ public abstract class Enemy extends GameEntity {
     protected void onContact() {
         if(!Constants.immortal)
         {
-            World.player_.decreaseHealth(Gdx.graphics.getDeltaTime());
+            World.player_.decreaseHealth(Gdx.graphics.getDeltaTime() * Constants.enemy_damage);
             WorldRenderer.enemy_contact_ = 3;
         }
 
@@ -100,13 +101,15 @@ public abstract class Enemy extends GameEntity {
     @Override
     public void draw(SpriteBatch spriteBatch) {
         Rectangle enemy_body = (Rectangle) body_;
-        spriteBatch.draw(WorldRenderer.entities_textures.get(texture_), enemy_body.getX(), enemy_body.y);
+        Texture texture = WorldRenderer.entities_textures.get(texture_);
+        spriteBatch.draw(texture, enemy_body.getX() - texture.getWidth() / 2.f, enemy_body.y - texture.getHeight() / 2.f);
     }
 
     @Override
     public void drawDebug(ShapeRenderer debugRenderer) {
         Rectangle enemy_body = (Rectangle) body_;
-        Rectangle rect = new Rectangle(enemy_body.getX(), enemy_body.getY(), WorldRenderer.entities_textures.get(texture_).getWidth(), WorldRenderer.entities_textures.get(texture_).getHeight());
+        Texture texture = WorldRenderer.entities_textures.get(texture_);
+        Rectangle rect = new Rectangle(enemy_body.getX() - texture.getWidth() / 2.f, enemy_body.getY() - texture.getHeight() / 2.f, texture.getWidth(), texture.getHeight());
         if(this.difficulty_ == 1)
             debugRenderer.setColor(new Color(Color.BLUE));
         else if(this.difficulty_ == 2)

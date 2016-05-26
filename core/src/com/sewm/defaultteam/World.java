@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class World {
     static public Player player_;
     public EnemyAttribute enemy_easy_ = new EnemyAttribute(1, 3.f, 4, 1);
-    public EnemyAttribute enemy_medium_ = new EnemyAttribute(8, 3.f, 13, 2);
-    public EnemyAttribute enemy_hard_ = new EnemyAttribute(13, 3.f, 8, 3);
+    public EnemyAttribute enemy_medium_ = new EnemyAttribute(8, 3.f, 6, 2);
+    public EnemyAttribute enemy_hard_ = new EnemyAttribute(13, 3.f, 5, 3);
     ArrayList<GameEntity> entities_;
     ArrayList<Enemy> inactive_enemies_;
     ArrayList<ActionPoint> inactive_aps_;

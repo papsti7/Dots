@@ -43,6 +43,7 @@ public class Target extends GameEntity {
 
     @Override
     protected void updateTarget(Vector2 target_pos) {
+        target_pos_ = target_pos;
         Circle body = new Circle((Circle) body_);
         body.radius *= 4f;
         //System.out.println("Radius is: " + body.radius);
@@ -60,20 +61,24 @@ public class Target extends GameEntity {
     private void jump()
     {
         WorldRenderer.target_contact_ = 7;
+        Vector2 new_pos;
+        Circle circle = new Circle(target_pos_.x,target_pos_.y,((Circle) body_).radius * 5);
+        do
+        {
+            new_pos = new Vector2(Utils.random_.nextInt(Gdx.graphics.getWidth()-64), Utils.random_.nextInt(Gdx.graphics.getHeight()-64));
+            new_pos.add(32,32);
+        }
+        while (circle.contains(new_pos));
 
-        Vector2 new_pos = new Vector2(Utils.random_.nextInt(Gdx.graphics.getWidth()-64), Utils.random_.nextInt(Gdx.graphics.getHeight()-64));
-        new_pos.add(32,32);
         ((Circle)body_).setPosition(new_pos);
     }
 
     @Override
     protected void onContact() {
-        float value = Gdx.graphics.getDeltaTime();
-        System.out.println("Target contact");
+        float value = Gdx.graphics.getDeltaTime() * Constants.player_damage;
 
         decreaseHealth(value);
 
-        System.out.println("Health = " + health_);
     }
 
     @Override
@@ -96,7 +101,6 @@ public class Target extends GameEntity {
     public void kill() {
         health_ = 0;
         alive_ = false;
-        System.out.println("Target is dead");
         GameScreen.worldController_.updateScore(points_on_death_);
         GameScreen.worldController_.world_.decreaseTargetCount();
     }
