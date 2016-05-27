@@ -151,7 +151,7 @@ public class World {
         target_textures.add("images/target_health_3.png");
 
         player_ = new Player();
-        target_count_++;
+        target_count_ = 12;
         entities_.add(new Target(500,100,10,3,target_textures));
 
         inactive_enemies_.add(new NormalEnemy(800,300,enemy_easy_,1,1,enemy_easy_textures, 1));

@@ -3,6 +3,8 @@ package com.sewm.defaultteam;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
+
 /**
  * Created by Max on 11/05/2016.
  */
@@ -32,6 +34,7 @@ public class ChainAP extends ActionPoint {
         first_.kill();
 
     }
+
 
     @Override
     public void kill() {

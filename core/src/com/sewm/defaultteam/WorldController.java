@@ -1,7 +1,6 @@
 package com.sewm.defaultteam;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -15,18 +14,22 @@ public class WorldController {
     World world_;
     Player player_;
     ArrayList<GameEntity> entities_;
-    Vector3 touchpoint_;
+    Vector3 touch_point_;
     private float ap_life_time_;
     private float ap_spawn_interval_;
     private boolean ap_present_;
+    private float target_spawn_interval_;
     private ActionPoint first_ = null;
+    ActionPointFactory action_point_factory_;
 
     public WorldController(World world){
         world_ = world;
         player_ = world_.getPlayer_();
         entities_ = world_.getEntities_();
-        touchpoint_ = new Vector3();
+        touch_point_ = new Vector3();
+        action_point_factory_ = new ActionPointFactory();
         spawnAP();
+
 
     }
 
@@ -45,6 +48,23 @@ public class WorldController {
                 enemy.remove();
             }
         }
+
+        checkActionPoints();
+
+
+
+
+
+        updateEntities();
+        cleanUp();
+        /*System.out.println("Present? " + ap_present_);
+        System.out.println("Interval: " + ap_spawn_interval_);
+        System.out.println("Life time:" + ap_life_time_);
+        */
+    }
+
+    public void checkActionPoints()
+    {
         float time = Gdx.graphics.getDeltaTime();
         if (first_ != null)
         {
@@ -72,14 +92,9 @@ public class WorldController {
                 }
             }
         }
-
-        updateEntities();
-        cleanUp();
-        /*System.out.println("Present? " + ap_present_);
-        System.out.println("Interval: " + ap_spawn_interval_);
-        System.out.println("Life time:" + ap_life_time_);
-        */
     }
+
+
 
     public void updateEntities() {
         for (GameEntity entity : entities_)
@@ -126,6 +141,10 @@ public class WorldController {
             }
             world_.entities_.add(current);
 
+            if (Constants.infinite_action_points)
+            {
+                world_.inactive_aps_.add(action_point_factory_.create("ChainAP",new ArrayList<Vector2>(),Utils.random_.nextInt(3)+2));
+            }
 
         }
         else
@@ -135,6 +154,7 @@ public class WorldController {
 
 
     }
+
 
 
     public void updateScore(int delta)

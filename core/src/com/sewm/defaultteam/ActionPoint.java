@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
+
 /**
  * Created by Max on 11/05/2016.
  */
@@ -111,7 +113,8 @@ public abstract class ActionPoint extends GameEntity{
         if (this.equals(first_))
         {
             controller.refreshAP();
-
         }
     }
+
+
 }

@@ -125,7 +125,6 @@ public class WorldRenderer {
         shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
 
-
         if(debug_)
             drawDebug();
 
