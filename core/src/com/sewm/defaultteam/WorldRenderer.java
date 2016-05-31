@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,10 +30,10 @@ public class WorldRenderer {
     ShapeRenderer shapeRenderer = new ShapeRenderer();
     static public SpriteBatch spriteBatch_;
 
-    static public java.util.Map<String, Texture> entities_textures;
-    static public java.util.Map<String, ArrayList<String>> entities_texture_strings;
+    static public Map<String, Texture> entities_textures;
+    static public Map<String, List<String>> entities_texture_strings;
 
-    java.util.Map<Integer, Texture> player_health_map;
+    Map<Integer, Texture> player_health_map;
     boolean debug_;
     static public ArrayList<TextObject> texts_;
     static public BitmapFont font_small_;
@@ -55,7 +56,7 @@ public class WorldRenderer {
         spriteBatch_ = new SpriteBatch();
 
         entities_textures = new HashMap<String , Texture>();
-        entities_texture_strings = new HashMap<String, ArrayList<String>>();
+        entities_texture_strings = new HashMap<String, List<String>>();
 
         loadTextures();
         shapeRenderer.setAutoShapeType(true);
@@ -86,9 +87,9 @@ public class WorldRenderer {
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        if(world_.getPlayer_().getHealth_() > 2.f)
+        if(world_.getPlayer_().getHealth() > 2.f)
             shapeRenderer.setColor(new Color(Color.GREEN));
-        else if(world_.getPlayer_().getHealth_() > 1.f && world_.getPlayer_().getHealth_() <= 2.f)
+        else if(world_.getPlayer_().getHealth() > 1.f && world_.getPlayer_().getHealth() <= 2.f)
             shapeRenderer.setColor(new Color(Color.ORANGE));
         else
             shapeRenderer.setColor(new Color(Color.RED));
@@ -175,11 +176,11 @@ public class WorldRenderer {
         Vector2 player_pos = new Vector2(world_.getPlayer_().surrounding_.x - texture.getWidth() / 2.f, world_.getPlayer_().surrounding_.y - texture.getHeight() / 2.f);
         spriteBatch_.draw(texture, player_pos.x, player_pos.y);
 
-        if(world_.getPlayer_().getHealth_() > 2.f)
+        if(world_.getPlayer_().getHealth() > 2.f)
             spriteBatch_.draw(player_health_map.get(3), player_pos.x, player_pos.y);
-        else if(world_.getPlayer_().getHealth_() > 1.f && world_.getPlayer_().getHealth_() <= 2.f)
+        else if(world_.getPlayer_().getHealth() > 1.f && world_.getPlayer_().getHealth() <= 2.f)
             spriteBatch_.draw(player_health_map.get(2), player_pos.x, player_pos.y);
-        else if(world_.getPlayer_().getHealth_() <= 1.f && world_.getPlayer_().getHealth_() > 0.f)
+        else if(world_.getPlayer_().getHealth() <= 1.f && world_.getPlayer_().getHealth() > 0.f)
             spriteBatch_.draw(player_health_map.get(1), player_pos.x, player_pos.y);
         else{
             byte[] pixels = ScreenUtils.getFrameBufferPixels(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), true);

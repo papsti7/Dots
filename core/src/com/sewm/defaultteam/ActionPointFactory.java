@@ -19,11 +19,6 @@ public class ActionPointFactory {
         {
             return null;
         }
-
-        ArrayList<String> action_point_textures = new ArrayList<String>();
-        action_point_textures.add("images/action_point.png");
-        action_point_textures.add("images/action_point_active.png");
-
         if (type.equals("ChainAP"))
         {
             ArrayList<ChainAP> chainAPs = new ArrayList<ChainAP>();
@@ -34,16 +29,16 @@ public class ActionPointFactory {
                 {
                     if (element == 0)
                     {
-                        ChainAP first = new ChainAP((int)positions.get(element).x,(int)positions.get(element).y,true,0,action_point_textures,"chainAP0","chainAP1");
-                        first.setFirst_(first);
+                        ChainAP first = new ChainAP((int)positions.get(element).x,(int)positions.get(element).y,true,0);
+                        first.setFirst(first);
                         chainAPs.add(first);
 
                     }
 
                     else
                     {
-                        ChainAP current = new ChainAP((int)positions.get(element).x,(int)positions.get(element).y,false,0,action_point_textures,"chainAP0","chainAP"+element);
-                        current.setFirst_(chainAPs.get(0));
+                        ChainAP current = new ChainAP((int)positions.get(element).x,(int)positions.get(element).y,false,0);
+                        current.setFirst(chainAPs.get(0));
                         chainAPs.get(element-1).setNext(current);
 
                         if (element + 1 == number)
@@ -68,14 +63,14 @@ public class ActionPointFactory {
 
                     if (element == 0)
                     {
-                        ChainAP first = new ChainAP((int)new_pos.x,(int)new_pos.y,true,0,action_point_textures,"chainAP0","chainAP1");
-                        first.setFirst_(first);
+                        ChainAP first = new ChainAP((int)new_pos.x,(int)new_pos.y,true,0);
+                        first.setFirst(first);
                         chainAPs.add(first);
                     }
                     else
                     {
-                        ChainAP current = new ChainAP((int)new_pos.x,(int)new_pos.y,false,0,action_point_textures,"chainAP0","chainAP"+element);
-                        current.setFirst_(chainAPs.get(0));
+                        ChainAP current = new ChainAP((int)new_pos.x,(int)new_pos.y,false,0);
+                        current.setFirst(chainAPs.get(0));
                         chainAPs.get(element - 1).setNext(current);
 
                         if (element + 1 == number)

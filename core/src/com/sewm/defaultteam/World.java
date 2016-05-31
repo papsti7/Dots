@@ -9,15 +9,16 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by stefan on 22.04.2016.
  */
 public class World {
     static public Player player_;
-    public EnemyAttribute enemy_easy_ = new EnemyAttribute(1, 3.f, 4, 1);
-    public EnemyAttribute enemy_medium_ = new EnemyAttribute(8, 3.f, 6, 2);
-    public EnemyAttribute enemy_hard_ = new EnemyAttribute(13, 3.f, 5, 3);
+    static public EnemyAttribute enemy_easy_ = new EnemyAttribute(1, 3.f, 4, 1);
+    static public EnemyAttribute enemy_medium_ = new EnemyAttribute(8, 3.f, 6, 2);
+    static public EnemyAttribute enemy_hard_ = new EnemyAttribute(13, 3.f, 5, 3);
     ArrayList<GameEntity> entities_;
     ArrayList<Enemy> inactive_enemies_;
     ArrayList<ActionPoint> inactive_aps_;
@@ -61,22 +62,12 @@ public class World {
 
         player_ = parser.parsePlayer();
 
-        Target target;
-        while ((target = parser.parseTarget()) != null) {
-            entities_.add(target);
-            target_count_++;
-        }
+        List<Target> targets = parser.parseTargets();
+        entities_.addAll(targets);
+        target_count_ += targets.size();
 
-        Enemy enemy;
-        while ((enemy = parser.parseNormalEnemy(this)) != null) {
-            entities_.add(enemy);
-        }
-
-        while ((enemy = parser.parseStaticEnemy(this)) != null) {
-            entities_.add(enemy);
-        }
-
-        entities_.addAll(parser.parseActionpoints());
+        inactive_enemies_.addAll(parser.parseEnemies());
+        inactive_aps_.addAll(parser.parseActionPoints());
     }
 
 
@@ -97,10 +88,6 @@ public class World {
         WorldRenderer.entities_textures.put("images/enemy_strong_health_3.png", new Texture(Gdx.files.internal("images/enemy_strong_health_3.png")));
         WorldRenderer.entities_textures.put("images/action_point.png", new Texture(Gdx.files.internal("images/action_point.png")));
         WorldRenderer.entities_textures.put("images/action_point_active.png", new Texture(Gdx.files.internal("images/action_point_active.png")));
-
-        ArrayList<String> action_point_textures = new ArrayList<String>();
-        action_point_textures.add("images/action_point.png");
-        action_point_textures.add("images/action_point_active.png");
 
         ArrayList<String> enemy_easy_textures = new ArrayList<String>();
         enemy_easy_textures.add("images/enemy_health_3.png");
@@ -148,27 +135,27 @@ public class World {
         inactive_enemies_.add(new StaticEnemy(enemy_medium_,3,3,enemy_static_medium_textures, new Vector2(500, 100), new Vector2(500, 600), 8));
         // entities_.add(new StaticEnemy(enemy_easy_,3,3,enemy_easy_textures, new Vector2(300, 100), new Vector2(700, 600)));
 
-        ChainAP f1 = new ChainAP(400,400,true,0,action_point_textures,"f1","f2");
-        ChainAP f2 = new ChainAP(500,450,false,0,action_point_textures,"f1","f3");
-        ChainAP f3 = new ChainAP(800,400,false,0,action_point_textures,"f1","f3");
-        f1.setFirst_(f1);
+        ChainAP f1 = new ChainAP(400,400,true,0);
+        ChainAP f2 = new ChainAP(500,450,false,0);
+        ChainAP f3 = new ChainAP(800,400,false,0);
+        f1.setFirst(f1);
         f1.setNext(f2);
-        f2.setFirst_(f1);
+        f2.setFirst(f1);
         f2.setNext(f3);
-        f3.setFirst_(f1);
+        f3.setFirst(f1);
         f3.setNext(f3);
 
-        ChainAP f4 = new ChainAP(700,500,true,0,action_point_textures,"f4","f5");
-        ChainAP f5 = new ChainAP(600,300,false,0,action_point_textures,"f4","f6");
-        ChainAP f6 = new ChainAP(800,500,false,0,action_point_textures,"f4","f7");
-        ChainAP f7 = new ChainAP(750,400,false,0,action_point_textures,"f4","f7");
-        f4.setFirst_(f4);
+        ChainAP f4 = new ChainAP(700,500,true,0);
+        ChainAP f5 = new ChainAP(600,300,false,0);
+        ChainAP f6 = new ChainAP(800,500,false,0);
+        ChainAP f7 = new ChainAP(750,400,false,0);
+        f4.setFirst(f4);
         f4.setNext(f5);
-        f5.setFirst_(f4);
+        f5.setFirst(f4);
         f5.setNext(f6);
-        f6.setFirst_(f4);
+        f6.setFirst(f4);
         f6.setNext(f7);
-        f7.setFirst_(f4);
+        f7.setFirst(f4);
         f7.setNext(f7);
 
         inactive_aps_.add(f1);
