@@ -136,7 +136,7 @@ public class Parser {
                 enemy_attribute = world.enemy_easy_;
         }
 
-        return  new StaticEnemy(x, y, enemy_attribute, points, points_on_death, WorldRenderer.entities_texture_strings.get(texture), start_point, end_point, spawn_time);
+        return  new StaticEnemy(enemy_attribute, points, points_on_death, WorldRenderer.entities_texture_strings.get(texture), start_point, end_point, spawn_time);
     }
 
     public ArrayList<ActionPoint> parseActionpoints() throws IOException
