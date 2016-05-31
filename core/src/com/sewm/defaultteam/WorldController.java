@@ -107,7 +107,7 @@ public class WorldController {
         for (Iterator<GameEntity> entity = entities_.iterator(); entity.hasNext();)
         {
             GameEntity current = entity.next();
-            if (!current.isAlive_())
+            if (!current.isAlive())
             {
                 System.out.println("Something is dead..");
                 current.onDeath(this);

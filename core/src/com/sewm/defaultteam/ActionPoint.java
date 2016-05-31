@@ -15,16 +15,16 @@ public abstract class ActionPoint extends GameEntity{
 
     protected boolean active_ = false;
 
-    public void setFirst_(ActionPoint first_) {
+    protected String texture_active_ = "images/action_point_active.png";
+    protected String texture_inactive_ = "images/action_point.png";
+
+    public void setFirst(ActionPoint first_) {
         this.first_ = first_;
     }
     public void decreaseHealth(float value){}
 
     protected ActionPoint first_ = null;
     protected ActionPoint next_ = null;
-
-    protected String texture_active;
-    protected String texture_inactive;
 
     protected TextObject text_ = null;
 
@@ -101,13 +101,13 @@ public abstract class ActionPoint extends GameEntity{
     public void activate()
     {
         active_ = true;
-        texture_ = texture_active;
+        texture_ = texture_active_;
     }
 
     protected abstract void trigger();
     public void deactivate(){
         active_ = false;
-        texture_ = texture_inactive;
+        texture_ = texture_inactive_;
     }
 
     @Override
