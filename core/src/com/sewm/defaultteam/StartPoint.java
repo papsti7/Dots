@@ -6,12 +6,17 @@ import com.badlogic.gdx.Game;
 
 public class StartPoint extends Game{
 
-    public static StartPoint startPoint_;
+    private static StartPoint startPoint_;
+
+    public static StartPoint getInstance() {
+        return startPoint_;
+    }
     @Override
     public void create() {
 
         startPoint_ = this;
-        setScreen(new GameScreen());
+        setScreen(new MenuScreen());
+        //setScreen(new GameScreen());
     }
 
 }

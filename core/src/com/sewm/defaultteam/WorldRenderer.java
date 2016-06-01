@@ -34,6 +34,7 @@ public class WorldRenderer {
     static public Map<String, List<String>> entities_texture_strings;
 
     Map<Integer, Texture> player_health_map;
+    Texture background_;
     boolean debug_;
     static public ArrayList<TextObject> texts_;
     static public BitmapFont font_small_;
@@ -78,7 +79,7 @@ public class WorldRenderer {
 
     public void render(){
         spriteBatch_.begin();
-
+            spriteBatch_.draw(background_,0,0);
             drawEntities();
             drawPlayer();
             drawText();
@@ -156,6 +157,8 @@ public class WorldRenderer {
         player_health_map.put(3, new Texture(Gdx.files.internal("images/player_health_high.png")));
         player_health_map.put(2, new Texture(Gdx.files.internal("images/player_health_medium.png")));
         player_health_map.put(1, new Texture(Gdx.files.internal("images/player_health_low.png")));
+        background_ = new Texture(Gdx.files.internal("images/background.png"));
+
     }
 
     void drawEntities()
@@ -189,7 +192,7 @@ public class WorldRenderer {
             BufferUtils.copy(pixels, 0, pixmap.getPixels(), pixels.length);
             GameOverScreen gameOverScreen = new GameOverScreen();
             gameOverScreen.background_ = new Texture(pixmap);
-            StartPoint.startPoint_.setScreen(gameOverScreen);
+            StartPoint.getInstance().setScreen(gameOverScreen);
         }
         spriteBatch_.draw(texture, player_pos.x, player_pos.y);
 
