@@ -86,6 +86,15 @@ public class World {
         WorldRenderer.entities_textures.put("images/enemy_strong_health_1.png", new Texture(Gdx.files.internal("images/enemy_strong_health_1.png")));
         WorldRenderer.entities_textures.put("images/enemy_strong_health_2.png", new Texture(Gdx.files.internal("images/enemy_strong_health_2.png")));
         WorldRenderer.entities_textures.put("images/enemy_strong_health_3.png", new Texture(Gdx.files.internal("images/enemy_strong_health_3.png")));
+        WorldRenderer.entities_textures.put("images/enemy_static_1.png", new Texture(Gdx.files.internal("images/enemy_static_1.png")));
+        WorldRenderer.entities_textures.put("images/enemy_static_2.png", new Texture(Gdx.files.internal("images/enemy_static_2.png")));
+        WorldRenderer.entities_textures.put("images/enemy_static_3.png", new Texture(Gdx.files.internal("images/enemy_static_3.png")));
+        WorldRenderer.entities_textures.put("images/enemy_static_medium_1.png", new Texture(Gdx.files.internal("images/enemy_static_medium_1.png")));
+        WorldRenderer.entities_textures.put("images/enemy_static_medium_2.png", new Texture(Gdx.files.internal("images/enemy_static_medium_2.png")));
+        WorldRenderer.entities_textures.put("images/enemy_static_medium_3.png", new Texture(Gdx.files.internal("images/enemy_static_medium_3.png")));
+        WorldRenderer.entities_textures.put("images/enemy_static_strong_1.png", new Texture(Gdx.files.internal("images/enemy_static_strong_1.png")));
+        WorldRenderer.entities_textures.put("images/enemy_static_strong_2.png", new Texture(Gdx.files.internal("images/enemy_static_strong_2.png")));
+        WorldRenderer.entities_textures.put("images/enemy_static_strong_3.png", new Texture(Gdx.files.internal("images/enemy_static_strong_3.png")));
         WorldRenderer.entities_textures.put("images/action_point.png", new Texture(Gdx.files.internal("images/action_point.png")));
         WorldRenderer.entities_textures.put("images/action_point_active.png", new Texture(Gdx.files.internal("images/action_point_active.png")));
 
