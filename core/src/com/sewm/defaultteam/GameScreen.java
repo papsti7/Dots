@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -88,13 +87,13 @@ public class GameScreen implements Screen, InputProcessor {
 
         if(Gdx.input.isTouched())
         {
-            WorldRenderer.camera_.unproject(worldController_.touchpoint_.set(Gdx.input.getX(),Gdx.input.getY(), 0));
+            WorldRenderer.camera_.unproject(worldController_.touch_point_.set(Gdx.input.getX(),Gdx.input.getY(), 0));
             Rectangle player = world_.getPlayer_().getRect();
-            if(OverlapTester.pointInRectangle(player , worldController_.touchpoint_.x, worldController_.touchpoint_.y) || is_touched)
+            if(OverlapTester.pointInRectangle(player , worldController_.touch_point_.x, worldController_.touch_point_.y) || is_touched)
             {
                 /* touched the player surrounding */
                 radius = world_.getPlayer_().surrounding_.radius;
-                position.set(worldController_.touchpoint_.x, worldController_.touchpoint_.y);
+                position.set(worldController_.touch_point_.x, worldController_.touch_point_.y);
                 is_touched = true;
             }
 
@@ -104,7 +103,7 @@ public class GameScreen implements Screen, InputProcessor {
         }
 
 
-        worldController_.update(position, worldRenderer_);
+        worldController_.update(position);
     }
 
 

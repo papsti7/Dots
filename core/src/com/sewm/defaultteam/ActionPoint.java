@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
+
 /**
  * Created by Max on 11/05/2016.
  */
@@ -13,7 +15,10 @@ public abstract class ActionPoint extends GameEntity{
 
     protected boolean active_ = false;
 
-    public void setFirst_(ActionPoint first_) {
+    protected String texture_active_ = "images/action_point_active.png";
+    protected String texture_inactive_ = "images/action_point.png";
+
+    public void setFirst(ActionPoint first_) {
         this.first_ = first_;
     }
     public void decreaseHealth(float value){}
@@ -96,12 +101,23 @@ public abstract class ActionPoint extends GameEntity{
     public void activate()
     {
         active_ = true;
-        texture_ = "images/action_point_active.png";
+        texture_ = texture_active_;
     }
 
     protected abstract void trigger();
     public void deactivate(){
         active_ = false;
-        texture_ = "images/action_point.png";
+        texture_ = texture_inactive_;
     }
+
+    @Override
+    public void onDeath(WorldController controller)
+    {
+        if (this.equals(first_))
+        {
+            controller.refreshAP();
+        }
+    }
+
+
 }

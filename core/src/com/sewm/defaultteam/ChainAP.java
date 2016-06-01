@@ -1,31 +1,36 @@
 package com.sewm.defaultteam;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
+
+import java.util.List;
 
 /**
  * Created by Max on 11/05/2016.
  */
 public class ChainAP extends ActionPoint {
+    public ChainAP(int x, int y, boolean active, int number, String textures_string)
+    {
+        this(x, y, active, number);
+        List<String> textures = WorldRenderer.entities_texture_strings.get(textures_string);
+        texture_inactive_ = textures.get(0);
+        texture_active_ = textures.get(1);
+    }
 
     public ChainAP(int x, int y, boolean active, int number)
     {
-        if (active)
-        {
+        if (active) {
             activate();
-        }
-        else
-        {
-            texture_ = "images/action_point.png";
-            active_ = false;
+        } else {
+            deactivate();
         }
 
         body_ = new Rectangle(x, y, Constants.action_point_width, Constants.action_point_height);
-        text_ = new TextObject(WorldRenderer.font_small_,WorldRenderer.spriteBatch_,x,y, "" + number);
+        text_ = new TextObject(WorldRenderer.font_small_, WorldRenderer.spriteBatch_, x, y, String.valueOf(number));
     }
+
     @Override
     protected void trigger() {
-        for (GameEntity entity : GameScreen.worldController_.entities_){
+        for (GameEntity entity : GameScreen.worldController_.entities_) {
             entity.decreaseHealth(1.f);
         }
         first_.kill();
@@ -34,9 +39,10 @@ public class ChainAP extends ActionPoint {
 
     @Override
     public void kill() {
-        setAlive_(false);
+        setAlive(false);
         assert next_ != null;
-        if(next_ != this)
+        if(next_ != this) {
             next_.kill();
+        }
     }
 }

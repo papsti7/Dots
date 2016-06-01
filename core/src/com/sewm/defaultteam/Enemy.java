@@ -2,59 +2,28 @@ package com.sewm.defaultteam;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.ArrayList;
-
 
 /**
  * Created by stefan on 22.04.2016.
  */
-public class Enemy extends GameEntity {
+public abstract class Enemy extends GameEntity {
 
     public static enum Difficulty{
         easy , medium, hard
     }
 
+    public int spawn_time_;
+    protected int difficulty_;
 
 
-    private int difficulty_;
 
-    public Enemy(Vector2 pos, EnemyAttribute difficulty, int points, int points_on_death){
-        texture_ = null;
-        texture_array_ = new ArrayList<String>();
-        body_ = new Rectangle(pos.x, pos.y, Constants.enemy_width, Constants.enemy_height);
-        speed_base_ = difficulty.speed_base_;
-        health_ = difficulty.health_;
-        color_ = new Color(Color.RED);
-        target_pos_ = new Vector2(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f);
-        velocity_ = new Vector2(0,0);
-        inertia_ = difficulty.inertia_;
-        difficulty_ = difficulty.difficulty_;
-        points_ = points;
-        points_on_death_ = points_on_death;
-    }
 
-    public Enemy(int x, int y, EnemyAttribute difficulty, int points, int points_on_death, ArrayList<String> textures)
-    {
-        this(new Vector2(x, y), difficulty, points, points_on_death);
-        texture_array_ = new ArrayList<String>(textures);
-        texture_ = texture_array_.get(2);
-    }
-
-    @Override
-    protected void updateTarget(Vector2 target_pos){
-        target_pos_.x = target_pos.x;
-        target_pos_.y = target_pos.y;
-        Rectangle body = (Rectangle) body_;
-        if (body.contains(target_pos))
-        {
-            onContact();
-        }
-    }
     @Override
     public void updatePosition(){
        Rectangle rect_body = (Rectangle)body_;
@@ -99,8 +68,10 @@ public class Enemy extends GameEntity {
     protected void onContact() {
         if(!Constants.immortal)
         {
-            World.player_.decreaseHealth(Gdx.graphics.getDeltaTime());
+            World.player_.decreaseHealth(Gdx.graphics.getDeltaTime() * Constants.enemy_damage);
+            WorldRenderer.enemy_contact_ = 3;
         }
+
     }
 
     @Override
@@ -123,7 +94,6 @@ public class Enemy extends GameEntity {
         {
             health_ = 0;
             alive_ = false;
-            System.out.println("Enemy is dead");
             GameScreen.worldController_.updateScore(points_on_death_);
         }
     }
@@ -131,13 +101,15 @@ public class Enemy extends GameEntity {
     @Override
     public void draw(SpriteBatch spriteBatch) {
         Rectangle enemy_body = (Rectangle) body_;
-        spriteBatch.draw(WorldRenderer.entities_textures.get(texture_), enemy_body.getX(), enemy_body.y);
+        Texture texture = WorldRenderer.entities_textures.get(texture_);
+        spriteBatch.draw(texture, enemy_body.getX() - texture.getWidth() / 2.f, enemy_body.y - texture.getHeight() / 2.f);
     }
 
     @Override
     public void drawDebug(ShapeRenderer debugRenderer) {
         Rectangle enemy_body = (Rectangle) body_;
-        Rectangle rect = new Rectangle(enemy_body.getX(), enemy_body.getY(), WorldRenderer.entities_textures.get(texture_).getWidth(), WorldRenderer.entities_textures.get(texture_).getHeight());
+        Texture texture = WorldRenderer.entities_textures.get(texture_);
+        Rectangle rect = new Rectangle(enemy_body.getX() - texture.getWidth() / 2.f, enemy_body.getY() - texture.getHeight() / 2.f, texture.getWidth(), texture.getHeight());
         if(this.difficulty_ == 1)
             debugRenderer.setColor(new Color(Color.BLUE));
         else if(this.difficulty_ == 2)
@@ -152,7 +124,11 @@ public class Enemy extends GameEntity {
 
     }
 
+    @Override
+    public void onDeath(WorldController worldController)
+    {
 
+    }
 
 
 }

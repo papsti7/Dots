@@ -16,7 +16,7 @@ public class Player {
     static int score_ = 0;
     String texture_;
 
-    public float getHealth_() {
+    public float getHealth() {
         return health_;
     }
 
