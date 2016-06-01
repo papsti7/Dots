@@ -22,6 +22,7 @@ public class Constants {
     public static final float enemy_damage = 8;
 
     public static final float target_radius = Gdx.graphics.getWidth() / 80.f;
+    public static final float target_spawn_interval = 2.f;
 
     public static final float action_point_width = Gdx.graphics.getWidth() / 25.f;
     public static final float action_point_height = Gdx.graphics.getWidth() / 25.f;

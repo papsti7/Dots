@@ -20,9 +20,9 @@ public class Target extends GameEntity {
 
     public Target()
     {
-        body_ = new Circle(50.f,50.f,Constants.target_radius);
+        //body_ = new Circle(50.f,50.f,Constants.target_radius);
         speed_base_ = 1;
-        health_ = 3;
+        //health_ = 3;
         color_ = new Color(Color.ORANGE);
         target_pos_ = new Vector2(0,0);
         velocity_ = new Vector2(0,0);
@@ -36,10 +36,10 @@ public class Target extends GameEntity {
     public Target(int x, int y, int radius, int health, List<String> textures) {
         this();
         //radius not used yet
-        body_ = new Circle((float) x, (float) y, Gdx.graphics.getWidth() / 80.f);
+        body_ = new Circle((float) x, (float) y, Constants.target_radius);
         health_ = health;
         texture_array_ = textures;
-        texture_ = texture_array_.get(2);
+        texture_ = texture_array_.get(health > 3 ? 2 : health - 1);
     }
 
     @Override
@@ -108,7 +108,7 @@ public class Target extends GameEntity {
 
     @Override
     public void onDeath(WorldController controller) {
-
+        controller.refreshTarget();
     }
 
     public void decreaseHealth(float value){

@@ -18,9 +18,11 @@ public class WorldController {
     private float ap_life_time_;
     private float ap_spawn_interval_;
     private boolean ap_present_;
+
     private float target_spawn_interval_;
     private ActionPoint first_ = null;
     ActionPointFactory action_point_factory_;
+
 
     public WorldController(World world){
         world_ = world;
@@ -29,7 +31,6 @@ public class WorldController {
         touch_point_ = new Vector3();
         action_point_factory_ = new ActionPointFactory();
         spawnAP();
-
 
     }
 
@@ -50,10 +51,7 @@ public class WorldController {
         }
 
         checkActionPoints();
-
-
-
-
+        checkTarget();
 
         updateEntities();
         cleanUp();
@@ -161,5 +159,26 @@ public class WorldController {
     {
         Player.score_ += delta;
         GameScreen.worldRenderer_.updateScore(Player.score_);
+    }
+
+    public void refreshTarget(){
+        target_spawn_interval_ = Constants.target_spawn_interval * (Utils.random_.nextFloat() * 0.4f + 0.8f);
+    }
+
+    public void checkTarget(){
+        if(target_spawn_interval_ != 0)
+        {
+            float delta_time = Gdx.graphics.getDeltaTime();
+            if(delta_time >= target_spawn_interval_){
+                target_spawn_interval_ = 0.f;
+
+                Vector2 new_pos = new Vector2(Utils.random_.nextInt(Gdx.graphics.getWidth()-64), Utils.random_.nextInt(Gdx.graphics.getHeight()-64));
+                new_pos.add(32,32);
+                System.out.println(WorldRenderer.entities_texture_strings.get("target_textures").size());
+                world_.entities_.add(new Target((int)new_pos.x, (int)new_pos.y,0,Utils.random_.nextInt(3) + 1, WorldRenderer.entities_texture_strings.get("target_textures")));
+            }
+            else
+                target_spawn_interval_ -= delta_time;
+        }
     }
 }

@@ -133,6 +133,14 @@ public class World {
         target_textures.add("images/target_health_2.png");
         target_textures.add("images/target_health_3.png");
 
+        WorldRenderer.entities_texture_strings.put("enemy_easy_textures", enemy_easy_textures);
+        WorldRenderer.entities_texture_strings.put("enemy_medium_textures", enemy_medium_textures);
+        WorldRenderer.entities_texture_strings.put("enemy_hard_textures", enemy_hard_textures);
+        WorldRenderer.entities_texture_strings.put("enemy_static_hard_textures", enemy_static_hard_textures);
+        WorldRenderer.entities_texture_strings.put("enemy_static_medium_textures", enemy_static_medium_textures);
+        WorldRenderer.entities_texture_strings.put("enemy_static_easy_textures", enemy_static_easy_textures);
+        WorldRenderer.entities_texture_strings.put("target_textures", target_textures);
+
         player_ = new Player();
         target_count_ = 12;
         entities_.add(new Target(500,100,10,3,target_textures));
