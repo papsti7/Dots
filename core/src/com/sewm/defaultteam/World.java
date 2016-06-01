@@ -73,7 +73,6 @@ public class World {
 
     public void loadTestLevel() {
         WorldRenderer.entities_textures.put("images/player_new.png", new Texture(Gdx.files.internal("images/player_new.png")));
-        WorldRenderer.entities_textures.put("images/target.png", new Texture(Gdx.files.internal("images/target.png")));
         WorldRenderer.entities_textures.put("images/target_health_1.png", new Texture(Gdx.files.internal("images/target_health_1.png")));
         WorldRenderer.entities_textures.put("images/target_health_2.png", new Texture(Gdx.files.internal("images/target_health_2.png")));
         WorldRenderer.entities_textures.put("images/target_health_3.png", new Texture(Gdx.files.internal("images/target_health_3.png")));
@@ -193,7 +192,7 @@ public class World {
             BufferUtils.copy(pixels, 0, pixmap.getPixels(), pixels.length);
             WinScreen winscreen = new WinScreen();
             winscreen.background_ = new Texture(pixmap);
-            StartPoint.startPoint_.setScreen(winscreen);
+            StartPoint.getInstance().setScreen(winscreen);
         }
     }
 }

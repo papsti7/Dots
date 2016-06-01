@@ -9,7 +9,7 @@ public class Constants {
 
     public static final boolean no_parse = true;
     public static final boolean debug = false;
-    public static final boolean immortal = true;
+    public static final boolean immortal = false;
     public static final boolean infinite_action_points = true;
 
     public static final float player_spawn_x = Gdx.graphics.getWidth()/2.f + Gdx.graphics.getWidth() / 40.f;
@@ -29,5 +29,9 @@ public class Constants {
 
     public static final float action_point_life_span_ = 5.f;
     public static final float action_point_spawn_interval_ = 4.f;
+
+    public static final float menu_button_x_ = Gdx.graphics.getWidth() * 0.234375f;
+    public static final float menu_button_y_1_ = Gdx.graphics.getHeight() * 0.5859375f;
+    public static final float menu_button_y_2_ = Gdx.graphics.getHeight() * 0.1953125f;
 
 }
