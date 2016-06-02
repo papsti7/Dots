@@ -1,8 +1,11 @@
 action_point_textures,images/action_point.png,images/action_point_active.png
 target_textures,images/target_health_1.png,images/target_health_2.png,images/target_health_3.png
-enemy_easy_textures,images/enemy_health_3.png,images/enemy_health_2.png,images/enemy_health_1.png
-enemy_medium_textures,images/enemy_medium_health_3.png,images/enemy_medium_health_2.png,images/enemy_medium_health_1.png
-enemy_hard_textures,images/enemy_strong_health_3.png,images/enemy_strong_health_2.png,images/enemy_strong_health_1.png
+enemy_easy_textures,images/enemy_health_1.png,images/enemy_health_2.png,images/enemy_health_3.png
+enemy_medium_textures,images/enemy_medium_health_1.png,images/enemy_medium_health_2.png,images/enemy_medium_health_3.png
+enemy_hard_textures,images/enemy_strong_health_1.png,images/enemy_strong_health_2.png,images/enemy_strong_health_3.png
+enemy_static_easy_textures,images/enemy_static_1.png,images/enemy_static_2.png,images/enemy_static_3.png
+enemy_static_medium_textures,images/enemy_static_medium_1.png,images/enemy_static_medium_2.png,images/enemy_static_medium_3.png
+enemy_static_hard_textures,images/enemy_static_strong_1.png,images/enemy_static_strong_2.png,images/enemy_static_strong_3.png
 ;
 3,images/player_new.png
 ;
@@ -12,9 +15,9 @@ enemy_hard_textures,images/enemy_strong_health_3.png,images/enemy_strong_health_
 800,300,2,2,2,enemy_medium_textures,4
 800,300,3,3,3,enemy_hard_textures,7
 ;
-3,3,3,enemy_hard_textures,800,300,600,300,1
-3,3,3,enemy_hard_textures,100,100,600,100,1
-3,3,3,enemy_hard_textures,400,100,400,400,1
+1,1,1,enemy_static_easy_textures,800,300,600,300,1
+2,2,2,enemy_static_medium_textures,100,100,600,100,1
+3,3,3,enemy_static_hard_textures,400,100,400,400,1
 ;
 3
 400,400,1,0,action_point_textures
