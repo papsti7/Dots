@@ -30,4 +30,7 @@ public class Constants {
     public static final float action_point_life_span_ = 5.f;
     public static final float action_point_spawn_interval_ = 4.f;
 
+    public static final float virtual_screen_width = 1000;
+    public static final float virtual_screen_height = 1000;
+
 }
