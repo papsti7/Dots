@@ -1,5 +1,6 @@
 package com.sewm.defaultteam.leveleditor;
 
+import com.badlogic.gdx.math.Vector2;
 import com.sewm.defaultteam.Constants;
 
 import java.awt.Cursor;
@@ -28,10 +29,9 @@ public class LevelEditorMouseListener implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         LevelEditorTool item = editor_.getSelectedTool();
         if (item != null) {
-            Point pos = e.getPoint();
-            pos.setLocation(pos.getX() * Constants.virtual_screen_width / editor_.getCanvas().getWidth(),
-                    pos.getY() * Constants.virtual_screen_height / editor_.getCanvas().getHeight());
-            System.out.println("Place " + item.getUserObject().toString() + " at " + pos);
+            Vector2 pos = new Vector2(e.getX() * Constants.virtual_screen_width / editor_.getCanvas().getWidth(),
+                    Constants.virtual_screen_height - e.getY() * Constants.virtual_screen_height / editor_.getCanvas().getHeight());
+            item.clicked(pos);
         }
     }
 
