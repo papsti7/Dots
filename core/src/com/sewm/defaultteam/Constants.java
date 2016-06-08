@@ -38,7 +38,7 @@ public class Constants {
     public static final float menu_button_y_1_16_9 = Gdx.graphics.getHeight() * 0.5859375f;
     public static final float menu_button_y_2_16_9 = Gdx.graphics.getHeight() * 0.1953125f;
 
-    public static final float aspect_ratio = Gdx.graphics.getWidth() / Gdx.graphics.getHeight();
+    public static final float aspect_ratio = Gdx.graphics.getHeight() != 0 ? Gdx.graphics.getWidth() / Gdx.graphics.getHeight() : 1;
     public static final float aspect_ratio_16_9 = 16/9;
     public static final float aspect_ratio_4_3 = 4/3;
 
