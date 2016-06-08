@@ -227,7 +227,7 @@ public class WorldRenderer {
             String text = texts_.get(element).getText_();
             text = text.substring(0,text.indexOf(' '));
             text += " ";
-            System.out.println(text);
+
             if (text.equals(score_text))
             {
                 index = element;

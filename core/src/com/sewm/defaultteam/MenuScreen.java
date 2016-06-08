@@ -2,12 +2,10 @@ package com.sewm.defaultteam;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -52,27 +50,13 @@ public class MenuScreen implements Screen {
         Rectangle button_1 = new Rectangle(Constants.menu_button_x_,Constants.menu_button_y_1_, button_texture_.getWidth(), button_texture_.getHeight());
         Rectangle button_2 = new Rectangle(Constants.menu_button_x_,Constants.menu_button_y_2_, button_texture_.getWidth(), button_texture_.getHeight());
 
-        ShapeRenderer r = new ShapeRenderer();
-        r.begin(ShapeRenderer.ShapeType.Line);
-
-
-        r.setColor(Color.BLUE);
-        r.rect(button_1.getX(),button_1.getY(),button_1.getWidth(),button_1.getHeight());
-        r.setColor(Color.BROWN);
-        r.rect(button_2.getX(), button_2.getY(), button_2.getWidth(), button_2.getHeight());
-
-        r.end();
 
         Vector2 touch_point = new Vector2(Gdx.input.getX(),Gdx.graphics.getHeight() - Gdx.input.getY());
         if (Gdx.input.isTouched()) {
 
-
-            System.out.println(touch_point.x + " " + touch_point.y);
             if (button_1.contains(touch_point)) {
-                System.out.println("click 1");
                 StartPoint.getInstance().setScreen(new GameScreen());
             } else if (button_2.contains(touch_point)) {
-                System.out.println("click 2");
             }
         }
     }
