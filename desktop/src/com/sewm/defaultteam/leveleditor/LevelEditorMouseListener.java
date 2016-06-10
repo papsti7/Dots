@@ -1,5 +1,7 @@
 package com.sewm.defaultteam.leveleditor;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.sewm.defaultteam.Constants;
 

@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTree;
+import javax.swing.SwingWorker;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -53,6 +54,7 @@ public class LevelEditor {
 	private JFrame frame_;
 	private LwjglAWTCanvas canvas_;
 	private JScrollPane panelProperties_;
+    private JPanel panelCenter_;
 	private JTree tools_;
 	
 	private Cursor cursor_ = Cursor.getDefaultCursor();
@@ -149,12 +151,12 @@ public class LevelEditor {
 		splitPaneRight.setEnabled(false);
 		splitPaneLeft.setRightComponent(splitPaneRight);
 		
-		JPanel panelCenter = new JPanel();
-		splitPaneRight.setLeftComponent(panelCenter);
+		panelCenter_ = new JPanel();
+		splitPaneRight.setLeftComponent(panelCenter_);
 
 		canvas_.getCanvas().addMouseListener(new LevelEditorMouseListener(this));
-		panelCenter.setLayout(new BorderLayout(0, 0));
-		panelCenter.add(canvas_.getCanvas(), BorderLayout.CENTER);
+		panelCenter_.setLayout(new BorderLayout(0, 0));
+		panelCenter_.add(canvas_.getCanvas(), BorderLayout.CENTER);
 		
 		panelProperties_ = new JScrollPane();
 		JLabel lblProperties = new JLabel("Properties");

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.sewm.defaultteam.Constants;
 
 public class LevelEditorItem {
@@ -18,7 +19,8 @@ public class LevelEditorItem {
 	public void draw(SpriteBatch spriteBatch) {
         Texture texture = LevelEditorCanvasRenderer.textures_.get(name_);
         spriteBatch.draw(texture,
-                position_.x * Gdx.graphics.getWidth() / Constants.virtual_screen_width - texture.getWidth() / 2.f,
-                position_.y * Gdx.graphics.getHeight() / Constants.virtual_screen_height - texture.getHeight() / 2.f);
+                position_.x - Constants.enemy_width / 2.f,
+                position_.y - Constants.enemy_height / 2.f,
+                Constants.enemy_width, Constants.enemy_height);
 	}
 }
