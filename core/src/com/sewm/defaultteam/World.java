@@ -74,14 +74,14 @@ public class World {
     public void loadTestLevel() {
 
         player_ = new Player();
-        target_count_ = 12;
+        target_count_ = 5;
         entities_.add(new Target(500,100,10,3));
 
-        inactive_enemies_.add(new NormalEnemy(800,300,enemy_easy_,1,1, 1));
-        inactive_enemies_.add(new NormalEnemy(800,300,enemy_medium_,2,2, 3));
-        inactive_enemies_.add(new NormalEnemy(800,300,enemy_hard_,3,3, 5));
-        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3, new Vector2(100, 100), new Vector2(500, 600), 8));
-        inactive_enemies_.add(new StaticEnemy(enemy_medium_,3,3, new Vector2(500, 100), new Vector2(500, 600), 8));
+        inactive_enemies_.add(new NormalEnemy(800,300,enemy_easy_,1,1,1));
+        inactive_enemies_.add(new NormalEnemy(800,300,enemy_medium_,2,2,3));
+        inactive_enemies_.add(new NormalEnemy(800,300,enemy_hard_,3,3,5));
+        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3,new Vector2(100, 100), new Vector2(500, 600), 8));
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,3,3,new Vector2(500, 100), new Vector2(500, 600), 8));
         // entities_.add(new StaticEnemy(enemy_easy_,3,3,enemy_easy_textures, new Vector2(300, 100), new Vector2(700, 600)));
 
         ChainAP f1 = new ChainAP(400,400,true,0);
@@ -125,7 +125,7 @@ public class World {
             BufferUtils.copy(pixels, 0, pixmap.getPixels(), pixels.length);
             WinScreen winscreen = new WinScreen();
             winscreen.background_ = new Texture(pixmap);
-            StartPoint.startPoint_.setScreen(winscreen);
+            StartPoint.getInstance().setScreen(winscreen);
         }
     }
 }
