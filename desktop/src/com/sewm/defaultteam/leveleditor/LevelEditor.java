@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -35,6 +37,13 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
 
 public class LevelEditor {
     public static final Map<String, String> images_;
@@ -58,11 +67,10 @@ public class LevelEditor {
 	private JTree tools_;
 	
 	private Cursor cursor_ = Cursor.getDefaultCursor();
+	private final LevelEditorFile file_ = new LevelEditorFile();
 	
 	private Map<String, Cursor> cursors_ = new HashMap<String, Cursor>();
 	private Map<String, Icon> icons_ = new HashMap<String, Icon>();
-	
-	private List<LevelEditorItem> items_ = new ArrayList<LevelEditorItem>();
 
 	/**
 	 * Create the application.
@@ -163,6 +171,20 @@ public class LevelEditor {
 		lblProperties.setHorizontalAlignment(SwingConstants.CENTER);
 		panelProperties_.setColumnHeaderView(lblProperties);
 		splitPaneRight.setRightComponent(panelProperties_);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frame_.setJMenuBar(menuBar);
+		JMenu fileMenu = new JMenu("File");
+		menuBar.add(fileMenu);
+		
+		JMenuItem menuItemNew = new JMenuItem(new NewFileAction("New"));
+		fileMenu.add(menuItemNew);
+		JMenuItem menuItemOpen = new JMenuItem(new OpenFileAction("Open..."));
+		fileMenu.add(menuItemOpen);
+		JMenuItem menuItemSave = new JMenuItem(new SaveFileAction("Save"));
+		fileMenu.add(menuItemSave);
+		JMenuItem menuItemSaveAs = new JMenuItem(new SaveAsFileAction("Save As..."));
+		fileMenu.add(menuItemSaveAs);
 	}
 
 	public JFrame getFrame() {
@@ -178,13 +200,11 @@ public class LevelEditor {
 	}
 	
 	public List<LevelEditorItem> getItems() {
-		return items_;
+		return file_.getItems();
 	}
 
     public void addItem(LevelEditorItem item) {
-        synchronized (items_) {
-            items_.add(item);
-        }
+        file_.addItem(item);
     }
 
 	public LevelEditorTool getSelectedTool() {
@@ -193,6 +213,59 @@ public class LevelEditor {
 			return (LevelEditorTool) value;
 		}
 		return null;
+	}
+	
+	private class NewFileAction extends AbstractAction {
+		public NewFileAction(String name) {
+			super(name);
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("new file...");
+			file_.newFile();
+		}
+	}
+	
+	private class OpenFileAction extends AbstractAction {
+		public OpenFileAction(String name) {
+			super(name);
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("open file...");
+			file_.openFile();
+			
+		}
+	}
+	
+	private class SaveFileAction extends AbstractAction {
+		public SaveFileAction(String name) {
+			super(name);
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("save file...");
+			file_.save();
+		}
+	}
+	
+	private class SaveAsFileAction extends AbstractAction {
+		public SaveAsFileAction(String name) {
+			super(name);
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("save as file...");
+			file_.saveAs();
+		}
 	}
 
 	private class EditorTreeCellRenderer extends DefaultTreeCellRenderer {

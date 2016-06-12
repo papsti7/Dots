@@ -175,7 +175,7 @@ public class WorldController {
                 Vector2 new_pos = new Vector2(Utils.random_.nextInt(Gdx.graphics.getWidth()-64), Utils.random_.nextInt(Gdx.graphics.getHeight()-64));
                 new_pos.add(32,32);
                 System.out.println(WorldRenderer.entities_texture_strings.get("target_textures").size());
-                world_.entities_.add(new Target((int)new_pos.x, (int)new_pos.y,0,Utils.random_.nextInt(3) + 1, WorldRenderer.entities_texture_strings.get("target_textures")));
+                world_.entities_.add(new Target((int)new_pos.x, (int)new_pos.y,0,Utils.random_.nextInt(3) + 1));
             }
             else
                 target_spawn_interval_ -= delta_time;

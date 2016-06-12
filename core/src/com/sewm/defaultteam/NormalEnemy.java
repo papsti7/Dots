@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Admin on 25.05.2016.
@@ -28,11 +27,22 @@ public class NormalEnemy extends Enemy{
         points_on_death_ = points_on_death;
     }
 
-    public NormalEnemy(int x, int y, EnemyAttribute difficulty, int points, int points_on_death, List<String> textures, int spawn_time)
+    public NormalEnemy(int x, int y, EnemyAttribute difficulty, int points, int points_on_death, int spawn_time)
     {
         this(new Vector2(x, y), difficulty, points, points_on_death);
         spawn_time_ = spawn_time;
-        texture_array_ = textures;
+        switch (difficulty.difficulty_) {
+            case 1:
+                texture_array_ = WorldRenderer.entities_texture_strings.get("enemy_medium_textures");
+                break;
+            case 2:
+                texture_array_ = WorldRenderer.entities_texture_strings.get("enemy_hard_textures");
+                break;
+            case 0:
+            default:
+                texture_array_ = WorldRenderer.entities_texture_strings.get("enemy_easy_textures");
+                break;
+        }
         texture_ = texture_array_.get(2);
     }
 

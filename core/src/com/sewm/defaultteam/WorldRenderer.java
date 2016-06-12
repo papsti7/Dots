@@ -144,18 +144,85 @@ public class WorldRenderer {
         }
     }
 
-    /*
     public void loadEntityTexture(String filename)
     {
         entities_textures.put(filename, new Texture(Gdx.files.internal(filename)));
     }
-    */
 
     void loadTextures(){
         player_health_map = new HashMap<Integer, Texture>();
         player_health_map.put(3, new Texture(Gdx.files.internal("images/player_health_high.png")));
         player_health_map.put(2, new Texture(Gdx.files.internal("images/player_health_medium.png")));
         player_health_map.put(1, new Texture(Gdx.files.internal("images/player_health_low.png")));
+
+        loadEntityTexture("images/player_new.png");
+        loadEntityTexture("images/target.png");
+        loadEntityTexture("images/target_health_1.png");
+        loadEntityTexture("images/target_health_2.png");
+        loadEntityTexture("images/target_health_3.png");
+        loadEntityTexture("images/enemy_health_1.png");
+        loadEntityTexture("images/enemy_health_2.png");
+        loadEntityTexture("images/enemy_health_3.png");
+        loadEntityTexture("images/enemy_medium_health_1.png");
+        loadEntityTexture("images/enemy_medium_health_2.png");
+        loadEntityTexture("images/enemy_medium_health_3.png");
+        loadEntityTexture("images/enemy_strong_health_1.png");
+        loadEntityTexture("images/enemy_strong_health_2.png");
+        loadEntityTexture("images/enemy_strong_health_3.png");
+        loadEntityTexture("images/enemy_static_1.png");
+        loadEntityTexture("images/enemy_static_2.png");
+        loadEntityTexture("images/enemy_static_3.png");
+        loadEntityTexture("images/enemy_static_medium_1.png");
+        loadEntityTexture("images/enemy_static_medium_2.png");
+        loadEntityTexture("images/enemy_static_medium_3.png");
+        loadEntityTexture("images/enemy_static_strong_1.png");
+        loadEntityTexture("images/enemy_static_strong_2.png");
+        loadEntityTexture("images/enemy_static_strong_3.png");
+        loadEntityTexture("images/action_point.png");
+        loadEntityTexture("images/action_point_active.png");
+
+        ArrayList<String> enemy_easy_textures = new ArrayList<String>();
+        enemy_easy_textures.add("images/enemy_health_3.png");
+        enemy_easy_textures.add("images/enemy_health_2.png");
+        enemy_easy_textures.add("images/enemy_health_1.png");
+
+        ArrayList<String> enemy_medium_textures = new ArrayList<String>();
+        enemy_medium_textures.add("images/enemy_medium_health_3.png");
+        enemy_medium_textures.add("images/enemy_medium_health_2.png");
+        enemy_medium_textures.add("images/enemy_medium_health_1.png");
+
+        ArrayList<String> enemy_hard_textures = new ArrayList<String>();
+        enemy_hard_textures.add("images/enemy_strong_health_3.png");
+        enemy_hard_textures.add("images/enemy_strong_health_2.png");
+        enemy_hard_textures.add("images/enemy_strong_health_1.png");
+
+        ArrayList<String> enemy_static_hard_textures = new ArrayList<String>();
+        enemy_static_hard_textures.add("images/enemy_static_strong_3.png");
+        enemy_static_hard_textures.add("images/enemy_static_strong_2.png");
+        enemy_static_hard_textures.add("images/enemy_static_strong_1.png");
+
+        ArrayList<String> enemy_static_medium_textures = new ArrayList<String>();
+        enemy_static_medium_textures.add("images/enemy_static_medium_3.png");
+        enemy_static_medium_textures.add("images/enemy_static_medium_2.png");
+        enemy_static_medium_textures.add("images/enemy_static_medium_1.png");
+
+        ArrayList<String> enemy_static_easy_textures = new ArrayList<String>();
+        enemy_static_easy_textures.add("images/enemy_static_3.png");
+        enemy_static_easy_textures.add("images/enemy_static_2.png");
+        enemy_static_easy_textures.add("images/enemy_static_1.png");
+
+        ArrayList<String> target_textures = new ArrayList<String>();
+        target_textures.add("images/target_health_1.png");
+        target_textures.add("images/target_health_2.png");
+        target_textures.add("images/target_health_3.png");
+
+        WorldRenderer.entities_texture_strings.put("enemy_easy_textures", enemy_easy_textures);
+        WorldRenderer.entities_texture_strings.put("enemy_medium_textures", enemy_medium_textures);
+        WorldRenderer.entities_texture_strings.put("enemy_hard_textures", enemy_hard_textures);
+        WorldRenderer.entities_texture_strings.put("enemy_static_hard_textures", enemy_static_hard_textures);
+        WorldRenderer.entities_texture_strings.put("enemy_static_medium_textures", enemy_static_medium_textures);
+        WorldRenderer.entities_texture_strings.put("enemy_static_easy_textures", enemy_static_easy_textures);
+        WorldRenderer.entities_texture_strings.put("target_textures", target_textures);
     }
 
     void drawEntities()

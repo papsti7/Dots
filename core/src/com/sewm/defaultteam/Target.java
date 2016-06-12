@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -33,12 +32,12 @@ public class Target extends GameEntity {
         points_on_death_ = 3;
     }
 
-    public Target(int x, int y, int radius, int health, List<String> textures) {
+    public Target(int x, int y, int radius, int health) {
         this();
         //radius not used yet
         body_ = new Circle((float) x, (float) y, Constants.target_radius);
         health_ = health;
-        texture_array_ = textures;
+        texture_array_ = WorldRenderer.entities_texture_strings.get("target_textures");
         texture_ = texture_array_.get(health > 3 ? 2 : health - 1);
     }
 

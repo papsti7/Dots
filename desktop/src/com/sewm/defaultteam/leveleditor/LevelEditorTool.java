@@ -43,7 +43,7 @@ public class LevelEditorTool extends DefaultMutableTreeNode {
 
         case PLACE:
             System.out.println("Place at " + pos);
-            LevelEditorItem item = new LevelEditorItem(name_, pos);
+            LevelEditorItem item = LevelEditorItem.create(name_, pos);
             editor_.addItem(item);
             break;
 

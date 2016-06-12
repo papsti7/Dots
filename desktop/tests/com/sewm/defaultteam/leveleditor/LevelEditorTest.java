@@ -16,7 +16,7 @@ import abbot.tester.JTreeTester;
 
 public class LevelEditorTest extends UITest {
     @Test
-    public void testPlaceEnemy() throws ComponentNotFoundException, MultipleComponentsFoundException, InterruptedException, AWTException {
+    public void testPlaceSomething() throws ComponentNotFoundException, MultipleComponentsFoundException, InterruptedException, AWTException {
         int itemsBefore = editor.getItems().size();
 
         // select the normal enemy easy in tools list
@@ -33,5 +33,36 @@ public class LevelEditorTest extends UITest {
 
         getRobot().waitForIdle();
         assertEquals(itemsBefore + 1, editor.getItems().size());
+    }
+
+    @Test
+    public void testPlaceEnemies() throws ComponentNotFoundException, MultipleComponentsFoundException, InterruptedException, AWTException {
+        int itemsBefore = editor.getItems().size();
+
+        // select the normal enemy easy in tools list
+        JTree tools = (JTree) getFinder().find(new ClassMatcher(JTree.class));
+        assertNotNull(tools);
+        TreePath path = tools.getNextMatch("NormalEnemyHard", 0, null);
+        assertNotNull(path);
+        JTreeTester menuTester = new JTreeTester();
+        menuTester.actionSelectPath(tools, path);
+
+        // place 4 enemies in the corners
+        Canvas canvas = (Canvas) getFinder().find(new ClassMatcher(Canvas.class));
+        getRobot().click(canvas, canvas.getWidth()*1/4, canvas.getHeight()*1/4);
+        getRobot().click(canvas, canvas.getWidth()*3/4, canvas.getHeight()*1/4);
+        getRobot().click(canvas, canvas.getWidth()*1/4, canvas.getHeight()*3/4);
+        getRobot().click(canvas, canvas.getWidth()*3/4, canvas.getHeight()*3/4);
+
+        getRobot().waitForIdle();
+        assertEquals(itemsBefore + 4, editor.getItems().size());
+
+        int hardEnemies = 0;
+        for (LevelEditorItem item : editor.getItems()) {
+            if (item.getName().equals("NormalEnemyHard")) {
+                hardEnemies++;
+            }
+        }
+        assertEquals(4, hardEnemies);
     }
 }

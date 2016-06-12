@@ -68,7 +68,7 @@ public class Parser {
             return null;
         }
         Scanner s = new Scanner(line).useDelimiter("[,]");
-        return new Target(s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt(), WorldRenderer.entities_texture_strings.get(s.next()));
+        return new Target(s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt());
     }
 
     public List<Target> parseTargets() throws IOException
@@ -111,7 +111,7 @@ public class Parser {
                 enemy_attribute = World.enemy_easy_;
         }
 
-        return new NormalEnemy(x, y, enemy_attribute, points, points_on_death, WorldRenderer.entities_texture_strings.get(texture), spawn_time);
+        return new NormalEnemy(x, y, enemy_attribute, points, points_on_death, spawn_time);
     }
 
     protected List<NormalEnemy> parseNormalEnemies() throws IOException
@@ -157,7 +157,7 @@ public class Parser {
                 enemy_attribute = World.enemy_easy_;
         }
 
-        return  new StaticEnemy(enemy_attribute, points, points_on_death, WorldRenderer.entities_texture_strings.get(texture), start_point, end_point, spawn_time);
+        return  new StaticEnemy(enemy_attribute, points, points_on_death, start_point, end_point, spawn_time);
     }
 
     protected List<StaticEnemy> parseStaticEnemies() throws IOException

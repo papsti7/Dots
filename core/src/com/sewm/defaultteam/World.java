@@ -72,84 +72,16 @@ public class World {
 
 
     public void loadTestLevel() {
-        WorldRenderer.entities_textures.put("images/player_new.png", new Texture(Gdx.files.internal("images/player_new.png")));
-        WorldRenderer.entities_textures.put("images/target.png", new Texture(Gdx.files.internal("images/target.png")));
-        WorldRenderer.entities_textures.put("images/target_health_1.png", new Texture(Gdx.files.internal("images/target_health_1.png")));
-        WorldRenderer.entities_textures.put("images/target_health_2.png", new Texture(Gdx.files.internal("images/target_health_2.png")));
-        WorldRenderer.entities_textures.put("images/target_health_3.png", new Texture(Gdx.files.internal("images/target_health_3.png")));
-        WorldRenderer.entities_textures.put("images/enemy_health_1.png", new Texture(Gdx.files.internal("images/enemy_health_1.png")));
-        WorldRenderer.entities_textures.put("images/enemy_health_2.png", new Texture(Gdx.files.internal("images/enemy_health_2.png")));
-        WorldRenderer.entities_textures.put("images/enemy_health_3.png", new Texture(Gdx.files.internal("images/enemy_health_3.png")));
-        WorldRenderer.entities_textures.put("images/enemy_medium_health_1.png", new Texture(Gdx.files.internal("images/enemy_medium_health_1.png")));
-        WorldRenderer.entities_textures.put("images/enemy_medium_health_2.png", new Texture(Gdx.files.internal("images/enemy_medium_health_2.png")));
-        WorldRenderer.entities_textures.put("images/enemy_medium_health_3.png", new Texture(Gdx.files.internal("images/enemy_medium_health_3.png")));
-        WorldRenderer.entities_textures.put("images/enemy_strong_health_1.png", new Texture(Gdx.files.internal("images/enemy_strong_health_1.png")));
-        WorldRenderer.entities_textures.put("images/enemy_strong_health_2.png", new Texture(Gdx.files.internal("images/enemy_strong_health_2.png")));
-        WorldRenderer.entities_textures.put("images/enemy_strong_health_3.png", new Texture(Gdx.files.internal("images/enemy_strong_health_3.png")));
-        WorldRenderer.entities_textures.put("images/enemy_static_1.png", new Texture(Gdx.files.internal("images/enemy_static_1.png")));
-        WorldRenderer.entities_textures.put("images/enemy_static_2.png", new Texture(Gdx.files.internal("images/enemy_static_2.png")));
-        WorldRenderer.entities_textures.put("images/enemy_static_3.png", new Texture(Gdx.files.internal("images/enemy_static_3.png")));
-        WorldRenderer.entities_textures.put("images/enemy_static_medium_1.png", new Texture(Gdx.files.internal("images/enemy_static_medium_1.png")));
-        WorldRenderer.entities_textures.put("images/enemy_static_medium_2.png", new Texture(Gdx.files.internal("images/enemy_static_medium_2.png")));
-        WorldRenderer.entities_textures.put("images/enemy_static_medium_3.png", new Texture(Gdx.files.internal("images/enemy_static_medium_3.png")));
-        WorldRenderer.entities_textures.put("images/enemy_static_strong_1.png", new Texture(Gdx.files.internal("images/enemy_static_strong_1.png")));
-        WorldRenderer.entities_textures.put("images/enemy_static_strong_2.png", new Texture(Gdx.files.internal("images/enemy_static_strong_2.png")));
-        WorldRenderer.entities_textures.put("images/enemy_static_strong_3.png", new Texture(Gdx.files.internal("images/enemy_static_strong_3.png")));
-        WorldRenderer.entities_textures.put("images/action_point.png", new Texture(Gdx.files.internal("images/action_point.png")));
-        WorldRenderer.entities_textures.put("images/action_point_active.png", new Texture(Gdx.files.internal("images/action_point_active.png")));
-
-        ArrayList<String> enemy_easy_textures = new ArrayList<String>();
-        enemy_easy_textures.add("images/enemy_health_3.png");
-        enemy_easy_textures.add("images/enemy_health_2.png");
-        enemy_easy_textures.add("images/enemy_health_1.png");
-
-        ArrayList<String> enemy_medium_textures = new ArrayList<String>();
-        enemy_medium_textures.add("images/enemy_medium_health_3.png");
-        enemy_medium_textures.add("images/enemy_medium_health_2.png");
-        enemy_medium_textures.add("images/enemy_medium_health_1.png");
-
-        ArrayList<String> enemy_hard_textures = new ArrayList<String>();
-        enemy_hard_textures.add("images/enemy_strong_health_3.png");
-        enemy_hard_textures.add("images/enemy_strong_health_2.png");
-        enemy_hard_textures.add("images/enemy_strong_health_1.png");
-
-        ArrayList<String> enemy_static_hard_textures = new ArrayList<String>();
-        enemy_static_hard_textures.add("images/enemy_static_strong_3.png");
-        enemy_static_hard_textures.add("images/enemy_static_strong_2.png");
-        enemy_static_hard_textures.add("images/enemy_static_strong_1.png");
-
-        ArrayList<String> enemy_static_medium_textures = new ArrayList<String>();
-        enemy_static_medium_textures.add("images/enemy_static_medium_3.png");
-        enemy_static_medium_textures.add("images/enemy_static_medium_2.png");
-        enemy_static_medium_textures.add("images/enemy_static_medium_1.png");
-
-        ArrayList<String> enemy_static_easy_textures = new ArrayList<String>();
-        enemy_static_easy_textures.add("images/enemy_static_3.png");
-        enemy_static_easy_textures.add("images/enemy_static_2.png");
-        enemy_static_easy_textures.add("images/enemy_static_1.png");
-
-        ArrayList<String> target_textures = new ArrayList<String>();
-        target_textures.add("images/target_health_1.png");
-        target_textures.add("images/target_health_2.png");
-        target_textures.add("images/target_health_3.png");
-
-        WorldRenderer.entities_texture_strings.put("enemy_easy_textures", enemy_easy_textures);
-        WorldRenderer.entities_texture_strings.put("enemy_medium_textures", enemy_medium_textures);
-        WorldRenderer.entities_texture_strings.put("enemy_hard_textures", enemy_hard_textures);
-        WorldRenderer.entities_texture_strings.put("enemy_static_hard_textures", enemy_static_hard_textures);
-        WorldRenderer.entities_texture_strings.put("enemy_static_medium_textures", enemy_static_medium_textures);
-        WorldRenderer.entities_texture_strings.put("enemy_static_easy_textures", enemy_static_easy_textures);
-        WorldRenderer.entities_texture_strings.put("target_textures", target_textures);
 
         player_ = new Player();
         target_count_ = 12;
-        entities_.add(new Target(500,100,10,3,target_textures));
+        entities_.add(new Target(500,100,10,3));
 
-        inactive_enemies_.add(new NormalEnemy(800,300,enemy_easy_,1,1,enemy_easy_textures, 1));
-        inactive_enemies_.add(new NormalEnemy(800,300,enemy_medium_,2,2,enemy_medium_textures, 3));
-        inactive_enemies_.add(new NormalEnemy(800,300,enemy_hard_,3,3,enemy_hard_textures, 5));
-        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3,enemy_static_hard_textures, new Vector2(100, 100), new Vector2(500, 600), 8));
-        inactive_enemies_.add(new StaticEnemy(enemy_medium_,3,3,enemy_static_medium_textures, new Vector2(500, 100), new Vector2(500, 600), 8));
+        inactive_enemies_.add(new NormalEnemy(800,300,enemy_easy_,1,1, 1));
+        inactive_enemies_.add(new NormalEnemy(800,300,enemy_medium_,2,2, 3));
+        inactive_enemies_.add(new NormalEnemy(800,300,enemy_hard_,3,3, 5));
+        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3, new Vector2(100, 100), new Vector2(500, 600), 8));
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,3,3, new Vector2(500, 100), new Vector2(500, 600), 8));
         // entities_.add(new StaticEnemy(enemy_easy_,3,3,enemy_easy_textures, new Vector2(300, 100), new Vector2(700, 600)));
 
         ChainAP f1 = new ChainAP(400,400,true,0);

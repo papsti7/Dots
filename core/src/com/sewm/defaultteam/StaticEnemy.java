@@ -1,13 +1,10 @@
 package com.sewm.defaultteam;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Admin on 25.05.2016.
@@ -38,11 +35,22 @@ public class StaticEnemy extends Enemy {
         target_pos_ = start_pos;
     }
 
-    public StaticEnemy(EnemyAttribute difficulty, int points, int points_on_death, List<String> textures, Vector2 start_pos, Vector2 end_pos, int spawn_time)
+    public StaticEnemy(EnemyAttribute difficulty, int points, int points_on_death, Vector2 start_pos, Vector2 end_pos, int spawn_time)
     {
         this(new Vector2(start_pos.x, start_pos.y), difficulty, points, points_on_death, start_pos, end_pos);
         spawn_time_ = spawn_time;
-        texture_array_ = textures;
+        switch (difficulty.difficulty_) {
+            case 1:
+                texture_array_ = WorldRenderer.entities_texture_strings.get("enemy_static_medium_textures");
+                break;
+            case 2:
+                texture_array_ = WorldRenderer.entities_texture_strings.get("enemy_static_hard_textures");
+                break;
+            case 0:
+            default:
+                texture_array_ = WorldRenderer.entities_texture_strings.get("enemy_static_easy_textures");
+                break;
+        }
         texture_ = texture_array_.get(2);
     }
 

@@ -16,4 +16,17 @@ public class EnemyAttribute {
         inertia_ = inertia;
         difficulty_ = difficulty;
     }
+
+    static EnemyAttribute fromInt(int difficulty) {
+        switch (difficulty) {
+            case 0:
+                return World.enemy_easy_;
+            case 1:
+                return World.enemy_medium_;
+            case 2:
+                return World.enemy_hard_;
+            default:
+                return World.enemy_easy_;
+        }
+    }
 }
