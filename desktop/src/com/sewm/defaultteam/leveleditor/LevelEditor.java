@@ -155,7 +155,7 @@ public class LevelEditor {
 		panelLeft.setColumnHeaderView(lblTools);
 		
 		JSplitPane splitPaneRight = new JSplitPane();
-		splitPaneRight.setResizeWeight(1.0);
+		splitPaneRight.setResizeWeight(.8);
 		splitPaneRight.setEnabled(false);
 		splitPaneLeft.setRightComponent(splitPaneRight);
 		
@@ -191,6 +191,8 @@ public class LevelEditor {
 		return frame_;
 	}
 
+    public JScrollPane getPropertiesPanel() { return panelProperties_; }
+
     public Canvas getCanvas() {
         return canvas_.getCanvas();
     }
@@ -210,7 +212,7 @@ public class LevelEditor {
 	public LevelEditorTool getSelectedTool() {
 		Object value = tools_.getLastSelectedPathComponent();
 		if (value instanceof LevelEditorTool) {
-			return (LevelEditorTool) value;
+            return (LevelEditorTool) value;
 		}
 		return null;
 	}

@@ -39,6 +39,13 @@ public class LevelEditorTool extends DefaultMutableTreeNode {
         switch (action_) {
         case SELECT:
             System.out.println("Select at " + pos);
+			for (LevelEditorItem item : editor_.getItems()) {
+				//TODO maybe adjust bounding box
+				if(((item.getX() - 40) < pos.x) && ((item.getX() + 40) > pos.x) &&
+						((item.getY() - 40) < pos.y) && ((item.getY() + 40) > pos.y)) {
+					System.out.println("item selected: " + item.getName());
+				}
+			}
             break;
 
         case PLACE:
