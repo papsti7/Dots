@@ -44,6 +44,8 @@ public class LevelEditorTool extends DefaultMutableTreeNode {
 				if(((item.getX() - 40) < pos.x) && ((item.getX() + 40) > pos.x) &&
 						((item.getY() - 40) < pos.y) && ((item.getY() + 40) > pos.y)) {
 					System.out.println("item selected: " + item.getName());
+					editor_.properties_.setSelectedItem(item);
+					break;
 				}
 			}
             break;

@@ -1,11 +1,12 @@
 package com.sewm.defaultteam.leveleditor;
 
-import com.sewm.defaultteam.leveleditor.items.ChainActionPointItem;
-import com.sewm.defaultteam.leveleditor.items.NormalEnemyItem;
-import com.sewm.defaultteam.leveleditor.items.StaticEnemyItem;
+
 import com.sewm.defaultteam.leveleditor.items.TargetItem;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 public class LevelEditorProperties {
     final private LevelEditor editor_;
@@ -18,5 +19,6 @@ public class LevelEditorProperties {
     public void setSelectedItem(LevelEditorItem item) {
         currently_selected_item = item;
         JScrollPane panel = editor_.getPropertiesPanel();
+        panel.setColumnHeaderView(item.getPropertiesPanel());
     }
 }

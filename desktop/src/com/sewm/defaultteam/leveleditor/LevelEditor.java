@@ -68,6 +68,8 @@ public class LevelEditor {
 	
 	private Cursor cursor_ = Cursor.getDefaultCursor();
 	private final LevelEditorFile file_ = new LevelEditorFile();
+
+    public final LevelEditorProperties properties_ = new LevelEditorProperties(this);
 	
 	private Map<String, Cursor> cursors_ = new HashMap<String, Cursor>();
 	private Map<String, Icon> icons_ = new HashMap<String, Icon>();

@@ -9,9 +9,12 @@ import com.sewm.defaultteam.leveleditor.items.NormalEnemyItem;
 import com.sewm.defaultteam.leveleditor.items.StaticEnemyItem;
 import com.sewm.defaultteam.leveleditor.items.TargetItem;
 
+import javax.swing.JPanel;
+
 public class LevelEditorItem {
 	protected Vector2 position_;
     protected String name;
+    protected JPanel properties_panel_;
 
     public static LevelEditorItem create(String name, Vector2 position) {
         if (name.equals("Target")) {
@@ -37,6 +40,7 @@ public class LevelEditorItem {
     protected LevelEditorItem(String name, Vector2 position) {
         this.name = name;
         this.position_ = position;
+        this.properties_panel_ = new JPanel();
     }
 
 	public void draw(SpriteBatch spriteBatch) {
@@ -58,4 +62,6 @@ public class LevelEditorItem {
     public float getY() {
         return position_.y;
     }
+
+    public JPanel getPropertiesPanel() { return properties_panel_; }
 }
