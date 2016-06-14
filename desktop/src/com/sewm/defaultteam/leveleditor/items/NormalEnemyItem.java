@@ -3,6 +3,10 @@ package com.sewm.defaultteam.leveleditor.items;
 import com.badlogic.gdx.math.Vector2;
 import com.sewm.defaultteam.leveleditor.LevelEditorItem;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -39,32 +43,46 @@ public class NormalEnemyItem extends LevelEditorItem {
     }
 
     private void createPanel() {
-        JTextField position_x = new JTextField();
+        final JTextField position_x = new JTextField();
         Float pos_x = this.position_.x;
         position_x.setText(pos_x.toString());
         properties_panel_.add(new JLabel("X-Position"));
         properties_panel_.add(position_x);
 
-        JTextField position_y = new JTextField();
+        final JTextField position_y = new JTextField();
         Float pos_y = this.position_.y;
         position_y.setText(pos_y.toString());
         properties_panel_.add(new JLabel("Y-Position"));
         properties_panel_.add(position_y);
-        
-        JTextField points = new JTextField();
+
+        final JTextField points = new JTextField();
         points.setText(String.valueOf(points_));
         properties_panel_.add(new JLabel("Points"));
         properties_panel_.add(points);
 
-        JTextField points_on_death = new JTextField();
+        final JTextField points_on_death = new JTextField();
         points_on_death.setText(String.valueOf(points_on_death_));
         properties_panel_.add(new JLabel("Points on Death"));
         properties_panel_.add(points_on_death);
 
-        JTextField spawn_time = new JTextField();
+        final JTextField spawn_time = new JTextField();
         spawn_time.setText(String.valueOf(spawn_time_));
         properties_panel_.add(new JLabel("Spawn Time"));
         properties_panel_.add(spawn_time);
+
+        JButton btn_save = new JButton("Save");
+        btn_save.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent ae)
+            {
+                position_.x = Float.parseFloat(position_x.getText());
+                position_.y = Float.parseFloat(position_y.getText());
+                points_on_death_ = Integer.parseInt(points_on_death.getText());
+                points_= Integer.parseInt(points.getText());
+                spawn_time_= Integer.parseInt(spawn_time.getText());
+            }
+        });
+        properties_panel_.add(btn_save);
     }
 
     public JPanel getPropertiesPanel() {

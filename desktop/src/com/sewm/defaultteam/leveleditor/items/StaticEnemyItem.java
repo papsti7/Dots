@@ -3,8 +3,13 @@ package com.sewm.defaultteam.leveleditor.items;
 import com.badlogic.gdx.math.Vector2;
 import com.sewm.defaultteam.leveleditor.LevelEditorItem;
 
+import javax.swing.Action;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -60,43 +65,61 @@ public class StaticEnemyItem extends LevelEditorItem {
     }
 
     private void createPanel() {
-        JTextField position_x_start = new JTextField();
-        Float pos_x_start = this.getStartX();
+        final JTextField position_x_start = new JTextField();
+        final Float pos_x_start = this.getStartX();
         position_x_start.setText(pos_x_start.toString());
         properties_panel_.add(new JLabel("X-Position Start"));
         properties_panel_.add(position_x_start);
 
-        JTextField position_y_start = new JTextField();
-        Float pos_y_start = this.getStartY();
+        final JTextField position_y_start = new JTextField();
+        final Float pos_y_start = this.getStartY();
         position_y_start.setText(pos_y_start.toString());
         properties_panel_.add(new JLabel("Y-Position Start"));
         properties_panel_.add(position_y_start);
 
-        JTextField position_x_end = new JTextField();
-        Float pos_x_end = this.getEndX();
+        final JTextField position_x_end = new JTextField();
+        final Float pos_x_end = this.getEndX();
         position_x_end.setText(pos_x_end.toString());
         properties_panel_.add(new JLabel("X-Position End"));
         properties_panel_.add(position_x_end);
 
-        JTextField position_y_end = new JTextField();
-        Float pos_y_end = this.getEndY();
+        final JTextField position_y_end = new JTextField();
+        final Float pos_y_end = this.getEndY();
         position_y_end.setText(pos_y_end.toString());
         properties_panel_.add(new JLabel("Y-Position End"));
         properties_panel_.add(position_y_end);
 
-        JTextField points = new JTextField();
+        final JTextField points = new JTextField();
         points.setText(String.valueOf(points_));
         properties_panel_.add(new JLabel("Points"));
         properties_panel_.add(points);
 
-        JTextField points_on_death = new JTextField();
+        final JTextField points_on_death = new JTextField();
         points_on_death.setText(String.valueOf(points_on_death_));
         properties_panel_.add(new JLabel("Points on Death"));
         properties_panel_.add(points_on_death);
 
-        JTextField spawn_time = new JTextField();
+        final JTextField spawn_time = new JTextField();
         spawn_time.setText(String.valueOf(spawn_time_));
         properties_panel_.add(new JLabel("Spawn Time"));
         properties_panel_.add(spawn_time);
+
+        JButton btn_save = new JButton("Save");
+        btn_save.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent ae)
+            {
+                position_.x = Float.parseFloat(position_x_start.getText());
+                position_.y = Float.parseFloat(position_y_start.getText());
+                end_.x = Float.parseFloat(position_x_end.getText());
+                end_.y = Float.parseFloat(position_y_end.getText());
+                points_on_death_ = Integer.parseInt(points_on_death.getText());
+                points_= Integer.parseInt(points.getText());
+                spawn_time_= Integer.parseInt(spawn_time.getText());
+            }
+        });
+        properties_panel_.add(btn_save);
     }
+
+
 }
