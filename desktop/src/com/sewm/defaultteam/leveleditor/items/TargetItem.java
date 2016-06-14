@@ -44,9 +44,8 @@ public class TargetItem extends LevelEditorItem {
         properties_panel_.add(new JLabel("Radius"));
         properties_panel_.add(radius);
 
-        //TODO convert Int to string
         JTextField health = new JTextField();
-        health.setText(health.toString());
+        health.setText(String.valueOf(health_));
         properties_panel_.add(new JLabel("Health"));
         properties_panel_.add(health);
     }

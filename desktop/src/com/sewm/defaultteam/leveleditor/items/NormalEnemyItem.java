@@ -50,20 +50,19 @@ public class NormalEnemyItem extends LevelEditorItem {
         position_y.setText(pos_y.toString());
         properties_panel_.add(new JLabel("Y-Position"));
         properties_panel_.add(position_y);
-
-        //TODO convert Int to string
+        
         JTextField points = new JTextField();
-        points.setText(points_.toString());
+        points.setText(String.valueOf(points_));
         properties_panel_.add(new JLabel("Points"));
         properties_panel_.add(points);
 
         JTextField points_on_death = new JTextField();
-        points_on_death.setText(points_on_death_.toString());
+        points_on_death.setText(String.valueOf(points_on_death_));
         properties_panel_.add(new JLabel("Points on Death"));
         properties_panel_.add(points_on_death);
 
         JTextField spawn_time = new JTextField();
-        spawn_time.setText(spawn_time_.toString());
+        spawn_time.setText(String.valueOf(spawn_time_));
         properties_panel_.add(new JLabel("Spawn Time"));
         properties_panel_.add(spawn_time);
     }
