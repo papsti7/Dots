@@ -19,6 +19,9 @@ public class LevelEditorProperties {
     public void setSelectedItem(LevelEditorItem item) {
         currently_selected_item = item;
         JScrollPane panel = editor_.getPropertiesPanel();
-        panel.setRowHeaderView(item.getPropertiesPanel());
+        panel.setColumnHeaderView(new JLabel(item.getName()));
+
+        //TODO change orientation
+        panel.setViewportView(item.getPropertiesPanel());
     }
 }
