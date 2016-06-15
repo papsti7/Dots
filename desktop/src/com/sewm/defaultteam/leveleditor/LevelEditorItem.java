@@ -25,7 +25,7 @@ public class LevelEditorItem {
 
     public static LevelEditorItem create(LevelEditor e, String name, Vector2 position) {
         if (name.equals("Player")) {
-            for (LevelEditorItem item : e.getItems()) {
+            for (LevelEditorItem item : e.getFile().getItems()) {
                 if (item instanceof PlayerItem) {
                     return null; // only one PlayerItem allowed
                 }

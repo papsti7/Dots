@@ -190,6 +190,11 @@ public class LevelEditorFile {
 		return new ArrayList<LevelEditorItem>(items_);
 	}
 
+	public synchronized void removeItem(LevelEditorItem item) {
+		items_.remove(item);
+		setDirty(true);
+	}
+
     public synchronized void addItem(LevelEditorItem item) {
         items_.add(item);
         setDirty(true);

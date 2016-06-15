@@ -64,7 +64,7 @@ public class LevelEditorCanvasRenderer implements ApplicationListener {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         sprite_batch_.begin();
-        for (LevelEditorItem item : editor_.getItems()) {
+        for (LevelEditorItem item : editor_.getFile().getItems()) {
             item.draw(sprite_batch_);
         }
 	    sprite_batch_.end();

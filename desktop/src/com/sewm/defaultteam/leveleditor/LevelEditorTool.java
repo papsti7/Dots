@@ -40,7 +40,7 @@ public class LevelEditorTool extends DefaultMutableTreeNode {
         case SELECT:
             System.out.println("Select at " + pos);
 			LevelEditorItem hit = null;
-			for (LevelEditorItem item : editor_.getItems()) {
+			for (LevelEditorItem item : editor_.getFile().getItems()) {
 				//TODO maybe adjust bounding box
 				if(((item.getX() - 40) < pos.x) && ((item.getX() + 40) > pos.x) &&
 						((item.getY() - 40) < pos.y) && ((item.getY() + 40) > pos.y)) {
@@ -53,13 +53,11 @@ public class LevelEditorTool extends DefaultMutableTreeNode {
             break;
 
 		case DELETE:
-			for (LevelEditorItem item : editor_.getItems()) {
+			for (LevelEditorItem item : editor_.getFile().getItems()) {
 				if(((item.getX() - 40) < pos.x) && ((item.getX() + 40) > pos.x) &&
 						((item.getY() - 40) < pos.y) && ((item.getY() + 40) > pos.y)) {
 					System.out.println("item selected for deletion: " + item.getName());
-					editor_.getItems().remove(item);
-					//TODO redraw
-					//editor_.canvas_renderer_.render();
+					editor_.getFile().removeItem(item);
 					break;
 				}
 			}
@@ -69,7 +67,7 @@ public class LevelEditorTool extends DefaultMutableTreeNode {
             System.out.println("Place at " + pos);
             LevelEditorItem item = LevelEditorItem.create(editor_, name_, pos);
 			if (item != null) {
-				editor_.addItem(item);
+				editor_.getFile().addItem(item);
 			}
             break;
 

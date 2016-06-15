@@ -214,14 +214,6 @@ public class LevelEditor {
     public LevelEditorFile getFile() {
         return file_;
     }
-	
-	public List<LevelEditorItem> getItems() {
-		return file_.getItems();
-	}
-
-    public void addItem(LevelEditorItem item) {
-        file_.addItem(item);
-    }
 
 	public LevelEditorTool getSelectedTool() {
 		Object value = tools_.getLastSelectedPathComponent();
