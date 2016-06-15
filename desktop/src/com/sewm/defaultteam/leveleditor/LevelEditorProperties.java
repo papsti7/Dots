@@ -3,6 +3,7 @@ package com.sewm.defaultteam.leveleditor;
 
 import com.sewm.defaultteam.leveleditor.items.TargetItem;
 
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,6 +23,8 @@ public class LevelEditorProperties {
         panel.setColumnHeaderView(new JLabel(item.getName()));
 
         //TODO change orientation
-        panel.setViewportView(item.getPropertiesPanel());
+        JPanel properties_panel = item.getPropertiesPanel();
+        properties_panel.setLayout(new BoxLayout(properties_panel, BoxLayout.Y_AXIS));
+        panel.setViewportView(properties_panel);
     }
 }
