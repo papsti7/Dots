@@ -50,6 +50,19 @@ public class LevelEditorTool extends DefaultMutableTreeNode {
 			}
             break;
 
+		case DELETE:
+			for (LevelEditorItem item : editor_.getItems()) {
+				if(((item.getX() - 40) < pos.x) && ((item.getX() + 40) > pos.x) &&
+						((item.getY() - 40) < pos.y) && ((item.getY() + 40) > pos.y)) {
+					System.out.println("item selected for deletion: " + item.getName());
+					editor_.getItems().remove(item);
+					//TODO redraw
+					//editor_.canvas_renderer_.render();
+					break;
+				}
+			}
+			break;
+
         case PLACE:
             System.out.println("Place at " + pos);
             LevelEditorItem item = LevelEditorItem.create(name_, pos);
@@ -75,6 +88,7 @@ public class LevelEditorTool extends DefaultMutableTreeNode {
 	public enum ACTION {
 		SELECT,
 		MOVE,
-		PLACE
+		PLACE,
+		DELETE
 	}
 }

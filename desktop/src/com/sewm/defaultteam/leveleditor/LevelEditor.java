@@ -62,6 +62,7 @@ public class LevelEditor {
 
 	private JFrame frame_;
 	private LwjglAWTCanvas canvas_;
+    public LevelEditorCanvasRenderer canvas_renderer_;
 	private JScrollPane panelProperties_;
     private JPanel panelCenter_;
 	private JTree tools_;
@@ -80,7 +81,8 @@ public class LevelEditor {
 	 * @throws NoSuchMethodException 
 	 */
 	public LevelEditor() throws NoSuchMethodException, SecurityException {
-		canvas_ = new LwjglAWTCanvas(new LevelEditorCanvasRenderer(this));
+        canvas_renderer_ = new LevelEditorCanvasRenderer(this);
+		canvas_ = new LwjglAWTCanvas(canvas_renderer_);
 		initializeCursorsAndIcons();
 		initializeGUI();
 	}

@@ -16,6 +16,7 @@ public class LevelEditorTreeModel extends DefaultTreeModel {
 
         root.add(new LevelEditorTool(e, "Select", null, Cursor.getPredefinedCursor(Cursor.HAND_CURSOR), ACTION.SELECT));
         root.add(new LevelEditorTool(e, "Move", null, Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR), ACTION.MOVE));
+        root.add(new LevelEditorTool(e, "Delete", null, Cursor.getPredefinedCursor(Cursor.HAND_CURSOR), ACTION.DELETE));
         root.add(new LevelEditorTool(e, "Player", icons.get("Player"), cursors.get("Player"), ACTION.PLACE));
         root.add(new LevelEditorTool(e, "Target", icons.get("Target"), cursors.get("Target"), ACTION.PLACE));
 

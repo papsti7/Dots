@@ -22,7 +22,6 @@ public class LevelEditorProperties {
         JScrollPane panel = editor_.getPropertiesPanel();
         panel.setColumnHeaderView(new JLabel(item.getName()));
 
-        //TODO change orientation
         JPanel properties_panel = item.getPropertiesPanel();
         properties_panel.setLayout(new BoxLayout(properties_panel, BoxLayout.Y_AXIS));
         panel.setViewportView(properties_panel);
