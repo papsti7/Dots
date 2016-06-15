@@ -1,46 +1,87 @@
 package com.sewm.defaultteam.leveleditor.items;
 
 import com.badlogic.gdx.math.Vector2;
+import com.sewm.defaultteam.leveleditor.LevelEditor;
+import com.sewm.defaultteam.leveleditor.LevelEditorFile;
 import com.sewm.defaultteam.leveleditor.LevelEditorItem;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
-import javax.swing.JButton;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.ParseException;
+
+import javax.swing.Box;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 public class ChainActionPointItem extends LevelEditorItem {
-    public ChainActionPointItem(String texture_name, Vector2 position, Vector2... positions) {
-        super(texture_name, position);
+    private Vector2[] positions_;
+
+    public ChainActionPointItem(LevelEditor editor, String texture_name, Vector2 position, Vector2... positions) {
+        super(editor, texture_name, position);
+        positions_ = positions;
         createPanel();
     }
 
     private void createPanel() {
-        final JTextField position_x = new JTextField();
-        Float pos_x = this.position_.x;
-        position_x.setText(pos_x.toString());
-        properties_panel_.add(new JLabel("X-Position"));
-        properties_panel_.add(position_x);
+        try {
+            Box vertical = Box.createVerticalBox();
 
-        final JTextField position_y = new JTextField();
-        Float pos_y = this.position_.y;
-        position_y.setText(pos_y.toString());
-        properties_panel_.add(new JLabel("Y-Position"));
-        properties_panel_.add(position_y);
+            final JFormattedTextField position_x = new JFormattedTextField(LevelEditorFile.FLOAT);
+            position_x.setText(LevelEditorFile.FLOAT.valueToString(position_.x));
+            position_x.addPropertyChangeListener("value", new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent e) {
+                    if (!e.getNewValue().equals(e.getOldValue())) {
+                        position_.x = Float.parseFloat(e.getNewValue().toString());
+                        editor_.getFile().setDirty(true);
+                    }
+                }
+            });
+            vertical.add(new JLabel("X-Position"));
+            vertical.add(position_x);
 
-        //TODO further positions?
+            final JFormattedTextField position_y = new JFormattedTextField(LevelEditorFile.FLOAT);
+            position_y.setText(LevelEditorFile.FLOAT.valueToString(position_.y));
+            position_y.addPropertyChangeListener("value", new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent e) {
+                    if (!e.getNewValue().equals(e.getOldValue())) {
+                        position_.y = Float.parseFloat(e.getNewValue().toString());
+                        editor_.getFile().setDirty(true);
+                    }
+                }
+            });
+            vertical.add(new JLabel("Y-Position"));
+            vertical.add(position_y);
 
-        JButton btn_save = new JButton("Save");
-        btn_save.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent ae)
-            {
-                position_.x = Float.parseFloat(position_x.getText());
-                position_.y = Float.parseFloat(position_y.getText());
-            }
-        });
-        properties_panel_.add(btn_save);
+            //TODO further positions?
+
+            properties_panel_.add(vertical);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
+    @Override
+    public Element toXML(Document document) {
+        Element node = document.createElement("actionPoint");
+        node.setAttribute("type", "chain");
+
+        Element position = document.createElement("position");
+        position.setAttribute("x", String.valueOf(getX()));
+        position.setAttribute("y", String.valueOf(getY()));
+        node.appendChild(position);
+
+        for (Vector2 pos : positions_) {
+            position = document.createElement("position");
+            position.setAttribute("x", String.valueOf(pos.x));
+            position.setAttribute("y", String.valueOf(pos.y));
+            node.appendChild(position);
+        }
+
+        return node;
+    }
 }

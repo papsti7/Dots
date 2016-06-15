@@ -1,12 +1,9 @@
 package com.sewm.defaultteam.leveleditor;
 
 
-import com.sewm.defaultteam.leveleditor.items.TargetItem;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
 
 public class LevelEditorProperties {
     final private LevelEditor editor_;
@@ -19,9 +16,15 @@ public class LevelEditorProperties {
     public void setSelectedItem(LevelEditorItem item) {
         currently_selected_item = item;
         JScrollPane panel = editor_.getPropertiesPanel();
-        panel.setColumnHeaderView(new JLabel(item.getName()));
+        JLabel label = (JLabel) panel.getColumnHeader().getView();
 
-        //TODO change orientation
-        panel.setViewportView(item.getPropertiesPanel());
+        if (item != null) {
+            label.setText(item.getName());
+            JPanel properties = item.getPropertiesPanel();
+            panel.setViewportView(properties);
+        } else {
+            panel.getViewport().removeAll();
+        }
+        editor_.getFrame().revalidate();
     }
 }

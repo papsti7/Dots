@@ -27,7 +27,7 @@ public class NormalEnemy extends Enemy{
         points_on_death_ = points_on_death;
     }
 
-    public NormalEnemy(int x, int y, EnemyAttribute difficulty, int points, int points_on_death, int spawn_time)
+    public NormalEnemy(float x, float y, EnemyAttribute difficulty, int points, int points_on_death, int spawn_time)
     {
         this(new Vector2(x, y), difficulty, points, points_on_death);
         spawn_time_ = spawn_time;

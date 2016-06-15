@@ -30,11 +30,10 @@ public class Player {
         texture_ = "images/player_new.png";
     }
 
-    public Player(int health, String texture)
+    public Player(int health)
     {
         this();
         health_ = (float) health;
-        texture_ = texture;
     }
 
     public void update(Vector2 new_pos){

@@ -1,19 +1,23 @@
 package com.sewm.defaultteam.leveleditor.items;
 
 import com.badlogic.gdx.math.Vector2;
+import com.sewm.defaultteam.leveleditor.LevelEditor;
+import com.sewm.defaultteam.leveleditor.LevelEditorFile;
 import com.sewm.defaultteam.leveleditor.LevelEditorItem;
 
-import javax.swing.Action;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.ParseException;
 
 public class StaticEnemyItem extends LevelEditorItem {
     protected int difficulty_;
@@ -54,8 +58,8 @@ public class StaticEnemyItem extends LevelEditorItem {
         return end_.y;
     }
 
-    public StaticEnemyItem(String texture_name, Vector2 start, Vector2 end, int difficulty, int points, int points_on_death, int spawn_time) {
-        super(texture_name, start);
+    public StaticEnemyItem(LevelEditor editor, String texture_name, Vector2 start, Vector2 end, int difficulty, int points, int points_on_death, int spawn_time) {
+        super(editor, texture_name, start);
         end_ = end;
         difficulty_ = difficulty;
         points_ = points;
@@ -65,61 +69,133 @@ public class StaticEnemyItem extends LevelEditorItem {
     }
 
     private void createPanel() {
-        final JTextField position_x_start = new JTextField();
-        final Float pos_x_start = this.getStartX();
-        position_x_start.setText(pos_x_start.toString());
-        properties_panel_.add(new JLabel("X-Position Start"));
-        properties_panel_.add(position_x_start);
+        try {
+            Box vertical = Box.createVerticalBox();
 
-        final JTextField position_y_start = new JTextField();
-        final Float pos_y_start = this.getStartY();
-        position_y_start.setText(pos_y_start.toString());
-        properties_panel_.add(new JLabel("Y-Position Start"));
-        properties_panel_.add(position_y_start);
+            final JFormattedTextField position_x_start = new JFormattedTextField(LevelEditorFile.FLOAT);
+            position_x_start.setText(LevelEditorFile.FLOAT.valueToString(position_.x));
+            position_x_start.addPropertyChangeListener("value", new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent e) {
+                    if (!e.getNewValue().equals(e.getOldValue())) {
+                        position_.x = Float.parseFloat(e.getNewValue().toString());
+                        editor_.getFile().setDirty(true);
+                    }
+                }
+            });
+            vertical.add(new JLabel("X-Position Start"));
+            vertical.add(position_x_start);
 
-        final JTextField position_x_end = new JTextField();
-        final Float pos_x_end = this.getEndX();
-        position_x_end.setText(pos_x_end.toString());
-        properties_panel_.add(new JLabel("X-Position End"));
-        properties_panel_.add(position_x_end);
+            final JFormattedTextField position_y_start = new JFormattedTextField(LevelEditorFile.FLOAT);
+            position_y_start.setText(LevelEditorFile.FLOAT.valueToString(position_.y));
+            position_y_start.addPropertyChangeListener("value", new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent e) {
+                    if (!e.getNewValue().equals(e.getOldValue())) {
+                        position_.y = Float.parseFloat(e.getNewValue().toString());
+                        editor_.getFile().setDirty(true);
+                    }
+                }
+            });
+            vertical.add(new JLabel("Y-Position Start"));
+            vertical.add(position_y_start);
 
-        final JTextField position_y_end = new JTextField();
-        final Float pos_y_end = this.getEndY();
-        position_y_end.setText(pos_y_end.toString());
-        properties_panel_.add(new JLabel("Y-Position End"));
-        properties_panel_.add(position_y_end);
+            final JFormattedTextField position_x_end = new JFormattedTextField(LevelEditorFile.FLOAT);
+            position_x_end.setText(LevelEditorFile.FLOAT.valueToString(end_.x));
+            position_x_end.addPropertyChangeListener("value", new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent e) {
+                    if (!e.getNewValue().equals(e.getOldValue())) {
+                        end_.x = Float.parseFloat(e.getNewValue().toString());
+                        editor_.getFile().setDirty(true);
+                    }
+                }
+            });
+            vertical.add(new JLabel("X-Position End"));
+            vertical.add(position_x_end);
 
-        final JTextField points = new JTextField();
-        points.setText(String.valueOf(points_));
-        properties_panel_.add(new JLabel("Points"));
-        properties_panel_.add(points);
+            final JFormattedTextField position_y_end = new JFormattedTextField(LevelEditorFile.FLOAT);
+            position_y_end.setText(LevelEditorFile.FLOAT.valueToString(end_.y));
+            position_y_end.addPropertyChangeListener("value", new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent e) {
+                    if (!e.getNewValue().equals(e.getOldValue())) {
+                        end_.y = Float.parseFloat(e.getNewValue().toString());
+                        editor_.getFile().setDirty(true);
+                    }
+                }
+            });
+            vertical.add(new JLabel("Y-Position End"));
+            vertical.add(position_y_end);
 
-        final JTextField points_on_death = new JTextField();
-        points_on_death.setText(String.valueOf(points_on_death_));
-        properties_panel_.add(new JLabel("Points on Death"));
-        properties_panel_.add(points_on_death);
+            final JFormattedTextField points = new JFormattedTextField(LevelEditorFile.INT);
+            points.setText(LevelEditorFile.INT.valueToString(points_));
+            points.addPropertyChangeListener("value", new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent e) {
+                    if (!e.getNewValue().equals(e.getOldValue())) {
+                        points_ = Integer.parseInt(e.getNewValue().toString());
+                        editor_.getFile().setDirty(true);
+                    }
+                }
+            });
+            vertical.add(new JLabel("Points"));
+            vertical.add(points);
 
-        final JTextField spawn_time = new JTextField();
-        spawn_time.setText(String.valueOf(spawn_time_));
-        properties_panel_.add(new JLabel("Spawn Time"));
-        properties_panel_.add(spawn_time);
+            final JFormattedTextField points_on_death = new JFormattedTextField(LevelEditorFile.INT);
+            points_on_death.setText(LevelEditorFile.INT.valueToString(points_on_death_));
+            points_on_death.addPropertyChangeListener("value", new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent e) {
+                    if (!e.getNewValue().equals(e.getOldValue())) {
+                        points_on_death_ = Integer.parseInt(e.getNewValue().toString());
+                        editor_.getFile().setDirty(true);
+                    }
+                }
+            });
+            vertical.add(new JLabel("Points on Death"));
+            vertical.add(points_on_death);
 
-        JButton btn_save = new JButton("Save");
-        btn_save.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent ae)
-            {
-                position_.x = Float.parseFloat(position_x_start.getText());
-                position_.y = Float.parseFloat(position_y_start.getText());
-                end_.x = Float.parseFloat(position_x_end.getText());
-                end_.y = Float.parseFloat(position_y_end.getText());
-                points_on_death_ = Integer.parseInt(points_on_death.getText());
-                points_= Integer.parseInt(points.getText());
-                spawn_time_= Integer.parseInt(spawn_time.getText());
-            }
-        });
-        properties_panel_.add(btn_save);
+            final JFormattedTextField spawn_time = new JFormattedTextField(LevelEditorFile.INT);
+            spawn_time.setText(LevelEditorFile.INT.valueToString(spawn_time_));
+            spawn_time.addPropertyChangeListener("value", new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent e) {
+                    if (!e.getNewValue().equals(e.getOldValue())) {
+                        spawn_time_ = Integer.parseInt(e.getNewValue().toString());
+                        editor_.getFile().setDirty(true);
+                    }
+                }
+            });
+            vertical.add(new JLabel("Spawn Time"));
+            vertical.add(spawn_time);
+
+            properties_panel_.add(vertical);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
+    @Override
+    public Element toXML(Document document) {
+        Element node = document.createElement("enemy");
 
+        node.setAttribute("type", "static");
+        node.setAttribute("difficulty", String.valueOf(getDifficulty()));
+        node.setAttribute("points", String.valueOf(getPoints()));
+        node.setAttribute("pointsOnDeath", String.valueOf(getPointsOnDeath()));
+        node.setAttribute("spawnTime", String.valueOf(getSpawnTime()));
+
+        Element start = document.createElement("start");
+        start.setAttribute("x", String.valueOf(getStartX()));
+        start.setAttribute("y", String.valueOf(getStartY()));
+        node.appendChild(start);
+
+        Element end = document.createElement("end");
+        end.setAttribute("x", String.valueOf(getEndX()));
+        end.setAttribute("y", String.valueOf(getEndY()));
+        node.appendChild(end);
+
+        return node;
+    }
 }

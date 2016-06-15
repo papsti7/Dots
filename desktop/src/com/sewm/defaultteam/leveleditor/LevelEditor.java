@@ -44,6 +44,14 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
+import javax.swing.JTextField;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.CardLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 public class LevelEditor {
     public static final Map<String, String> images_;
@@ -65,24 +73,26 @@ public class LevelEditor {
 	private JScrollPane panelProperties_;
     private JPanel panelCenter_;
 	private JTree tools_;
-	
-	private Cursor cursor_ = Cursor.getDefaultCursor();
-	private final LevelEditorFile file_ = new LevelEditorFile();
 
-    public final LevelEditorProperties properties_ = new LevelEditorProperties(this);
-	
+	private Cursor cursor_ = Cursor.getDefaultCursor();
+
+	private final LevelEditorFile file_;
+    private final LevelEditorProperties properties_;
+
 	private Map<String, Cursor> cursors_ = new HashMap<String, Cursor>();
 	private Map<String, Icon> icons_ = new HashMap<String, Icon>();
 
 	/**
 	 * Create the application.
-	 * @throws SecurityException 
-	 * @throws NoSuchMethodException 
+	 * @throws SecurityException
+	 * @throws NoSuchMethodException
 	 */
 	public LevelEditor() throws NoSuchMethodException, SecurityException {
 		canvas_ = new LwjglAWTCanvas(new LevelEditorCanvasRenderer(this));
 		initializeCursorsAndIcons();
 		initializeGUI();
+        file_ = new LevelEditorFile(this);
+        properties_ = new LevelEditorProperties(this);
 	}
 
 	/**
@@ -118,18 +128,14 @@ public class LevelEditor {
 
 	/**
 	 * Initialize the contents of the frame.
-	 * @throws SecurityException 
-	 * @throws NoSuchMethodException 
+	 * @throws SecurityException
+	 * @throws NoSuchMethodException
 	 */
 	private void initializeGUI() throws NoSuchMethodException, SecurityException {
 		frame_ = new JFrame();
 		frame_.setBounds(100, 100, 800, 600);
 		frame_.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame_.getContentPane().setLayout(new BoxLayout(frame_.getContentPane(), BoxLayout.X_AXIS));
-		
-		JSplitPane splitPaneLeft = new JSplitPane();
-		splitPaneLeft.setEnabled(false);
-		frame_.getContentPane().add(splitPaneLeft);
+		frame_.getContentPane().setLayout(new BorderLayout(0, 0));
 
 		tools_ = new JTree(new LevelEditorTreeModel(this, icons_, cursors_));
 		tools_.setRootVisible(false);
@@ -150,35 +156,31 @@ public class LevelEditor {
 			}
 		});
 		JScrollPane panelLeft = new JScrollPane(tools_);
-		splitPaneLeft.setLeftComponent(panelLeft);
-		
+		frame_.getContentPane().add(panelLeft, BorderLayout.WEST);
+
 		JLabel lblTools = new JLabel("Tools");
 		lblTools.setHorizontalAlignment(SwingConstants.CENTER);
 		panelLeft.setColumnHeaderView(lblTools);
-		
-		JSplitPane splitPaneRight = new JSplitPane();
-		splitPaneRight.setResizeWeight(.8);
-		splitPaneRight.setEnabled(false);
-		splitPaneLeft.setRightComponent(splitPaneRight);
-		
+
 		panelCenter_ = new JPanel();
-		splitPaneRight.setLeftComponent(panelCenter_);
+		frame_.getContentPane().add(panelCenter_, BorderLayout.CENTER);
 
 		canvas_.getCanvas().addMouseListener(new LevelEditorMouseListener(this));
 		panelCenter_.setLayout(new BorderLayout(0, 0));
 		panelCenter_.add(canvas_.getCanvas(), BorderLayout.CENTER);
-		
+
 		panelProperties_ = new JScrollPane();
+		frame_.getContentPane().add(panelProperties_, BorderLayout.EAST);
+
 		JLabel lblProperties = new JLabel("Properties");
 		lblProperties.setHorizontalAlignment(SwingConstants.CENTER);
 		panelProperties_.setColumnHeaderView(lblProperties);
-		splitPaneRight.setRightComponent(panelProperties_);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		frame_.setJMenuBar(menuBar);
 		JMenu fileMenu = new JMenu("File");
 		menuBar.add(fileMenu);
-		
+
 		JMenuItem menuItemNew = new JMenuItem(new NewFileAction("New"));
 		fileMenu.add(menuItemNew);
 		JMenuItem menuItemOpen = new JMenuItem(new OpenFileAction("Open..."));
@@ -202,6 +204,14 @@ public class LevelEditor {
 	public Cursor getCursor() {
 		return cursor_;
 	}
+
+    public LevelEditorProperties getProperties() {
+        return properties_;
+    }
+
+    public LevelEditorFile getFile() {
+        return file_;
+    }
 	
 	public List<LevelEditorItem> getItems() {
 		return file_.getItems();

@@ -39,21 +39,25 @@ public class LevelEditorTool extends DefaultMutableTreeNode {
         switch (action_) {
         case SELECT:
             System.out.println("Select at " + pos);
+			LevelEditorItem hit = null;
 			for (LevelEditorItem item : editor_.getItems()) {
 				//TODO maybe adjust bounding box
 				if(((item.getX() - 40) < pos.x) && ((item.getX() + 40) > pos.x) &&
 						((item.getY() - 40) < pos.y) && ((item.getY() + 40) > pos.y)) {
 					System.out.println("item selected: " + item.getName());
-					editor_.properties_.setSelectedItem(item);
+					hit = item;
 					break;
 				}
 			}
+			editor_.getProperties().setSelectedItem(hit);
             break;
 
         case PLACE:
             System.out.println("Place at " + pos);
-            LevelEditorItem item = LevelEditorItem.create(name_, pos);
-            editor_.addItem(item);
+            LevelEditorItem item = LevelEditorItem.create(editor_, name_, pos);
+			if (item != null) {
+				editor_.addItem(item);
+			}
             break;
 
         default:

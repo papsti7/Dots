@@ -32,7 +32,7 @@ public class Target extends GameEntity {
         points_on_death_ = 3;
     }
 
-    public Target(int x, int y, int radius, int health) {
+    public Target(float x, float y, float radius, int health) {
         this();
         //radius not used yet
         body_ = new Circle((float) x, (float) y, Constants.target_radius);
