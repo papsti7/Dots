@@ -42,6 +42,7 @@ public abstract class Enemy extends GameEntity {
 
         //calculate unit vector to just get the direction with length 1
         direction = Utils.getUnitVector(direction);
+        //System.out.println("direction :" + direction.x + ", " + direction.y);
         //set length from diretion to speed
         direction.x *= (speed_base_ * 5) * Gdx.graphics.getDeltaTime();
         direction.y *= (speed_base_ * 5) * Gdx.graphics.getDeltaTime();
@@ -92,9 +93,7 @@ public abstract class Enemy extends GameEntity {
         }
         else
         {
-            health_ = 0;
-            alive_ = false;
-            GameScreen.worldController_.updateScore(points_on_death_);
+            kill();
         }
     }
 
@@ -121,13 +120,15 @@ public abstract class Enemy extends GameEntity {
 
     @Override
     public void kill() {
-
+        health_ = 0;
+        alive_ = false;
     }
 
     @Override
     public void onDeath(WorldController worldController)
     {
-
+        System.out.println("points on Death : " + points_on_death_);
+        worldController.updateScore(points_on_death_);
     }
 
 

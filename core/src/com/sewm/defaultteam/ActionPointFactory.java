@@ -32,7 +32,10 @@ public class ActionPointFactory {
                         ChainAP first = new ChainAP((int)positions.get(element).x,(int)positions.get(element).y,true,0);
                         first.setFirst(first);
                         chainAPs.add(first);
-
+                        if (element + 1 == number)
+                        {
+                            first.setNext(first);
+                        }
                     }
 
                     else
