@@ -1,8 +1,6 @@
 package com.sewm.defaultteam;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -13,6 +11,8 @@ import java.util.List;
  * Created by Admin on 25.05.2016.
  */
 public class StaticEnemy extends Enemy {
+
+
 
     private Vector2 start_pos_;
     private Vector2 end_pos_;
@@ -36,6 +36,19 @@ public class StaticEnemy extends Enemy {
         start_rect_ = new Rectangle(start_pos_.x, start_pos_.y, Constants.player_radius * 2.f, Constants.player_radius * 2.f);
         end_rect_ = new Rectangle(end_pos_.x, end_pos_.y, Constants.player_radius * 2.f, Constants.player_radius * 2.f);
         target_pos_ = start_pos;
+    }
+
+    public Vector2 getStartPos() {
+        return start_pos_;
+    }
+
+    public Vector2 getEndPos() {
+        return end_pos_;
+    }
+
+    public Rectangle getBody()
+    {
+        return (Rectangle)body_;
     }
 
     public StaticEnemy(EnemyAttribute difficulty, int points, int points_on_death, List<String> textures, Vector2 start_pos, Vector2 end_pos, int spawn_time)
