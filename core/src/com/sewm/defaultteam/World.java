@@ -186,13 +186,8 @@ public class World {
         else
         {
             target_count_ = 0;
-            byte[] pixels = ScreenUtils.getFrameBufferPixels(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), true);
-
-            Pixmap pixmap = new Pixmap(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), Pixmap.Format.RGBA8888);
-            BufferUtils.copy(pixels, 0, pixmap.getPixels(), pixels.length);
-            WinScreen winscreen = new WinScreen();
-            winscreen.background_ = new Texture(pixmap);
-            StartPoint.getInstance().setScreen(winscreen);
+            WinScreen winScreen  = new WinScreen();
+            StartPoint.getInstance().setScreen(winScreen);
         }
     }
 }
