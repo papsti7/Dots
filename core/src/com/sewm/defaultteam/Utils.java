@@ -1,8 +1,6 @@
 package com.sewm.defaultteam;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.Random;
@@ -21,10 +19,6 @@ public class Utils {
 
     public static Vector2 getOriginOfRect(Vector2 center_pos, Circle surrounding){
         return new Vector2(center_pos.x - surrounding.radius, center_pos.y - surrounding.radius);
-
-    }
-    public static Vector2 getRectCenter(Rectangle rect){
-        return new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2);
 
     }
 

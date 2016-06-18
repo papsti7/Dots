@@ -158,6 +158,7 @@ public class WorldController {
     public void updateScore(int delta)
     {
         Player.score_ += delta;
+        System.out.println("score in updateScore: " + Player.score_);
         GameScreen.worldRenderer_.updateScore(Player.score_);
     }
 

@@ -191,6 +191,9 @@ public class LevelEditorFile {
 	}
 
 	public synchronized void removeItem(LevelEditorItem item) {
+		if (item instanceof PlayerItem) {
+            return; // not allowed to delete the player
+        }
 		items_.remove(item);
 		setDirty(true);
 	}

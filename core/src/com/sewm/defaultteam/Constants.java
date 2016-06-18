@@ -5,9 +5,9 @@ import com.badlogic.gdx.Gdx;
 /**
  * Created by Max on 11/05/2016.
  */
-public class Constants {
+public final class Constants {
 
-    public static final boolean no_parse = false;
+    public static final boolean no_parse = true;
     public static final boolean debug = false;
     public static final boolean immortal = false;
     public static final boolean infinite_action_points = true;

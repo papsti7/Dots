@@ -35,6 +35,19 @@ public class StaticEnemy extends Enemy {
         target_pos_ = start_pos;
     }
 
+    public Vector2 getStartPos() {
+        return start_pos_;
+    }
+
+    public Vector2 getEndPos() {
+        return end_pos_;
+    }
+
+    public Rectangle getBody()
+    {
+        return (Rectangle)body_;
+    }
+
     public StaticEnemy(EnemyAttribute difficulty, int points, int points_on_death, Vector2 start_pos, Vector2 end_pos, int spawn_time)
     {
         this(new Vector2(start_pos.x, start_pos.y), difficulty, points, points_on_death, start_pos, end_pos);
