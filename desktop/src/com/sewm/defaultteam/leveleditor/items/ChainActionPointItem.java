@@ -1,7 +1,10 @@
 package com.sewm.defaultteam.leveleditor.items;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.sewm.defaultteam.leveleditor.LevelEditor;
+import com.sewm.defaultteam.leveleditor.LevelEditorCanvasRenderer;
 import com.sewm.defaultteam.leveleditor.LevelEditorFile;
 import com.sewm.defaultteam.leveleditor.LevelEditorItem;
 
@@ -19,8 +22,8 @@ import javax.swing.JLabel;
 public class ChainActionPointItem extends LevelEditorItem {
     private Vector2[] positions_;
 
-    public ChainActionPointItem(LevelEditor editor, String texture_name, Vector2 position, Vector2... positions) {
-        super(editor, texture_name, position);
+    public ChainActionPointItem(LevelEditor editor, Vector2 position, Vector2... positions) {
+        super(editor, LevelEditor.CHAIN_ACTION_POINT, position);
         positions_ = positions;
         createPanel();
     }
@@ -83,5 +86,19 @@ public class ChainActionPointItem extends LevelEditorItem {
         }
 
         return node;
+    }
+
+    @Override
+    public void draw(SpriteBatch spriteBatch) {
+        super.draw(spriteBatch);
+        if (this.equals(editor_.getProperties().getSelectedItem())) {
+            Texture texture = LevelEditorCanvasRenderer.textures_.get(name);
+            for (Vector2 position : positions_) {
+                spriteBatch.draw(texture,
+                        position.x - texture.getWidth() / 2.f,
+                        position.y - texture.getHeight() / 2.f,
+                        texture.getWidth(), texture.getHeight());
+            }
+        }
     }
 }

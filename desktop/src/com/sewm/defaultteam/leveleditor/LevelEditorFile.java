@@ -1,14 +1,21 @@
 package com.sewm.defaultteam.leveleditor;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.XmlWriter;
 import com.sewm.defaultteam.ActionPoint;
+import com.sewm.defaultteam.ChainAP;
 import com.sewm.defaultteam.Constants;
 import com.sewm.defaultteam.Enemy;
+import com.sewm.defaultteam.NormalEnemy;
 import com.sewm.defaultteam.Parser;
 import com.sewm.defaultteam.Player;
+import com.sewm.defaultteam.StaticEnemy;
 import com.sewm.defaultteam.Target;
+import com.sewm.defaultteam.WorldRenderer;
 import com.sewm.defaultteam.leveleditor.items.ChainActionPointItem;
 import com.sewm.defaultteam.leveleditor.items.NormalEnemyItem;
 import com.sewm.defaultteam.leveleditor.items.PlayerItem;
@@ -26,6 +33,7 @@ import java.nio.file.Path;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -46,6 +54,10 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 public class LevelEditorFile {
 	private LevelEditor editor_;
 	private String path_ = null;
@@ -62,7 +74,7 @@ public class LevelEditorFile {
 	
 	public void createNewFile() {
 		items_.clear();
-        items_.add(new PlayerItem(editor_, "Player", new Vector2(Constants.virtual_screen_width/2f, Constants.virtual_screen_height/2f), 3));
+        items_.add(new PlayerItem(editor_, 3));
 		path_ = null;
 		setDirty(false);
         editor_.getPropertiesPanel().getViewport().removeAll();
@@ -81,7 +93,7 @@ public class LevelEditorFile {
 			return;
 		}
 		
-		String filename = null;
+		String filename;
 		JFileChooser chooser = new JFileChooser(Gdx.files.getLocalStoragePath() + "levels");
 		chooser.setFileFilter(new FileNameExtensionFilter("Level File", "lvl"));
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
@@ -92,7 +104,11 @@ public class LevelEditorFile {
 		
 		try {
 			Parser parser = new Parser(filename);
-			parser.parseTextures();
+
+            WorldRenderer.entities_texture_strings = mock(HashMap.class);
+            WorldRenderer.entities_textures = mock(HashMap.class);
+            when(WorldRenderer.entities_texture_strings.get(any())).thenReturn(mock(ArrayList.class));
+            when(WorldRenderer.entities_textures.get(any())).thenReturn(mock(Texture.class));
 
 	        Player player = parser.parsePlayer();
 	        List<Target> targets = parser.parseTargets();
@@ -100,10 +116,47 @@ public class LevelEditorFile {
 	        List<ActionPoint> aps = parser.parseActionPoints();
 	        
 	        createNewFile();
-	        //TODO: populate new file
+            addItem(new PlayerItem(editor_, (int) player.getHealth()));
+            for (Target target : targets) {
+                Circle body = (Circle) target.getBody();
+                addItem(new TargetItem(editor_, new Vector2(body.x, body.y), Constants.target_radius, (int) target.getHealth()));
+            }
+            for (Enemy enemy : enemies) {
+                if (enemy instanceof NormalEnemy) {
+                    NormalEnemy normal_enemy = (NormalEnemy) enemy;
+                    Rectangle body = (Rectangle) normal_enemy.getBody();
+                    addItem(new NormalEnemyItem(editor_, new Vector2(body.x, body.y), enemy.getDifficulty(), enemy.getPoints(), enemy.getPointsOnDeath(), enemy.getSpawnTime()));
+                } else if (enemy instanceof StaticEnemy) {
+                    StaticEnemy static_enemy = (StaticEnemy) enemy;
+                    addItem(new StaticEnemyItem(editor_, static_enemy.getStartPos(), static_enemy.getEndPos(), enemy.getDifficulty(), enemy.getPoints(), enemy.getPointsOnDeath(), enemy.getSpawnTime()));
+                }
+            }
+            for (ActionPoint action_point : aps) {
+                if (action_point instanceof ChainAP) {
+                    ChainAP ap = (ChainAP) action_point;
+                    Rectangle body = (Rectangle) ap.getBody();
+                    List<Vector2> positions = new ArrayList<Vector2>();
+
+                    ActionPoint current = action_point;
+                    ActionPoint next = current.getNext();
+                    while (!current.equals(next)) {
+                        body = (Rectangle) next.getBody();
+                        positions.add(new Vector2(body.x, body.y));
+                        current = next;
+                        next = current.getNext();
+                    }
+
+                    addItem(new ChainActionPointItem(editor_, new Vector2(body.x, body.y), positions.toArray(new Vector2[positions.size()])));
+                }
+            }
+
+            path_ = filename;
+            setDirty(false);
 		} catch (FileNotFoundException e) {
+            e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "File '" + filename + "' could not be found!", "File not found!", JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
+            e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "File '" + filename + "' could not be loaded!", "File not loaded!", JOptionPane.ERROR_MESSAGE);
 		}
 	}
@@ -129,7 +182,7 @@ public class LevelEditorFile {
 	}
 	
 	private void save(String path) {
-		File file = null;
+		File file;
 		if (path == null) {
 			JFileChooser chooser = new JFileChooser(Gdx.files.getLocalStoragePath() + "levels");
 			chooser.setFileFilter(new FileNameExtensionFilter("Level File", "lvl"));

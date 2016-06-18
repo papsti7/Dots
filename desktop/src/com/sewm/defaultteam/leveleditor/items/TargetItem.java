@@ -31,8 +31,8 @@ public class TargetItem extends LevelEditorItem {
         return health_;
     }
 
-    public TargetItem(LevelEditor editor, String texture_name, Vector2 position, float radius, int health) {
-        super(editor, texture_name, position);
+    public TargetItem(LevelEditor editor, Vector2 position, float radius, int health) {
+        super(editor, LevelEditor.TARGET, position);
         radius_ = radius;
         health_ = health;
         createPanel();

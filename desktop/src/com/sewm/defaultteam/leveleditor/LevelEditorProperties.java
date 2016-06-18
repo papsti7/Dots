@@ -13,6 +13,14 @@ public class LevelEditorProperties {
         editor_ = editor;
     }
 
+    public LevelEditorItem getSelectedItem() {
+        return currently_selected_item;
+    }
+
+    public boolean isSelected() {
+        return currently_selected_item != null;
+    }
+
     public void setSelectedItem(LevelEditorItem item) {
         currently_selected_item = item;
         JScrollPane panel = editor_.getPropertiesPanel();

@@ -3,6 +3,7 @@ package com.sewm.defaultteam.leveleditor;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -62,10 +63,26 @@ public class LevelEditorCanvasRenderer implements ApplicationListener {
 	public void render() {
 		Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
+
+        LevelEditorItem selected = editor_.getProperties().getSelectedItem();
         sprite_batch_.begin();
+
+        if (selected != null) {
+            sprite_batch_.enableBlending();
+            Color c = sprite_batch_.getColor();
+            sprite_batch_.setColor(c.r, c.g, c.b, 0.3f);
+        }
+
         for (LevelEditorItem item : editor_.getFile().getItems()) {
-            item.draw(sprite_batch_);
+            if (!item.equals(selected)) {
+                item.draw(sprite_batch_);
+            }
+        }
+
+        if (selected != null) {
+            Color c = sprite_batch_.getColor();
+            sprite_batch_.setColor(c.r, c.g, c.b, 1f);
+            editor_.getProperties().getSelectedItem().draw(sprite_batch_);
         }
 	    sprite_batch_.end();
     }

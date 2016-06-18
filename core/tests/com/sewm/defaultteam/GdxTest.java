@@ -20,9 +20,6 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by marki on 31.05.16.
- */
 public class GdxTest implements ApplicationListener {
     @Before
     public void setUp() {

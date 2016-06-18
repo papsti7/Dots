@@ -86,7 +86,13 @@ public abstract class GameEntity {
         this.texture_ = texture_;
     }
 
+    public int getPoints() {
+        return points_;
+    }
 
+    public int getPointsOnDeath() {
+        return points_on_death_;
+    }
 
     protected Shape2D body_;
     protected int speed_base_;

@@ -21,8 +21,13 @@ public abstract class Enemy extends GameEntity {
     public int spawn_time_;
     protected int difficulty_;
 
+    public int getDifficulty() {
+        return difficulty_;
+    }
 
-
+    public int getSpawnTime() {
+        return spawn_time_;
+    }
 
     @Override
     public void updatePosition(){

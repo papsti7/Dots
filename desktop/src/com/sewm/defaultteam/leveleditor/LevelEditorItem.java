@@ -10,10 +10,10 @@ import com.sewm.defaultteam.leveleditor.items.PlayerItem;
 import com.sewm.defaultteam.leveleditor.items.StaticEnemyItem;
 import com.sewm.defaultteam.leveleditor.items.TargetItem;
 
+import static com.sewm.defaultteam.leveleditor.LevelEditor.*;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
@@ -24,29 +24,29 @@ public class LevelEditorItem {
     protected JPanel properties_panel_;
 
     public static LevelEditorItem create(LevelEditor e, String name, Vector2 position) {
-        if (name.equals("Player")) {
+        if (name.equals(PLAYER)) {
             for (LevelEditorItem item : e.getFile().getItems()) {
                 if (item instanceof PlayerItem) {
                     return null; // only one PlayerItem allowed
                 }
             }
-            return new PlayerItem(e, name, position, 3);
-        } else if (name.equals("Target")) {
-            return new TargetItem(e, name, position, Constants.target_radius, 3);
-        } else if (name.equals("NormalEnemyEasy")) {
-            return new NormalEnemyItem(e, name, position, 0, 0, 0, 0);
-        } else if (name.equals("NormalEnemyMedium")) {
-            return new NormalEnemyItem(e, name, position, 1, 0, 0, 0);
-        } else if (name.equals("NormalEnemyHard")) {
-            return new NormalEnemyItem(e, name, position, 2, 0, 0, 0);
-        } else if (name.equals("StaticEnemyEasy")) {
-            return new StaticEnemyItem(e, name, position, position, 0, 0, 0, 0);
-        } else if (name.equals("StaticEnemyMedium")) {
-            return new StaticEnemyItem(e, name, position, position, 1, 0, 0, 0);
-        } else if (name.equals("StaticEnemyHard")) {
-            return new StaticEnemyItem(e, name, position, position, 2, 0, 0, 0);
-        } else if (name.equals("ChainActionPoint")) {
-            return new ChainActionPointItem(e, name, position);
+            return new PlayerItem(e, 3);
+        } else if (name.equals(TARGET)) {
+            return new TargetItem(e, position, Constants.target_radius, 3);
+        } else if (name.equals(NORMAL_ENEMY_EASY)) {
+            return new NormalEnemyItem(e, position, 0, 0, 0, 0);
+        } else if (name.equals(NORMAL_ENEMY_MEDIUM)) {
+            return new NormalEnemyItem(e, position, 1, 0, 0, 0);
+        } else if (name.equals(NORMAL_ENEMY_HARD)) {
+            return new NormalEnemyItem(e, position, 2, 0, 0, 0);
+        } else if (name.equals(STATIC_ENEMY_EASY)) {
+            return new StaticEnemyItem(e, position, position.cpy(), 0, 0, 0, 0);
+        } else if (name.equals(STATIC_ENEMY_MEDIUM)) {
+            return new StaticEnemyItem(e, position, position.cpy(), 1, 0, 0, 0);
+        } else if (name.equals(STATIC_ENEMY_HARD)) {
+            return new StaticEnemyItem(e, position, position.cpy(), 2, 0, 0, 0);
+        } else if (name.equals(CHAIN_ACTION_POINT)) {
+            return new ChainActionPointItem(e, position);
         }
         return new LevelEditorItem(e, name, position);
     }

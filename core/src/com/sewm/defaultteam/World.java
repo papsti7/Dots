@@ -58,7 +58,6 @@ public class World {
 
     public void parseLevelFile(String filename) throws Exception {
         Parser parser = new Parser(filename);
-        parser.parseTextures();
 
         player_ = parser.parsePlayer();
 

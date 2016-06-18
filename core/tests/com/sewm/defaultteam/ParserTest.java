@@ -2,6 +2,7 @@ package com.sewm.defaultteam;
 
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -13,7 +14,6 @@ public class ParserTest extends GdxTest {
     public void testReadValidLevelFile() {
         try {
             Parser parser = new Parser("../android/assets/tests/valid.lvl");
-            parser.parseTextures();
             Player player = parser.parsePlayer();
             List<Target> targets = parser.parseTargets();
             List<Enemy> enemies = parser.parseEnemies();
@@ -34,7 +34,6 @@ public class ParserTest extends GdxTest {
     public void testParsedValues() {
         try {
             Parser parser = new Parser("../android/assets/tests/valid.lvl");
-            parser.parseTextures();
             Player player = parser.parsePlayer();
             List<Target> targets = parser.parseTargets();
             List<Enemy> enemies = parser.parseEnemies();
@@ -84,6 +83,23 @@ public class ParserTest extends GdxTest {
         } catch (Exception e) {
             e.printStackTrace();
             fail("Failed parsing a valid level file!");
+        }
+    }
+
+    @Test
+    public void testReadLevelFileWithoutPlayer() {
+        Parser parser = null;
+        try {
+            parser = new Parser("../android/assets/tests/noplayer.lvl");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Failed parsing a syntactic valid level file!");
+        }
+        try {
+            parser.parsePlayer();
+            fail("No player defined in level file!");
+        } catch (Exception e) {
+            assertTrue("Expect to catch the IOException during parsing player!", true);
         }
     }
 

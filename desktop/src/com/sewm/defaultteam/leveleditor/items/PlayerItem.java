@@ -24,8 +24,8 @@ public class PlayerItem extends LevelEditorItem {
         return health_;
     }
 
-    public PlayerItem(LevelEditor editor, String texture_name, Vector2 position, int health) {
-        super(editor, texture_name, new Vector2(Constants.virtual_screen_width/2f, Constants.virtual_screen_height/2f));
+    public PlayerItem(LevelEditor editor, int health) {
+        super(editor, LevelEditor.PLAYER, new Vector2(Constants.virtual_screen_width/2f, Constants.virtual_screen_height/2f));
         health_ = health;
         createPanel();
     }

@@ -35,11 +35,6 @@ public class Parser {
         file_ = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(Gdx.files.internal(filename_).file());
     }
 
-    public void parseTextures() throws IOException
-    {
-        //TODO: remove - not used anymore
-    }
-
     public Player parsePlayer() throws IOException
     {
         NodeList elements = file_.getDocumentElement().getElementsByTagName("player");
