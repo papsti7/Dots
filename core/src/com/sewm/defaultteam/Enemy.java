@@ -29,7 +29,7 @@ public abstract class Enemy extends GameEntity {
        Rectangle rect_body = (Rectangle)body_;
        Vector2 direction = rect_body.getPosition(new Vector2());
         //get direction to target(player)
-        if (Utils.random_.nextDouble() > 1.97)
+        if (Constants.random_enemy_movement && Utils.random_.nextDouble() > 0.90)
         {
             direction.x = Utils.random_.nextFloat() - direction.x;
             direction.y = Utils.random_.nextFloat() - direction.y;

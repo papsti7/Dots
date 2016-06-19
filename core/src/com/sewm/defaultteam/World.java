@@ -16,9 +16,9 @@ import java.util.List;
  */
 public class World {
     static public Player player_;
-    static public EnemyAttribute enemy_easy_ = new EnemyAttribute(1, 3.f, 4, 1);
+    static public EnemyAttribute enemy_easy_ = new EnemyAttribute(1, 3.f, 2, 1);
     static public EnemyAttribute enemy_medium_ = new EnemyAttribute(8, 3.f, 6, 2);
-    static public EnemyAttribute enemy_hard_ = new EnemyAttribute(13, 3.f, 5, 3);
+    static public EnemyAttribute enemy_hard_ = new EnemyAttribute(20, 3.f, 5, 3);
     ArrayList<GameEntity> entities_;
     ArrayList<Enemy> inactive_enemies_;
     ArrayList<ActionPoint> inactive_aps_;
@@ -38,6 +38,7 @@ public class World {
 
     public World() {
         player_ = new Player();
+        Player.score_ = 0;
         entities_ = new ArrayList<GameEntity>();
         inactive_enemies_ = new ArrayList<Enemy>();
         inactive_aps_ = new ArrayList<ActionPoint>();
@@ -122,15 +123,20 @@ public class World {
         enemy_static_medium_textures.add("images/enemy_static_medium_2.png");
         enemy_static_medium_textures.add("images/enemy_static_medium_1.png");
 
+        ArrayList<String> enemy_static_textures = new ArrayList<String>();
+        enemy_static_textures.add("images/enemy_static_3.png");
+        enemy_static_textures.add("images/enemy_static_2.png");
+        enemy_static_textures.add("images/enemy_static_1.png");
+
         ArrayList<String> enemy_static_easy_textures = new ArrayList<String>();
         enemy_static_easy_textures.add("images/enemy_static_3.png");
         enemy_static_easy_textures.add("images/enemy_static_2.png");
         enemy_static_easy_textures.add("images/enemy_static_1.png");
 
         ArrayList<String> target_textures = new ArrayList<String>();
-        target_textures.add("images/target_health_1.png");
-        target_textures.add("images/target_health_2.png");
         target_textures.add("images/target_health_3.png");
+        target_textures.add("images/target_health_2.png");
+        target_textures.add("images/target_health_1.png");
 
         WorldRenderer.entities_texture_strings.put("enemy_easy_textures", enemy_easy_textures);
         WorldRenderer.entities_texture_strings.put("enemy_medium_textures", enemy_medium_textures);
@@ -141,14 +147,39 @@ public class World {
         WorldRenderer.entities_texture_strings.put("target_textures", target_textures);
 
         player_ = new Player();
-        target_count_ = 5;
+        target_count_ = 30;
         entities_.add(new Target(500,100,10,3,target_textures));
 
         inactive_enemies_.add(new NormalEnemy(800,300,enemy_easy_,1,1,enemy_easy_textures, 1));
-        inactive_enemies_.add(new NormalEnemy(800,300,enemy_medium_,2,2,enemy_medium_textures, 3));
-        inactive_enemies_.add(new NormalEnemy(800,300,enemy_hard_,3,3,enemy_hard_textures, 5));
-        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3,enemy_static_hard_textures, new Vector2(100, 100), new Vector2(500, 600), 8));
-        inactive_enemies_.add(new StaticEnemy(enemy_medium_,3,3,enemy_static_medium_textures, new Vector2(500, 100), new Vector2(500, 600), 8));
+        inactive_enemies_.add(new StaticEnemy(enemy_easy_,1,1,enemy_static_textures, new Vector2(600, 600), new Vector2(800, 300), 8));
+        inactive_enemies_.add(new StaticEnemy(enemy_easy_,1,1,enemy_static_textures, new Vector2(150, 150), new Vector2(400, 400), 15));
+        inactive_enemies_.add(new StaticEnemy(enemy_easy_,1,1,enemy_static_textures, new Vector2(300, 150), new Vector2(500, 150), 22));
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(200, 150), new Vector2(200, 600), 28));
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(400, 150), new Vector2(400, 600), 33));
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(600, 150), new Vector2(600, 600), 33));
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(800, 150), new Vector2(800, 600), 36));
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(1000, 150), new Vector2(1000, 600), 36));
+        inactive_enemies_.add(new NormalEnemy(400,400,enemy_medium_,2,2,enemy_medium_textures,40));
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(100, 400), new Vector2(1000, 400), 45));
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(100, 200), new Vector2(1000, 200), 45));
+        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3,enemy_static_hard_textures,new Vector2(600,400),new Vector2(800,400),55));
+        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3,enemy_static_hard_textures,new Vector2(300,300),new Vector2(300,550),55));
+        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3,enemy_static_hard_textures,new Vector2(200,400),new Vector2(200,600),55));
+        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3,enemy_static_hard_textures,new Vector2(600,200),new Vector2(600,600),55));
+        inactive_enemies_.add(new NormalEnemy(600,200,enemy_hard_,3,3,enemy_hard_textures,57));
+
+        inactive_enemies_.add(new NormalEnemy(200, 600,enemy_easy_,1,1,enemy_easy_textures,66));
+        inactive_enemies_.add(new NormalEnemy(200, 400,enemy_hard_,3,3,enemy_hard_textures,67));
+        inactive_enemies_.add(new NormalEnemy(200, 200,enemy_medium_,2,2,enemy_medium_textures,65));
+        inactive_enemies_.add(new NormalEnemy(1000, 600,enemy_easy_,1,1,enemy_easy_textures,66));
+        inactive_enemies_.add(new NormalEnemy(1000, 400,enemy_hard_,3,3,enemy_hard_textures,68));
+        inactive_enemies_.add(new NormalEnemy(1000, 200,enemy_medium_,2,2,enemy_medium_textures,67));
+        //inactive_enemies_.add(new NormalEnemy(800,300,enemy_medium_,2,2,enemy_medium_textures, 3));
+        //inactive_enemies_.add(new NormalEnemy(800,300,enemy_hard_,3,3,enemy_hard_textures, 5));
+
+        //inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3,enemy_static_hard_textures, new Vector2(100, 100), new Vector2(500, 600), 8));
+        //inactive_enemies_.add(new StaticEnemy(enemy_medium_,3,3,enemy_static_medium_textures, new Vector2(500, 100), new Vector2(500, 600), 8));
+
         // entities_.add(new StaticEnemy(enemy_easy_,3,3,enemy_easy_textures, new Vector2(300, 100), new Vector2(700, 600)));
 
         ChainAP f1 = new ChainAP(400,400,true,0);
