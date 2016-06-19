@@ -1,7 +1,10 @@
 package com.sewm.defaultteam.leveleditor.items;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.sewm.defaultteam.leveleditor.LevelEditor;
+import com.sewm.defaultteam.leveleditor.LevelEditorCanvasRenderer;
 import com.sewm.defaultteam.leveleditor.LevelEditorFile;
 import com.sewm.defaultteam.leveleditor.LevelEditorItem;
 
@@ -208,5 +211,17 @@ public class StaticEnemyItem extends LevelEditorItem {
         node.appendChild(end);
 
         return node;
+    }
+
+    @Override
+    public void draw(SpriteBatch spriteBatch) {
+        super.draw(spriteBatch);
+        if (this.equals(editor_.getProperties().getSelectedItem())) {
+            Texture texture = LevelEditorCanvasRenderer.textures_.get(name);
+            spriteBatch.draw(texture,
+                    end_.x - texture.getWidth() / 2.f,
+                    end_.y - texture.getHeight() / 2.f,
+                    texture.getWidth(), texture.getHeight());
+        }
     }
 }
