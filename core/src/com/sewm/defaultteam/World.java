@@ -150,30 +150,38 @@ public class World {
         target_count_ = 30;
         entities_.add(new Target(500,100,10,3,target_textures));
 
-        inactive_enemies_.add(new NormalEnemy(800,300,enemy_easy_,1,1,enemy_easy_textures, 1));
-        inactive_enemies_.add(new StaticEnemy(enemy_easy_,1,1,enemy_static_textures, new Vector2(600, 600), new Vector2(800, 300), 8));
-        inactive_enemies_.add(new StaticEnemy(enemy_easy_,1,1,enemy_static_textures, new Vector2(150, 150), new Vector2(400, 400), 15));
-        inactive_enemies_.add(new StaticEnemy(enemy_easy_,1,1,enemy_static_textures, new Vector2(300, 150), new Vector2(500, 150), 22));
-        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(200, 150), new Vector2(200, 600), 28));
-        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(400, 150), new Vector2(400, 600), 33));
-        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(600, 150), new Vector2(600, 600), 33));
-        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(800, 150), new Vector2(800, 600), 36));
-        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(1000, 150), new Vector2(1000, 600), 36));
-        inactive_enemies_.add(new NormalEnemy(400,400,enemy_medium_,2,2,enemy_medium_textures,40));
-        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(100, 400), new Vector2(1000, 400), 45));
-        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(100, 200), new Vector2(1000, 200), 45));
-        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3,enemy_static_hard_textures,new Vector2(600,400),new Vector2(800,400),55));
-        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3,enemy_static_hard_textures,new Vector2(300,300),new Vector2(300,550),55));
-        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3,enemy_static_hard_textures,new Vector2(200,400),new Vector2(200,600),55));
-        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3,enemy_static_hard_textures,new Vector2(600,200),new Vector2(600,600),55));
-        inactive_enemies_.add(new NormalEnemy(600,200,enemy_hard_,3,3,enemy_hard_textures,57));
+        inactive_enemies_.add(new NormalEnemy(1600,600,enemy_easy_,1,1,enemy_easy_textures, 1));
 
-        inactive_enemies_.add(new NormalEnemy(200, 600,enemy_easy_,1,1,enemy_easy_textures,66));
-        inactive_enemies_.add(new NormalEnemy(200, 400,enemy_hard_,3,3,enemy_hard_textures,67));
-        inactive_enemies_.add(new NormalEnemy(200, 200,enemy_medium_,2,2,enemy_medium_textures,65));
-        inactive_enemies_.add(new NormalEnemy(1000, 600,enemy_easy_,1,1,enemy_easy_textures,66));
-        inactive_enemies_.add(new NormalEnemy(1000, 400,enemy_hard_,3,3,enemy_hard_textures,68));
-        inactive_enemies_.add(new NormalEnemy(1000, 200,enemy_medium_,2,2,enemy_medium_textures,67));
+        inactive_enemies_.add(new StaticEnemy(enemy_easy_,1,1,enemy_static_textures, new Vector2(600, 600), new Vector2(800, 300), 8));
+        inactive_enemies_.add(new StaticEnemy(enemy_easy_,1,1,enemy_static_textures, new Vector2(1000, 450), new Vector2(1300, 800), 15));
+        inactive_enemies_.add(new StaticEnemy(enemy_easy_,1,1,enemy_static_textures, new Vector2(300, 150), new Vector2(1000, 150), 22));
+
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(200, 150), new Vector2(200, 850), 28));
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(600, 150), new Vector2(600, 850), 33));
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(1000, 150), new Vector2(1000, 850), 33));
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(1400, 150), new Vector2(1400, 850), 36));
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(1800, 150), new Vector2(1800, 850), 36));
+
+        inactive_enemies_.add(new NormalEnemy(1400,900,enemy_medium_,2,2,enemy_medium_textures,40));
+
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(100, 800), new Vector2(1800, 800), 45));
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(100, 500), new Vector2(1800, 500), 45));
+        inactive_enemies_.add(new StaticEnemy(enemy_medium_,1,1,enemy_static_medium_textures, new Vector2(100, 200), new Vector2(1800, 200), 45));
+
+
+        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3,enemy_static_hard_textures,new Vector2(600,400),new Vector2(1600,400),55));
+        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3,enemy_static_hard_textures,new Vector2(1300,300),new Vector2(1300,950),55));
+        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3,enemy_static_hard_textures,new Vector2(1500,500),new Vector2(1600,900),55));
+        inactive_enemies_.add(new StaticEnemy(enemy_hard_,3,3,enemy_static_hard_textures,new Vector2(500,200),new Vector2(1000,300),55));
+
+        inactive_enemies_.add(new NormalEnemy(900,200,enemy_hard_,3,3,enemy_hard_textures,57));
+
+        inactive_enemies_.add(new NormalEnemy(250, 900,enemy_easy_,1,1,enemy_easy_textures,66));
+        inactive_enemies_.add(new NormalEnemy(250, 500,enemy_hard_,3,3,enemy_hard_textures,67));
+        inactive_enemies_.add(new NormalEnemy(250, 200,enemy_medium_,2,2,enemy_medium_textures,65));
+        inactive_enemies_.add(new NormalEnemy(1750, 900,enemy_easy_,1,1,enemy_easy_textures,66));
+        inactive_enemies_.add(new NormalEnemy(1750, 500,enemy_hard_,3,3,enemy_hard_textures,68));
+        inactive_enemies_.add(new NormalEnemy(1750, 200,enemy_medium_,2,2,enemy_medium_textures,67));
         //inactive_enemies_.add(new NormalEnemy(800,300,enemy_medium_,2,2,enemy_medium_textures, 3));
         //inactive_enemies_.add(new NormalEnemy(800,300,enemy_hard_,3,3,enemy_hard_textures, 5));
 

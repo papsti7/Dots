@@ -20,7 +20,7 @@ public final class Constants {
 
     public static final float enemy_width = Gdx.graphics.getWidth() / 20.f;
     public static final float enemy_height = Gdx.graphics.getWidth() / 20.f;
-    public static final float enemy_damage = 8;
+    public static final float enemy_damage = 4.5f;
 
 
     public static final float target_radius = Gdx.graphics.getWidth() / 80.f;
