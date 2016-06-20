@@ -75,12 +75,12 @@ public class LevelEditor {
     private JPanel panelCenter_;
 	private JTree tools_;
 
-	private Cursor cursor_ = Cursor.getDefaultCursor();
+	public Cursor cursor_ = Cursor.getDefaultCursor();
 
 	private final LevelEditorFile file_;
     private final LevelEditorProperties properties_;
 
-	private Map<String, Cursor> cursors_ = new HashMap<String, Cursor>();
+	public Map<String, Cursor> cursors_ = new HashMap<String, Cursor>();
 	private Map<String, Icon> icons_ = new HashMap<String, Icon>();
 
 	/**

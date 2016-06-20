@@ -89,6 +89,8 @@ public class LevelEditorTool extends DefaultMutableTreeNode {
 							System.out.println("item selected for movement: " + item.getName());
 							selected_item_ = item;
 							editor_.getFile().removeItem(item);
+							editor_.getFrame().setCursor(editor_.cursors_.get(item.getName()));
+
 							break;
 						}
 					}
@@ -97,6 +99,8 @@ public class LevelEditorTool extends DefaultMutableTreeNode {
 					if (selected_item_  != null) {
 						selected_item_ .position_ = pos;
 						editor_.getFile().addItem(selected_item_ );
+						selected_item_ = null;
+						editor_.getFrame().setCursor(editor_.getCursor());
 					}
 				}
 				break;
