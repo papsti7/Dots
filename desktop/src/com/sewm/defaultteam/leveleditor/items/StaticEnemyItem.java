@@ -1,7 +1,10 @@
 package com.sewm.defaultteam.leveleditor.items;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.sewm.defaultteam.leveleditor.LevelEditor;
+import com.sewm.defaultteam.leveleditor.LevelEditorCanvasRenderer;
 import com.sewm.defaultteam.leveleditor.LevelEditorFile;
 import com.sewm.defaultteam.leveleditor.LevelEditorItem;
 
@@ -58,14 +61,25 @@ public class StaticEnemyItem extends LevelEditorItem {
         return end_.y;
     }
 
-    public StaticEnemyItem(LevelEditor editor, String texture_name, Vector2 start, Vector2 end, int difficulty, int points, int points_on_death, int spawn_time) {
-        super(editor, texture_name, start);
+    public StaticEnemyItem(LevelEditor editor, Vector2 start, Vector2 end, int difficulty, int points, int points_on_death, int spawn_time) {
+        super(editor, textureNameFromDifficulty(difficulty), start);
         end_ = end;
         difficulty_ = difficulty;
         points_ = points;
         points_on_death_ = points_on_death;
         spawn_time_ = spawn_time;
         createPanel();
+    }
+
+    private static String textureNameFromDifficulty(int difficulty) {
+        switch (difficulty) {
+            case 1:
+                return LevelEditor.STATIC_ENEMY_MEDIUM;
+            case 2:
+                return LevelEditor.STATIC_ENEMY_HARD;
+            default:
+                return LevelEditor.STATIC_ENEMY_EASY;
+        }
     }
 
     private void createPanel() {
@@ -197,5 +211,17 @@ public class StaticEnemyItem extends LevelEditorItem {
         node.appendChild(end);
 
         return node;
+    }
+
+    @Override
+    public void draw(SpriteBatch spriteBatch) {
+        super.draw(spriteBatch);
+        if (this.equals(editor_.getProperties().getSelectedItem())) {
+            Texture texture = LevelEditorCanvasRenderer.textures_.get(name);
+            spriteBatch.draw(texture,
+                    end_.x - texture.getWidth() / 2.f,
+                    end_.y - texture.getHeight() / 2.f,
+                    texture.getWidth(), texture.getHeight());
+        }
     }
 }

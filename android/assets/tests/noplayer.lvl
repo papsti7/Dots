@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<level>
+    <target health="3" radius="7.45" x="50.0" y="50.0"/>
+    <enemy difficulty="0" points="1" pointsOnDeath="1" spawnTime="1" type="normal" x="800.0" y="300.0"/>
+</level>

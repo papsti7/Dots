@@ -35,11 +35,6 @@ public class Parser {
         file_ = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(Gdx.files.internal(filename_).file());
     }
 
-    public void parseTextures() throws IOException
-    {
-        //TODO: remove - not used anymore
-    }
-
     public Player parsePlayer() throws IOException
     {
         NodeList elements = file_.getDocumentElement().getElementsByTagName("player");
@@ -148,7 +143,10 @@ public class Parser {
 
         NodeList children = element.getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {
-            positions.add(parsePosition(children.item(i)));
+            Node child = children.item(i);
+            if (child.getNodeType() == Node.ELEMENT_NODE) {
+                positions.add(parsePosition(child));
+            }
         }
 
         return factory.create("ChainAP", positions, positions.size());

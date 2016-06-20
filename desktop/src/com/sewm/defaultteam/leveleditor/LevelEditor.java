@@ -54,18 +54,28 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
 public class LevelEditor {
+    public static final String PLAYER = "Player";
+    public static final String TARGET = "Target";
+    public static final String NORMAL_ENEMY_EASY = "NormalEnemyEasy";
+    public static final String NORMAL_ENEMY_MEDIUM = "NormalEnemyMedium";
+    public static final String NORMAL_ENEMY_HARD = "NormalEnemyHard";
+    public static final String STATIC_ENEMY_EASY = "StaticEnemyEasy";
+    public static final String STATIC_ENEMY_MEDIUM = "StaticEnemyMedium";
+    public static final String STATIC_ENEMY_HARD = "StaticEnemyHard";
+    public static final String CHAIN_ACTION_POINT = "ChainActionPoint";
+
     public static final Map<String, String> images_;
     static {
         images_ = new HashMap<String, String>();
-        images_.put("Player", "images/player_new.png");
-        images_.put("Target", "images/target_health_3.png");
-        images_.put("NormalEnemyEasy", "images/enemy_health_3.png");
-        images_.put("NormalEnemyMedium", "images/enemy_medium_health_3.png");
-        images_.put("NormalEnemyHard", "images/enemy_strong_health_3.png");
-        images_.put("StaticEnemyEasy", "images/enemy_static_3.png");
-        images_.put("StaticEnemyMedium", "images/enemy_static_medium_3.png");
-        images_.put("StaticEnemyHard", "images/enemy_static_strong_3.png");
-        images_.put("ChainActionPoint", "images/action_point.png");
+        images_.put(PLAYER, "images/player_new.png");
+        images_.put(TARGET, "images/target_health_3.png");
+        images_.put(NORMAL_ENEMY_EASY, "images/enemy_health_3.png");
+        images_.put(NORMAL_ENEMY_MEDIUM, "images/enemy_medium_health_3.png");
+        images_.put(NORMAL_ENEMY_HARD, "images/enemy_strong_health_3.png");
+        images_.put(STATIC_ENEMY_EASY, "images/enemy_static_3.png");
+        images_.put(STATIC_ENEMY_MEDIUM, "images/enemy_static_medium_3.png");
+        images_.put(STATIC_ENEMY_HARD, "images/enemy_static_strong_3.png");
+        images_.put(CHAIN_ACTION_POINT, "images/action_point.png");
     }
 
 	private JFrame frame_;

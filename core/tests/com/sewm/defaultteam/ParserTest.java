@@ -1,22 +1,19 @@
 package com.sewm.defaultteam;
 
-import com.badlogic.gdx.math.Vector2;
-
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class ParserTest extends GdxTest {
     @Test
     public void testReadValidLevelFile() {
         try {
-            Parser parser = new Parser("tests/valid.lvl");
-            parser.parseTextures();
+            Parser parser = new Parser("../android/assets/tests/valid.lvl");
             Player player = parser.parsePlayer();
             List<Target> targets = parser.parseTargets();
             List<Enemy> enemies = parser.parseEnemies();
@@ -24,30 +21,19 @@ public class ParserTest extends GdxTest {
 
             assertEquals("Expected to load 2 targets", 2, targets.size());
             assertEquals("Expected to load 4 enemies", 4, enemies.size());
-            assertEquals("Expected to load 9 action points", 9, action_points.size());
+            assertEquals("Expected to load 3 chain action points", 3, action_points.size());
 
             assertEquals("Expected player to have 7 lifes", 7, (int) player.getHealth());
-
-            ActionPoint ap1 = action_points.get(0);
-            ActionPoint ap2 = action_points.get(1);
-            ActionPoint ap3 = action_points.get(2);
-            assertEquals("Expected ChainAP ap1->ap2->ap3", ap2, ap1.getNext());
-            assertEquals("Expected ChainAP ap1->ap2->ap3", ap3, ap2.getNext());
-            assertEquals("Expected ChainAP ap1->ap2->ap3", ap3, ap3.getNext());
-
-            List<String> expected = new ArrayList<String>(Arrays.asList("images/action_point.png", "images/action_point_active.png"));
-            List<String> actual = WorldRenderer.entities_texture_strings.get("action_point_textures");
-            assertEquals("Expected action_point_textures not found", expected, actual);
-        } catch (IOException e) {
-            assertTrue("Failed parsing a valid level file!", false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Failed parsing a valid level file!");
         }
     }
 
     @Test
     public void testParsedValues() {
         try {
-            Parser parser = new Parser("tests/valid.lvl");
-            parser.parseTextures();
+            Parser parser = new Parser("../android/assets/tests/valid.lvl");
             Player player = parser.parsePlayer();
             List<Target> targets = parser.parseTargets();
             List<Enemy> enemies = parser.parseEnemies();
@@ -94,34 +80,36 @@ public class ParserTest extends GdxTest {
             ActionPoint ap3 = action_points.get(2);
             // assertEquals(3, ap3.getNumber());
             // assertEquals(false, ap3.isActive());
-        } catch (IOException e) {
-            assertTrue("Failed parsing a valid level file!", false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Failed parsing a valid level file!");
+        }
+    }
+
+    @Test
+    public void testReadLevelFileWithoutPlayer() {
+        Parser parser = null;
+        try {
+            parser = new Parser("../android/assets/tests/noplayer.lvl");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Failed parsing a syntactic valid level file!");
+        }
+        try {
+            parser.parsePlayer();
+            fail("No player defined in level file!");
+        } catch (Exception e) {
+            assertTrue("Expect to catch the IOException during parsing player!", true);
         }
     }
 
     @Test
     public void testReadInvalidLevelFile() {
         try {
-            Parser parser = new Parser("tests/invalid.lvl");
-            parser.parseTextures();
-
-            Player player = parser.parsePlayer();
-            assertEquals("Expected player to have 3 lifes", 3, (int) player.getHealth());
-
-            List<Target> targets = parser.parseTargets();
-            assertEquals("Expected to load 1 target", 1, targets.size());
-
-            List<String> expected = new ArrayList<String>(Arrays.asList("images/target_health_1.png", "images/target_health_2.png", "images/target_health_3.png"));
-            List<String> actual = WorldRenderer.entities_texture_strings.get("target_textures");
-            assertEquals("Expected target_textures not found", expected, actual);
-
-            List<Enemy> enemies = parser.parseEnemies();
-            assertEquals("Expected to load 2 enemies", 2, enemies.size());
-
-            parser.parseActionPoints();
-            assertTrue("Shouldn't reach that point!", false);
-        } catch (IOException e) {
-            assertTrue("Expect to catch the IOException during parseActionPoints!", true);
+            new Parser("../android/assets/tests/invalid.lvl");
+            fail("Shouldn't reach that point!");
+        } catch (Exception e) {
+            assertTrue("Expect to catch the IOException during parsing!", true);
         }
     }
 }

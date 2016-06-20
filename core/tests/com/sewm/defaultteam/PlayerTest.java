@@ -3,6 +3,8 @@ package com.sewm.defaultteam;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 import org.junit.After;
 import org.junit.Before;
@@ -24,7 +26,7 @@ public class PlayerTest {
 
     @After
     public void tearDown() throws Exception {
-
+        Gdx.app.exit();
     }
 
     @Test
@@ -35,7 +37,15 @@ public class PlayerTest {
 
 
     @Test
-    public void testUpdate() throws Exception {
+    public void updateAndRectTest() throws Exception {
+        Player player = new Player();
+        player.update(new Vector2(100,100));
+        Rectangle result = player.getRect();
+        Rectangle correct = new Rectangle(100 - Constants.player_radius,
+                100 - Constants.player_radius,
+                Constants.player_radius * 2,
+                Constants.player_radius * 2);
+        assertTrue(result.equals(correct));
 
     }
 
@@ -48,9 +58,5 @@ public class PlayerTest {
 
     }
 
-    @Test
-    public void testGetRect() throws Exception {
 
-
-    }
 }
