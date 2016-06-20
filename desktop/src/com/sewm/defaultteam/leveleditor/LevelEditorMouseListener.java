@@ -38,10 +38,22 @@ public class LevelEditorMouseListener implements MouseListener {
     }
 
     @Override
-    public void mousePressed(MouseEvent mouseEvent) {
+    public void mousePressed(MouseEvent e) {
+        LevelEditorTool item = editor_.getSelectedTool();
+        if (item != null) {
+            Vector2 pos = new Vector2(e.getX() * Constants.virtual_screen_width / editor_.getCanvas().getWidth(),
+                    Constants.virtual_screen_height - e.getY() * Constants.virtual_screen_height / editor_.getCanvas().getHeight());
+            item.draggedAndDropped(pos, true);
+        }
     }
 
     @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
+    public void mouseReleased(MouseEvent e) {
+        LevelEditorTool item = editor_.getSelectedTool();
+        if (item != null) {
+            Vector2 pos = new Vector2(e.getX() * Constants.virtual_screen_width / editor_.getCanvas().getWidth(),
+                    Constants.virtual_screen_height - e.getY() * Constants.virtual_screen_height / editor_.getCanvas().getHeight());
+            item.draggedAndDropped(pos, false);
+        }
     }
 }

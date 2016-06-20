@@ -18,6 +18,8 @@ public class LevelEditorTool extends DefaultMutableTreeNode {
 	protected Icon icon_;
 	protected Cursor cursor_;
 
+	private LevelEditorItem selected_item_;
+
 	public LevelEditorTool(LevelEditor editor, String name, Icon icon, Cursor cursor, ACTION action) {
 		super(name);
 		editor_ = editor;
@@ -71,15 +73,32 @@ public class LevelEditorTool extends DefaultMutableTreeNode {
 			}
             break;
 
+
         default:
             break;
         }
 	}
-	
-	public void draggedAndDropped(Point from, Point to) {
+
+	public void draggedAndDropped(Vector2 pos, Boolean start) {
 		switch (action_) {
 			case MOVE:
-				System.out.println("Moved from " + from + " to " + to);
+				if(start) {
+					for (LevelEditorItem item : editor_.getFile().getItems()) {
+						if(((item.getX() - 40) < pos.x) && ((item.getX() + 40) > pos.x) &&
+								((item.getY() - 40) < pos.y) && ((item.getY() + 40) > pos.y)) {
+							System.out.println("item selected for movement: " + item.getName());
+							selected_item_ = item;
+							editor_.getFile().removeItem(item);
+							break;
+						}
+					}
+				} else {
+					System.out.println("move to: " + pos);
+					if (selected_item_  != null) {
+						selected_item_ .position_ = pos;
+						editor_.getFile().addItem(selected_item_ );
+					}
+				}
 				break;
 	
 			default:
