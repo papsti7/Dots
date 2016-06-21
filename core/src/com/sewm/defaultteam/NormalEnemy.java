@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class NormalEnemy extends Enemy{
 
     public NormalEnemy(Vector2 pos, EnemyAttribute difficulty, int points, int points_on_death){
+        pos.scl(Constants.virtual_to_real_x, Constants.virtual_to_real_y);
         texture_ = null;
         texture_array_ = new ArrayList<String>();
         body_ = new Rectangle(pos.x, pos.y, Constants.enemy_width, Constants.enemy_height);
@@ -32,13 +33,12 @@ public class NormalEnemy extends Enemy{
         this(new Vector2(x, y), difficulty, points, points_on_death);
         spawn_time_ = spawn_time;
         switch (difficulty.difficulty_) {
-            case 1:
+            case 2:
                 texture_array_ = WorldRenderer.entities_texture_strings.get("enemy_medium_textures");
                 break;
-            case 2:
+            case 3:
                 texture_array_ = WorldRenderer.entities_texture_strings.get("enemy_hard_textures");
                 break;
-            case 0:
             default:
                 texture_array_ = WorldRenderer.entities_texture_strings.get("enemy_easy_textures");
                 break;

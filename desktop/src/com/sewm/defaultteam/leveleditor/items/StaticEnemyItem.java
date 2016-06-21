@@ -3,24 +3,20 @@ package com.sewm.defaultteam.leveleditor.items;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.sewm.defaultteam.Constants;
 import com.sewm.defaultteam.leveleditor.LevelEditor;
 import com.sewm.defaultteam.leveleditor.LevelEditorCanvasRenderer;
-import com.sewm.defaultteam.leveleditor.LevelEditorFile;
 import com.sewm.defaultteam.leveleditor.LevelEditorItem;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.text.ParseException;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class StaticEnemyItem extends LevelEditorItem {
     protected int difficulty_;
@@ -73,121 +69,118 @@ public class StaticEnemyItem extends LevelEditorItem {
 
     private static String textureNameFromDifficulty(int difficulty) {
         switch (difficulty) {
-            case 1:
-                return LevelEditor.STATIC_ENEMY_MEDIUM;
             case 2:
+                return LevelEditor.STATIC_ENEMY_MEDIUM;
+            case 3:
                 return LevelEditor.STATIC_ENEMY_HARD;
             default:
                 return LevelEditor.STATIC_ENEMY_EASY;
         }
     }
 
-    private void createPanel() {
-        try {
-            Box vertical = Box.createVerticalBox();
+    @Override
+    protected void createPanel() {
+        Box vertical = Box.createVerticalBox();
 
-            final JFormattedTextField position_x_start = new JFormattedTextField(LevelEditorFile.FLOAT);
-            position_x_start.setText(LevelEditorFile.FLOAT.valueToString(position_.x));
-            position_x_start.addPropertyChangeListener("value", new PropertyChangeListener() {
-                @Override
-                public void propertyChange(PropertyChangeEvent e) {
-                    if (!e.getNewValue().equals(e.getOldValue())) {
-                        position_.x = Float.parseFloat(e.getNewValue().toString());
-                        editor_.getFile().setDirty(true);
-                    }
+        final JSpinner position_x_start = new JSpinner();
+        position_x_start.setModel(new SpinnerNumberModel((int)position_.x, 0, Constants.virtual_screen_width, 1));
+        position_x_start.getModel().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                if (position_x_start.getPreviousValue() != position_x_start.getValue()) {
+                    position_.x = Float.parseFloat(position_x_start.getValue().toString());
+                    editor_.getFile().setDirty(true);
                 }
-            });
-            vertical.add(new JLabel("X-Position Start"));
-            vertical.add(position_x_start);
+            }
+        });
+        vertical.add(new JLabel("X-Position Start"));
+        vertical.add(position_x_start);
 
-            final JFormattedTextField position_y_start = new JFormattedTextField(LevelEditorFile.FLOAT);
-            position_y_start.setText(LevelEditorFile.FLOAT.valueToString(position_.y));
-            position_y_start.addPropertyChangeListener("value", new PropertyChangeListener() {
-                @Override
-                public void propertyChange(PropertyChangeEvent e) {
-                    if (!e.getNewValue().equals(e.getOldValue())) {
-                        position_.y = Float.parseFloat(e.getNewValue().toString());
-                        editor_.getFile().setDirty(true);
-                    }
+        final JSpinner position_y_start = new JSpinner();
+        position_y_start.setModel(new SpinnerNumberModel((int)position_.y, 0, Constants.virtual_screen_height, 1));
+        position_y_start.getModel().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                if (position_y_start.getPreviousValue() != position_y_start.getValue()) {
+                    position_.y = Float.parseFloat(position_y_start.getValue().toString());
+                    editor_.getFile().setDirty(true);
                 }
-            });
-            vertical.add(new JLabel("Y-Position Start"));
-            vertical.add(position_y_start);
+            }
+        });
+        vertical.add(new JLabel("Y-Position Start"));
+        vertical.add(position_y_start);
 
-            final JFormattedTextField position_x_end = new JFormattedTextField(LevelEditorFile.FLOAT);
-            position_x_end.setText(LevelEditorFile.FLOAT.valueToString(end_.x));
-            position_x_end.addPropertyChangeListener("value", new PropertyChangeListener() {
-                @Override
-                public void propertyChange(PropertyChangeEvent e) {
-                    if (!e.getNewValue().equals(e.getOldValue())) {
-                        end_.x = Float.parseFloat(e.getNewValue().toString());
-                        editor_.getFile().setDirty(true);
-                    }
+        final JSpinner position_x_end = new JSpinner();
+        position_x_end.setModel(new SpinnerNumberModel((int)end_.x, 0, Constants.virtual_screen_width, 1));
+        position_x_end.getModel().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                if (position_x_end.getPreviousValue() != position_x_end.getValue()) {
+                    end_.x = Float.parseFloat(position_x_end.getValue().toString());
+                    editor_.getFile().setDirty(true);
                 }
-            });
-            vertical.add(new JLabel("X-Position End"));
-            vertical.add(position_x_end);
+            }
+        });
+        vertical.add(new JLabel("X-Position End"));
+        vertical.add(position_x_end);
 
-            final JFormattedTextField position_y_end = new JFormattedTextField(LevelEditorFile.FLOAT);
-            position_y_end.setText(LevelEditorFile.FLOAT.valueToString(end_.y));
-            position_y_end.addPropertyChangeListener("value", new PropertyChangeListener() {
-                @Override
-                public void propertyChange(PropertyChangeEvent e) {
-                    if (!e.getNewValue().equals(e.getOldValue())) {
-                        end_.y = Float.parseFloat(e.getNewValue().toString());
-                        editor_.getFile().setDirty(true);
-                    }
+        final JSpinner position_y_end = new JSpinner();
+        position_y_end.setModel(new SpinnerNumberModel((int)end_.y, 0, Constants.virtual_screen_height, 1));
+        position_y_end.getModel().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                if (position_y_end.getPreviousValue() != position_y_end.getValue()) {
+                    end_.y = Float.parseFloat(position_y_end.getValue().toString());
+                    editor_.getFile().setDirty(true);
                 }
-            });
-            vertical.add(new JLabel("Y-Position End"));
-            vertical.add(position_y_end);
+            }
+        });
+        vertical.add(new JLabel("Y-Position End"));
+        vertical.add(position_y_end);
 
-            final JFormattedTextField points = new JFormattedTextField(LevelEditorFile.INT);
-            points.setText(LevelEditorFile.INT.valueToString(points_));
-            points.addPropertyChangeListener("value", new PropertyChangeListener() {
-                @Override
-                public void propertyChange(PropertyChangeEvent e) {
-                    if (!e.getNewValue().equals(e.getOldValue())) {
-                        points_ = Integer.parseInt(e.getNewValue().toString());
-                        editor_.getFile().setDirty(true);
-                    }
+        final JSpinner points = new JSpinner();
+        points.setModel(new SpinnerNumberModel(points_, 0, null, 1));
+        points.getModel().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                if (points.getPreviousValue() != points.getValue()) {
+                    points_ = Integer.parseInt(points.getValue().toString());
+                    editor_.getFile().setDirty(true);
                 }
-            });
-            vertical.add(new JLabel("Points"));
-            vertical.add(points);
+            }
+        });
+        vertical.add(new JLabel("Points"));
+        vertical.add(points);
 
-            final JFormattedTextField points_on_death = new JFormattedTextField(LevelEditorFile.INT);
-            points_on_death.setText(LevelEditorFile.INT.valueToString(points_on_death_));
-            points_on_death.addPropertyChangeListener("value", new PropertyChangeListener() {
-                @Override
-                public void propertyChange(PropertyChangeEvent e) {
-                    if (!e.getNewValue().equals(e.getOldValue())) {
-                        points_on_death_ = Integer.parseInt(e.getNewValue().toString());
-                        editor_.getFile().setDirty(true);
-                    }
+        final JSpinner points_on_death = new JSpinner();
+        points_on_death.setModel(new SpinnerNumberModel(points_on_death_, 0, null, 1));
+        points_on_death.getModel().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                if (points_on_death.getPreviousValue() != points_on_death.getValue()) {
+                    points_on_death_ = Integer.parseInt(points_on_death.getValue().toString());
+                    editor_.getFile().setDirty(true);
                 }
-            });
-            vertical.add(new JLabel("Points on Death"));
-            vertical.add(points_on_death);
+            }
+        });
+        vertical.add(new JLabel("Points on Death"));
+        vertical.add(points_on_death);
 
-            final JFormattedTextField spawn_time = new JFormattedTextField(LevelEditorFile.INT);
-            spawn_time.setText(LevelEditorFile.INT.valueToString(spawn_time_));
-            spawn_time.addPropertyChangeListener("value", new PropertyChangeListener() {
-                @Override
-                public void propertyChange(PropertyChangeEvent e) {
-                    if (!e.getNewValue().equals(e.getOldValue())) {
-                        spawn_time_ = Integer.parseInt(e.getNewValue().toString());
-                        editor_.getFile().setDirty(true);
-                    }
+        final JSpinner spawn_time = new JSpinner();
+        spawn_time.setModel(new SpinnerNumberModel(spawn_time_, 0, null, 1));
+        spawn_time.getModel().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                if (spawn_time.getPreviousValue() != spawn_time.getValue()) {
+                    spawn_time_ = Integer.parseInt(spawn_time.getValue().toString());
+                    editor_.getFile().setDirty(true);
                 }
-            });
-            vertical.add(new JLabel("Spawn Time"));
-            vertical.add(spawn_time);
+            }
+        });
+        vertical.add(new JLabel("Spawn Time"));
+        vertical.add(spawn_time);
 
-            properties_panel_.add(vertical);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        properties_panel_.add(vertical);
     }
 
     @Override
@@ -211,6 +204,14 @@ public class StaticEnemyItem extends LevelEditorItem {
         node.appendChild(end);
 
         return node;
+    }
+
+    @Override
+    public void move(Vector2 to) {
+        float moveX = to.x - position_.x;
+        float moveY = to.y - position_.y;
+        end_.add(moveX, moveY);
+        super.move(to);
     }
 
     @Override

@@ -36,6 +36,10 @@ public abstract class ActionPoint extends GameEntity{
         this.next_ = next_;
     }
 
+    public boolean isActive() {
+        return active_;
+    }
+
     @Override
     protected void updateTarget(Vector2 target_pos) {
         Rectangle body = (Rectangle) body_;

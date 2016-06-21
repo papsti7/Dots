@@ -1,15 +1,11 @@
 package com.sewm.defaultteam.leveleditor;
 
+import com.badlogic.gdx.math.Vector2;
+
 import java.awt.Cursor;
-import java.awt.Point;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.Icon;
 import javax.swing.tree.DefaultMutableTreeNode;
-
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
 
 public class LevelEditorTool extends DefaultMutableTreeNode {
 	protected LevelEditor editor_;
@@ -35,6 +31,10 @@ public class LevelEditorTool extends DefaultMutableTreeNode {
 	
 	public Cursor getCursor() {
 		return cursor_;
+	}
+
+	public LevelEditorItem getSelectedItem() {
+		return selected_item_;
 	}
 	
 	public void clicked(Vector2 pos) {
@@ -88,7 +88,6 @@ public class LevelEditorTool extends DefaultMutableTreeNode {
 								((item.getY() - 40) < pos.y) && ((item.getY() + 40) > pos.y)) {
 							System.out.println("item selected for movement: " + item.getName());
 							selected_item_ = item;
-							editor_.getFile().removeItem(item);
 							editor_.getFrame().setCursor(editor_.cursors_.get(item.getName()));
 
 							break;
@@ -97,8 +96,7 @@ public class LevelEditorTool extends DefaultMutableTreeNode {
 				} else {
 					System.out.println("move to: " + pos);
 					if (selected_item_  != null) {
-						selected_item_ .position_ = pos;
-						editor_.getFile().addItem(selected_item_ );
+						selected_item_.move(pos);
 						selected_item_ = null;
 						editor_.getFrame().setCursor(editor_.getCursor());
 					}

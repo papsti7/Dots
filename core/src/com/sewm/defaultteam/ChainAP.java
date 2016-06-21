@@ -18,6 +18,9 @@ public class ChainAP extends ActionPoint {
 
     public ChainAP(int x, int y, boolean active, int number)
     {
+        x *= Constants.virtual_to_real_x;
+        y *= Constants.virtual_to_real_y;
+
         if (active) {
             activate();
         } else {

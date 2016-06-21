@@ -24,8 +24,8 @@ public class TargetTest {
     {
         Gdx.app = mock(Application.class);
         Gdx.graphics = mock(Graphics.class);
-        when(Gdx.graphics.getHeight()).thenReturn(768);
-        when(Gdx.graphics.getWidth()).thenReturn(1024);
+        when(Gdx.graphics.getHeight()).thenReturn((int) Constants.virtual_screen_width);
+        when(Gdx.graphics.getWidth()).thenReturn((int) Constants.virtual_screen_height);
 
         GameScreen.worldController_ = mock(WorldController.class);
         GameScreen.worldController_.world_ = mock(World.class);
@@ -90,7 +90,7 @@ public class TargetTest {
         body = (Circle)target.getBody();
         assertTrue(body.x != 300 || body.y != 300);
         assertTrue(target.isAlive());
-        assertTrue(body.x < 1024 && body.x > 0 && body.y < 768 && body.x > 0);
+        assertTrue(body.x < Constants.virtual_screen_width && body.x > 0 && body.y < Constants.virtual_screen_height && body.x > 0);
 
         target.decreaseHealth(3.f);
         assertTrue(target.getHealth() == 0);

@@ -29,8 +29,8 @@ public class ActionPointFactoryTest {
         Gdx.graphics = mock(Graphics.class);
         GameScreen.worldController_ = mock(WorldController.class);
         when(Gdx.graphics.getDeltaTime()).thenReturn(0.02f);
-        when(Gdx.graphics.getWidth()).thenReturn(1024);
-        when(Gdx.graphics.getHeight()).thenReturn(720);
+        when(Gdx.graphics.getWidth()).thenReturn((int) Constants.virtual_screen_width);
+        when(Gdx.graphics.getHeight()).thenReturn((int) Constants.virtual_screen_height);
     }
 
     @Test

@@ -7,10 +7,10 @@ import com.badlogic.gdx.Gdx;
  */
 public final class Constants {
 
-    public static final boolean no_parse = true;
+    public static final boolean no_parse = false;
     public static final boolean debug = false;
     public static final boolean immortal = false;
-    public static final boolean infinite_action_points = true;
+    public static final boolean infinite_action_points = false;
 
     public static float player_spawn_x = Gdx.graphics.getWidth()/2.f + Gdx.graphics.getWidth() / 40.f;
     public static float player_spawn_y = Gdx.graphics.getHeight()/2.f + Gdx.graphics.getWidth() / 40.f;
@@ -30,13 +30,13 @@ public final class Constants {
     public static final float action_point_life_span_ = 5.f;
     public static final float action_point_spawn_interval_ = 4.f;
 
-    public static float menu_button_x_4_3 = Gdx.graphics.getWidth() * 0.234375f;
-    public static float menu_button_y_1_4_3 = Gdx.graphics.getHeight() * 0.5859375f;
-    public static float menu_button_y_2_4_3 = Gdx.graphics.getHeight() * 0.1953125f;
+    public static final float menu_button_x_4_3 = Gdx.graphics.getWidth() * 0.234375f;
+    public static final float menu_button_y_1_4_3 = Gdx.graphics.getHeight() * 0.5859375f;
+    public static final float menu_button_y_2_4_3 = Gdx.graphics.getHeight() * 0.1953125f;
 
-    public static float menu_button_x_16_9 = Gdx.graphics.getWidth() * 0.33f;
-    public static float menu_button_y_1_16_9 = Gdx.graphics.getHeight() * 0.5859375f;
-    public static float menu_button_y_2_16_9 = Gdx.graphics.getHeight() * 0.1953125f;
+    public static final float menu_button_x_16_9 = Gdx.graphics.getWidth() * 0.33f;
+    public static final float menu_button_y_1_16_9 = Gdx.graphics.getHeight() * 0.5859375f;
+    public static final float menu_button_y_2_16_9 = Gdx.graphics.getHeight() * 0.1953125f;
 
     public static final float aspect_ratio = Gdx.graphics.getHeight() != 0 ? Gdx.graphics.getWidth() / Gdx.graphics.getHeight() : 1;
     public static final float aspect_ratio_16_9 = 16/9;
@@ -44,6 +44,9 @@ public final class Constants {
 
 	public static final float virtual_screen_width = 1000;
     public static final float virtual_screen_height = 1000;
+
+    public static float virtual_to_real_x = Gdx.graphics.getWidth() / virtual_screen_width;
+    public static float virtual_to_real_y = Gdx.graphics.getHeight() / virtual_screen_height;
 
     public static void resize(int width, int height) {
         player_spawn_x = width / 2.f + width / 40.f;
@@ -58,13 +61,8 @@ public final class Constants {
         action_point_width = width / 25.f;
         action_point_height = width / 25.f;
 
-		menu_button_x_4_3 = width * 0.234375f;
-    	menu_button_y_1_4_3 = height * 0.5859375f;
-		menu_button_y_2_4_3 = height * 0.1953125f;
-
-    	menu_button_x_16_9 = width * 0.33f;
-    	menu_button_y_1_16_9 = height * 0.5859375f;
-    	menu_button_y_2_16_9 = height * 0.1953125f;
+        virtual_to_real_x = width / virtual_screen_width;
+        virtual_to_real_y = height / virtual_screen_height;
     }
 
 }

@@ -2,9 +2,9 @@ package com.sewm.defaultteam.leveleditor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
+import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -13,47 +13,37 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
-import javax.swing.BoxLayout;
+import javax.swing.Box;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTree;
-import javax.swing.SwingWorker;
+import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeCellRenderer;
-import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
-import java.awt.event.KeyEvent;
-import java.awt.event.InputEvent;
-import javax.swing.JTextField;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 
 public class LevelEditor {
+    public static final String SELECT = "Select";
+    public static final String DELETE = "Delete";
+    public static final String MOVE = "Move";
     public static final String PLAYER = "Player";
     public static final String TARGET = "Target";
     public static final String NORMAL_ENEMY_EASY = "NormalEnemyEasy";
@@ -63,6 +53,12 @@ public class LevelEditor {
     public static final String STATIC_ENEMY_MEDIUM = "StaticEnemyMedium";
     public static final String STATIC_ENEMY_HARD = "StaticEnemyHard";
     public static final String CHAIN_ACTION_POINT = "ChainActionPoint";
+    public static final String BACKGROUND = "Background";
+	public static final String FILE_NEW = "New";
+	public static final String FILE_OPEN = "Open...";
+	public static final String FILE_SAVE = "Save";
+	public static final String FILE_SAVE_AS = "Save As...";
+    public static final String FILE_UNNAMED = "Unnamed Level";
 
     public static final Map<String, String> images_;
     static {
@@ -76,6 +72,7 @@ public class LevelEditor {
         images_.put(STATIC_ENEMY_MEDIUM, "images/enemy_static_medium_3.png");
         images_.put(STATIC_ENEMY_HARD, "images/enemy_static_strong_3.png");
         images_.put(CHAIN_ACTION_POINT, "images/action_point.png");
+        images_.put(BACKGROUND, "images/background.png");
     }
 
 	private JFrame frame_;
@@ -84,6 +81,7 @@ public class LevelEditor {
 	private JScrollPane panelProperties_;
     private JPanel panelCenter_;
 	private JTree tools_;
+    private JList<LevelEditorItem> itemList_;
 
 	public Cursor cursor_ = Cursor.getDefaultCursor();
 
@@ -148,12 +146,14 @@ public class LevelEditor {
 		frame_.setBounds(100, 100, 800, 600);
 		frame_.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame_.getContentPane().setLayout(new BorderLayout(0, 0));
-
+		
+		JPanel panelHelperLeft = new JPanel();
+		frame_.getContentPane().add(panelHelperLeft, BorderLayout.WEST);
+		panelHelperLeft.setLayout(new BorderLayout(0, 0));
+		
 		tools_ = new JTree(new LevelEditorTreeModel(this, icons_, cursors_));
+		tools_.setVisibleRowCount(15);
 		tools_.setRootVisible(false);
-		for (int i = 0; i < tools_.getRowCount(); i++) {
-			tools_.expandRow(i);
-		}
 		tools_.setCellRenderer(new EditorTreeCellRenderer());
 		tools_.addTreeSelectionListener(new TreeSelectionListener() {
 			@Override
@@ -167,12 +167,28 @@ public class LevelEditor {
 				}
 			}
 		});
-		JScrollPane panelLeft = new JScrollPane(tools_);
-		frame_.getContentPane().add(panelLeft, BorderLayout.WEST);
+		for (int i = 0; i < tools_.getRowCount(); i++) {
+			tools_.expandRow(i);
+		}
+
+		JScrollPane panelTools = new JScrollPane(tools_);
+		panelHelperLeft.add(panelTools, BorderLayout.NORTH);
 
 		JLabel lblTools = new JLabel("Tools");
+		lblTools.setLabelFor(tools_);
 		lblTools.setHorizontalAlignment(SwingConstants.CENTER);
-		panelLeft.setColumnHeaderView(lblTools);
+		panelTools.setColumnHeaderView(lblTools);
+		
+		JScrollPane panelItems = new JScrollPane();
+		panelHelperLeft.add(panelItems, BorderLayout.CENTER);
+		
+		itemList_ = new JList<LevelEditorItem>();
+		panelItems.setViewportView(itemList_);
+		
+		JLabel lblItems = new JLabel("Items");
+		lblItems.setHorizontalAlignment(SwingConstants.CENTER);
+		lblItems.setLabelFor(itemList_);
+		panelItems.setColumnHeaderView(lblItems);
 
 		panelCenter_ = new JPanel();
 		frame_.getContentPane().add(panelCenter_, BorderLayout.CENTER);
@@ -180,26 +196,33 @@ public class LevelEditor {
 		canvas_.getCanvas().addMouseListener(new LevelEditorMouseListener(this));
 		panelCenter_.setLayout(new BorderLayout(0, 0));
 		panelCenter_.add(canvas_.getCanvas(), BorderLayout.CENTER);
+		
+		JPanel panelHelperRight = new JPanel();
+		frame_.getContentPane().add(panelHelperRight, BorderLayout.EAST);
+		panelHelperRight.setLayout(new BorderLayout(0, 0));
+		
+        panelProperties_ = new JScrollPane();
+        panelHelperRight.add(panelProperties_, BorderLayout.CENTER);
+				
+        JLabel lblProperties = new JLabel("Properties");
+        lblProperties.setHorizontalAlignment(SwingConstants.CENTER);
+        panelProperties_.setColumnHeaderView(lblProperties);
 
-		panelProperties_ = new JScrollPane();
-		frame_.getContentPane().add(panelProperties_, BorderLayout.EAST);
-
-		JLabel lblProperties = new JLabel("Properties");
-		lblProperties.setHorizontalAlignment(SwingConstants.CENTER);
-		panelProperties_.setColumnHeaderView(lblProperties);
+        Component horizontalStrut = Box.createHorizontalStrut(170);
+        panelHelperRight.add(horizontalStrut, BorderLayout.SOUTH);
 
 		JMenuBar menuBar = new JMenuBar();
 		frame_.setJMenuBar(menuBar);
 		JMenu fileMenu = new JMenu("File");
 		menuBar.add(fileMenu);
 
-		JMenuItem menuItemNew = new JMenuItem(new NewFileAction("New"));
+		JMenuItem menuItemNew = new JMenuItem(new NewFileAction(FILE_NEW));
 		fileMenu.add(menuItemNew);
-		JMenuItem menuItemOpen = new JMenuItem(new OpenFileAction("Open..."));
+		JMenuItem menuItemOpen = new JMenuItem(new OpenFileAction(FILE_OPEN));
 		fileMenu.add(menuItemOpen);
-		JMenuItem menuItemSave = new JMenuItem(new SaveFileAction("Save"));
+		JMenuItem menuItemSave = new JMenuItem(new SaveFileAction(FILE_SAVE));
 		fileMenu.add(menuItemSave);
-		JMenuItem menuItemSaveAs = new JMenuItem(new SaveAsFileAction("Save As..."));
+		JMenuItem menuItemSaveAs = new JMenuItem(new SaveAsFileAction(FILE_SAVE_AS));
 		fileMenu.add(menuItemSaveAs);
 	}
 
@@ -223,6 +246,18 @@ public class LevelEditor {
 
     public LevelEditorFile getFile() {
         return file_;
+    }
+
+    public JList<LevelEditorItem> getItemList() {
+        return itemList_;
+    }
+
+    public LevelEditorItem getDraggedItem() {
+        Object tool = tools_.getModel().getChild(tools_.getModel().getRoot(), 1);
+        if (tool instanceof LevelEditorTool) {
+            return ((LevelEditorTool) tool).getSelectedItem();
+        }
+        return null;
     }
 
 	public LevelEditorTool getSelectedTool() {

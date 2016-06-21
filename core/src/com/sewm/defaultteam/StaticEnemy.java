@@ -16,7 +16,10 @@ public class StaticEnemy extends Enemy {
     Rectangle start_rect_;
     Rectangle end_rect_;
 
-    public StaticEnemy(Vector2 pos, EnemyAttribute difficulty, int points, int points_on_death, Vector2 start_pos, Vector2 end_pos){
+    private StaticEnemy(Vector2 pos, EnemyAttribute difficulty, int points, int points_on_death, Vector2 start_pos, Vector2 end_pos){
+        pos.scl(Constants.virtual_to_real_x, Constants.virtual_to_real_y);
+        start_pos.scl(Constants.virtual_to_real_x, Constants.virtual_to_real_y);
+        end_pos.scl(Constants.virtual_to_real_x, Constants.virtual_to_real_y);
         texture_ = null;
         texture_array_ = new ArrayList<String>();
         body_ = new Rectangle(pos.x, pos.y, Constants.enemy_width, Constants.enemy_height);
@@ -32,7 +35,7 @@ public class StaticEnemy extends Enemy {
         end_pos_ = end_pos;
         start_rect_ = new Rectangle(start_pos_.x, start_pos_.y, Constants.player_radius * 2.f, Constants.player_radius * 2.f);
         end_rect_ = new Rectangle(end_pos_.x, end_pos_.y, Constants.player_radius * 2.f, Constants.player_radius * 2.f);
-        target_pos_ = start_pos;
+        target_pos_ = start_pos.cpy();
     }
 
     public Vector2 getStartPos() {
@@ -53,13 +56,12 @@ public class StaticEnemy extends Enemy {
         this(new Vector2(start_pos.x, start_pos.y), difficulty, points, points_on_death, start_pos, end_pos);
         spawn_time_ = spawn_time;
         switch (difficulty.difficulty_) {
-            case 1:
+            case 2:
                 texture_array_ = WorldRenderer.entities_texture_strings.get("enemy_static_medium_textures");
                 break;
-            case 2:
+            case 3:
                 texture_array_ = WorldRenderer.entities_texture_strings.get("enemy_static_hard_textures");
                 break;
-            case 0:
             default:
                 texture_array_ = WorldRenderer.entities_texture_strings.get("enemy_static_easy_textures");
                 break;

@@ -32,8 +32,8 @@ public class EnemyTest {
         Gdx.graphics = mock(Graphics.class);
         GameScreen.worldController_ = mock(WorldController.class);
         when(Gdx.graphics.getDeltaTime()).thenReturn(0.02f);
-        when(Gdx.graphics.getWidth()).thenReturn(1024);
-        when(Gdx.graphics.getHeight()).thenReturn(720);
+        when(Gdx.graphics.getWidth()).thenReturn((int) Constants.virtual_screen_width);
+        when(Gdx.graphics.getHeight()).thenReturn((int) Constants.virtual_screen_height);
 
         WorldRenderer.entities_texture_strings = mock(HashMap.class);
         WorldRenderer.entities_textures = mock(HashMap.class);
@@ -50,7 +50,7 @@ public class EnemyTest {
         {
             normalEnemy.updatePosition();
             counter++;
-            assertTrue(counter < 31);
+            assertTrue(counter < 32);
         }
 
         assertTrue(normalEnemy.body_.contains(100, 100));

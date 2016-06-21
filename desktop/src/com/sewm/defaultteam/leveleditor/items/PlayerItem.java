@@ -3,19 +3,17 @@ package com.sewm.defaultteam.leveleditor.items;
 import com.badlogic.gdx.math.Vector2;
 import com.sewm.defaultteam.Constants;
 import com.sewm.defaultteam.leveleditor.LevelEditor;
-import com.sewm.defaultteam.leveleditor.LevelEditorFile;
 import com.sewm.defaultteam.leveleditor.LevelEditorItem;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.text.ParseException;
-
 import javax.swing.Box;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class PlayerItem extends LevelEditorItem {
     protected int health_;
@@ -30,28 +28,25 @@ public class PlayerItem extends LevelEditorItem {
         createPanel();
     }
 
-    private void createPanel() {
-        try {
-            Box vertical = Box.createVerticalBox();
+    @Override
+    protected void createPanel() {
+        Box vertical = Box.createVerticalBox();
 
-            final JFormattedTextField health = new JFormattedTextField(LevelEditorFile.INT);
-            health.setText(LevelEditorFile.INT.valueToString(health_));
-            health.addPropertyChangeListener("value", new PropertyChangeListener() {
-                @Override
-                public void propertyChange(PropertyChangeEvent e) {
-                    if (!e.getNewValue().equals(e.getOldValue())) {
-                        health_ = Integer.parseInt(e.getNewValue().toString());
-                        editor_.getFile().setDirty(true);
-                    }
+        final JSpinner health = new JSpinner();
+        health.setModel(new SpinnerNumberModel(health_, 1, null, 1));
+        health.getModel().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                if (health.getPreviousValue() != health.getValue()) {
+                    health_ = Integer.parseInt(health.getValue().toString());
+                    editor_.getFile().setDirty(true);
                 }
-            });
-            vertical.add(new JLabel("Health"));
-            vertical.add(health);
+            }
+        });
+        vertical.add(new JLabel("Health"));
+        vertical.add(health);
 
-            properties_panel_.add(vertical);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        properties_panel_.add(vertical);
     }
 
     @Override
@@ -59,5 +54,10 @@ public class PlayerItem extends LevelEditorItem {
         Element node = document.createElement("player");
         node.setAttribute("health", String.valueOf(getHealth()));
         return node;
+    }
+
+    @Override
+    public void move(Vector2 to) {
+        // not allowed to move player
     }
 }

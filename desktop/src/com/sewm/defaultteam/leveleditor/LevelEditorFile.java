@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.XmlWriter;
 import com.sewm.defaultteam.ActionPoint;
 import com.sewm.defaultteam.ChainAP;
 import com.sewm.defaultteam.Constants;
@@ -27,21 +26,17 @@ import org.w3c.dom.Element;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.text.NumberFormatter;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
@@ -63,20 +58,26 @@ public class LevelEditorFile {
 	private String path_ = null;
 	private boolean dirty_ = false;
 	private List<LevelEditorItem> items_ = new ArrayList<LevelEditorItem>();
-
-    public static final NumberFormatter FLOAT = new NumberFormatter(NumberFormat.getNumberInstance(Locale.ENGLISH));
-    public static final NumberFormatter INT = new NumberFormatter(NumberFormat.getIntegerInstance(Locale.ENGLISH));
 	
 	public LevelEditorFile(LevelEditor editor) {
 		editor_ = editor;
+        final JList<LevelEditorItem> list = editor_.getItemList();
+        list.setModel(new DefaultListModel<LevelEditorItem>());
+        list.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent listSelectionEvent) {
+                editor_.getProperties().setSelectedItem(list.getSelectedValue());
+            }
+        });
 		createNewFile();
+        addItem(new PlayerItem(editor_, 3));
+        setDirty(false);
 	}
 	
 	public void createNewFile() {
 		items_.clear();
-        items_.add(new PlayerItem(editor_, 3));
+        ((DefaultListModel<LevelEditorItem>) editor_.getItemList().getModel()).clear();
 		path_ = null;
-		setDirty(false);
         editor_.getPropertiesPanel().getViewport().removeAll();
         editor_.getFrame().revalidate();
 	}
@@ -86,6 +87,8 @@ public class LevelEditorFile {
 			return;
 		}
 		createNewFile();
+        addItem(new PlayerItem(editor_, 3));
+        setDirty(false);
 	}
 
 	public void openFile() {
@@ -119,34 +122,37 @@ public class LevelEditorFile {
             addItem(new PlayerItem(editor_, (int) player.getHealth()));
             for (Target target : targets) {
                 Circle body = (Circle) target.getBody();
-                addItem(new TargetItem(editor_, new Vector2(body.x, body.y), Constants.target_radius, (int) target.getHealth()));
+                addItem(new TargetItem(editor_, new Vector2(body.x / Constants.virtual_to_real_x, body.y / Constants.virtual_to_real_y), Constants.target_radius, (int) target.getHealth()));
             }
             for (Enemy enemy : enemies) {
                 if (enemy instanceof NormalEnemy) {
                     NormalEnemy normal_enemy = (NormalEnemy) enemy;
                     Rectangle body = (Rectangle) normal_enemy.getBody();
-                    addItem(new NormalEnemyItem(editor_, new Vector2(body.x, body.y), enemy.getDifficulty(), enemy.getPoints(), enemy.getPointsOnDeath(), enemy.getSpawnTime()));
+                    addItem(new NormalEnemyItem(editor_, new Vector2(body.x / Constants.virtual_to_real_x, body.y / Constants.virtual_to_real_y), enemy.getDifficulty(), enemy.getPoints(), enemy.getPointsOnDeath(), enemy.getSpawnTime()));
                 } else if (enemy instanceof StaticEnemy) {
                     StaticEnemy static_enemy = (StaticEnemy) enemy;
-                    addItem(new StaticEnemyItem(editor_, static_enemy.getStartPos(), static_enemy.getEndPos(), enemy.getDifficulty(), enemy.getPoints(), enemy.getPointsOnDeath(), enemy.getSpawnTime()));
+                    Vector2 start = new Vector2(static_enemy.getStartPos().x / Constants.virtual_to_real_x, static_enemy.getStartPos().y / Constants.virtual_to_real_y);
+                    Vector2 end = new Vector2(static_enemy.getEndPos().x / Constants.virtual_to_real_x, static_enemy.getEndPos().y / Constants.virtual_to_real_y);
+                    addItem(new StaticEnemyItem(editor_, start, end, enemy.getDifficulty(), enemy.getPoints(), enemy.getPointsOnDeath(), enemy.getSpawnTime()));
                 }
             }
             for (ActionPoint action_point : aps) {
                 if (action_point instanceof ChainAP) {
                     ChainAP ap = (ChainAP) action_point;
                     Rectangle body = (Rectangle) ap.getBody();
+                    Vector2 pos = new Vector2(body.x / Constants.virtual_to_real_x, body.y / Constants.virtual_to_real_y);
                     List<Vector2> positions = new ArrayList<Vector2>();
 
                     ActionPoint current = action_point;
                     ActionPoint next = current.getNext();
                     while (!current.equals(next)) {
                         body = (Rectangle) next.getBody();
-                        positions.add(new Vector2(body.x, body.y));
+                        positions.add(new Vector2(body.x / Constants.virtual_to_real_x, body.y / Constants.virtual_to_real_y));
                         current = next;
                         next = current.getNext();
                     }
 
-                    addItem(new ChainActionPointItem(editor_, new Vector2(body.x, body.y), positions.toArray(new Vector2[positions.size()])));
+                    addItem(new ChainActionPointItem(editor_, pos, positions.toArray(new Vector2[positions.size()])));
                 }
             }
 
@@ -248,11 +254,13 @@ public class LevelEditorFile {
             return; // not allowed to delete the player
         }
 		items_.remove(item);
+        ((DefaultListModel<LevelEditorItem>) editor_.getItemList().getModel()).removeElement(item);
 		setDirty(true);
 	}
 
     public synchronized void addItem(LevelEditorItem item) {
         items_.add(item);
+        ((DefaultListModel<LevelEditorItem>) editor_.getItemList().getModel()).addElement(item);
         setDirty(true);
     }
 
@@ -262,7 +270,7 @@ public class LevelEditorFile {
 
 	public void setDirty(boolean dirty) {
 		dirty_ = dirty;
-        String title = (dirty ? "*" : "") + (path_ == null ? "Unnamed Level" : new File(path_).getName());
+        String title = (dirty ? "*" : "") + (path_ == null ? LevelEditor.FILE_UNNAMED : new File(path_).getName());
         editor_.getFrame().setTitle(title);
 	}
 }

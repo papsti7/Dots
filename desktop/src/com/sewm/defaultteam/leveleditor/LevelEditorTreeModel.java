@@ -1,5 +1,7 @@
 package com.sewm.defaultteam.leveleditor;
 
+import com.sewm.defaultteam.leveleditor.LevelEditorTool.ACTION;
+
 import java.awt.Cursor;
 import java.util.Map;
 
@@ -7,17 +9,26 @@ import javax.swing.Icon;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import com.sewm.defaultteam.leveleditor.LevelEditorTool.ACTION;
-import static com.sewm.defaultteam.leveleditor.LevelEditor.*;
+import static com.sewm.defaultteam.leveleditor.LevelEditor.CHAIN_ACTION_POINT;
+import static com.sewm.defaultteam.leveleditor.LevelEditor.DELETE;
+import static com.sewm.defaultteam.leveleditor.LevelEditor.MOVE;
+import static com.sewm.defaultteam.leveleditor.LevelEditor.NORMAL_ENEMY_EASY;
+import static com.sewm.defaultteam.leveleditor.LevelEditor.NORMAL_ENEMY_HARD;
+import static com.sewm.defaultteam.leveleditor.LevelEditor.NORMAL_ENEMY_MEDIUM;
+import static com.sewm.defaultteam.leveleditor.LevelEditor.SELECT;
+import static com.sewm.defaultteam.leveleditor.LevelEditor.STATIC_ENEMY_EASY;
+import static com.sewm.defaultteam.leveleditor.LevelEditor.STATIC_ENEMY_HARD;
+import static com.sewm.defaultteam.leveleditor.LevelEditor.STATIC_ENEMY_MEDIUM;
+import static com.sewm.defaultteam.leveleditor.LevelEditor.TARGET;
 
 public class LevelEditorTreeModel extends DefaultTreeModel {
     public LevelEditorTreeModel(LevelEditor e, Map<String, Icon> icons, Map<String, Cursor> cursors) throws NoSuchMethodException, SecurityException {
         super(new DefaultMutableTreeNode("Dots"));
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) getRoot();
 
-        root.add(new LevelEditorTool(e, "Select", null, Cursor.getPredefinedCursor(Cursor.HAND_CURSOR), ACTION.SELECT));
-        root.add(new LevelEditorTool(e, "Move", null, Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR), ACTION.MOVE));
-        root.add(new LevelEditorTool(e, "Delete", null, Cursor.getPredefinedCursor(Cursor.HAND_CURSOR), ACTION.DELETE));
+        root.add(new LevelEditorTool(e, SELECT, null, Cursor.getPredefinedCursor(Cursor.HAND_CURSOR), ACTION.SELECT));
+        root.add(new LevelEditorTool(e, MOVE, null, Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR), ACTION.MOVE));
+        root.add(new LevelEditorTool(e, DELETE, null, Cursor.getPredefinedCursor(Cursor.HAND_CURSOR), ACTION.DELETE));
         //root.add(new LevelEditorTool(e, PLAYER, icons.get(PLAYER), cursors.get(PLAYER), ACTION.PLACE));
         root.add(new LevelEditorTool(e, TARGET, icons.get(TARGET), cursors.get(TARGET), ACTION.PLACE));
 

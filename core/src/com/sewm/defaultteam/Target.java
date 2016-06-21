@@ -34,6 +34,10 @@ public class Target extends GameEntity {
 
     public Target(float x, float y, float radius, int health) {
         this();
+
+        x *= Constants.virtual_to_real_x;
+        y *= Constants.virtual_to_real_y;
+
         //radius not used yet
         body_ = new Circle((float) x, (float) y, Constants.target_radius);
         health_ = health;

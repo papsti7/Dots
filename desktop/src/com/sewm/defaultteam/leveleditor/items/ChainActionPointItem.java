@@ -3,9 +3,9 @@ package com.sewm.defaultteam.leveleditor.items;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.sewm.defaultteam.Constants;
 import com.sewm.defaultteam.leveleditor.LevelEditor;
 import com.sewm.defaultteam.leveleditor.LevelEditorCanvasRenderer;
-import com.sewm.defaultteam.leveleditor.LevelEditorFile;
 import com.sewm.defaultteam.leveleditor.LevelEditorItem;
 
 import org.w3c.dom.Document;
@@ -13,18 +13,17 @@ import org.w3c.dom.Element;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
-import javax.swing.event.MouseInputListener;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class ChainActionPointItem extends LevelEditorItem {
     private List<Vector2> positions_;
@@ -35,82 +34,81 @@ public class ChainActionPointItem extends LevelEditorItem {
         createPanel();
     }
 
-    private void createPanel() {
-        try {
-            Box vertical = Box.createVerticalBox();
+    @Override
+    protected void createPanel() {
+        Box vertical = Box.createVerticalBox();
 
-            final JFormattedTextField position_x = new JFormattedTextField(LevelEditorFile.FLOAT);
-            position_x.setText(LevelEditorFile.FLOAT.valueToString(position_.x));
-            position_x.addPropertyChangeListener("value", new PropertyChangeListener() {
-                @Override
-                public void propertyChange(PropertyChangeEvent e) {
-                    if (!e.getNewValue().equals(e.getOldValue())) {
-                        position_.x = Float.parseFloat(e.getNewValue().toString());
-                        editor_.getFile().setDirty(true);
-                    }
+        final JSpinner position_x = new JSpinner();
+        position_x.setModel(new SpinnerNumberModel((int)position_.x, 0, Constants.virtual_screen_width, 1));
+        position_x.getModel().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                if (position_x.getPreviousValue() != position_x.getValue()) {
+                    position_.x = Float.parseFloat(position_x.getValue().toString());
+                    editor_.getFile().setDirty(true);
                 }
-            });
-            vertical.add(new JLabel("X-Position"));
-            vertical.add(position_x);
-
-            final JFormattedTextField position_y = new JFormattedTextField(LevelEditorFile.FLOAT);
-            position_y.setText(LevelEditorFile.FLOAT.valueToString(position_.y));
-            position_y.addPropertyChangeListener("value", new PropertyChangeListener() {
-                @Override
-                public void propertyChange(PropertyChangeEvent e) {
-                    if (!e.getNewValue().equals(e.getOldValue())) {
-                        position_.y = Float.parseFloat(e.getNewValue().toString());
-                        editor_.getFile().setDirty(true);
-                    }
-                }
-            });
-            vertical.add(new JLabel("Y-Position"));
-            vertical.add(position_y);
-
-            Box dynamic = Box.createVerticalBox();
-            for (final Vector2 position : positions_) {
-                final JFormattedTextField pos_x = new JFormattedTextField(LevelEditorFile.FLOAT);
-                pos_x.setText(LevelEditorFile.FLOAT.valueToString(position.x));
-                pos_x.addPropertyChangeListener("value", new PropertyChangeListener() {
-                    @Override
-                    public void propertyChange(PropertyChangeEvent e) {
-                        if (!e.getNewValue().equals(e.getOldValue())) {
-                            position.x = Float.parseFloat(e.getNewValue().toString());
-                            editor_.getFile().setDirty(true);
-                        }
-                    }
-                });
-                dynamic.add(new JLabel("X-Position"));
-                dynamic.add(pos_x);
-
-                final JFormattedTextField pos_y = new JFormattedTextField(LevelEditorFile.FLOAT);
-                pos_y.setText(LevelEditorFile.FLOAT.valueToString(position.y));
-                pos_y.addPropertyChangeListener("value", new PropertyChangeListener() {
-                    @Override
-                    public void propertyChange(PropertyChangeEvent e) {
-                        if (!e.getNewValue().equals(e.getOldValue())) {
-                            position.y = Float.parseFloat(e.getNewValue().toString());
-                            editor_.getFile().setDirty(true);
-                        }
-                    }
-                });
-                dynamic.add(new JLabel("Y-Position"));
-                dynamic.add(pos_y);
             }
-            vertical.add(dynamic);
+        });
+        vertical.add(new JLabel("X-Position"));
+        vertical.add(position_x);
 
-            final JButton button_remove = new JButton("- Position");
-            button_remove.addMouseListener(new RemovePositionListener(dynamic));
-            vertical.add(button_remove);
+        final JSpinner position_y = new JSpinner();
+        position_y.setModel(new SpinnerNumberModel((int)position_.y, 0, Constants.virtual_screen_height, 1));
+        position_y.getModel().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                if (position_y.getPreviousValue() != position_y.getValue()) {
+                    position_.y = Float.parseFloat(position_y.getValue().toString());
+                    editor_.getFile().setDirty(true);
+                }
+            }
+        });
+        vertical.add(new JLabel("Y-Position"));
+        vertical.add(position_y);
 
-            final JButton button_add = new JButton("+ Position");
-            button_add.addMouseListener(new AddPositionListener(dynamic));
-            vertical.add(button_add);
+        Box dynamic = Box.createVerticalBox();
+        for (final Vector2 position : positions_) {
+            final JSpinner pos_x = new JSpinner();
+            pos_x.setModel(new SpinnerNumberModel((int)position.x, 0, Constants.virtual_screen_width, 1));
+            pos_x.getModel().addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent changeEvent) {
+                    if (pos_x.getPreviousValue() != pos_x.getValue()) {
+                        position.x = Float.parseFloat(pos_x.getValue().toString());
+                        editor_.getFile().setDirty(true);
+                    }
+                }
+            });
+            dynamic.add(new JLabel("X-Position"));
+            dynamic.add(pos_x);
 
-            properties_panel_.add(vertical);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            final JSpinner pos_y = new JSpinner();
+            pos_y.setModel(new SpinnerNumberModel((int)position.y, 0, Constants.virtual_screen_height, 1));
+            pos_y.getModel().addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent changeEvent) {
+                    if (pos_y.getPreviousValue() != pos_y.getValue()) {
+                        position.y = Float.parseFloat(pos_y.getValue().toString());
+                        editor_.getFile().setDirty(true);
+                    }
+                }
+            });
+            dynamic.add(new JLabel("Y-Position"));
+            dynamic.add(pos_y);
         }
+        vertical.add(dynamic);
+
+        vertical.add(Box.createVerticalGlue());
+
+        final JButton button_remove = new JButton("- Position");
+        button_remove.addMouseListener(new RemovePositionListener(dynamic));
+        vertical.add(button_remove);
+
+        final JButton button_add = new JButton("+ Position");
+        button_add.addMouseListener(new AddPositionListener(dynamic));
+        vertical.add(button_add);
+
+        properties_panel_.add(vertical);
     }
 
     private class RemovePositionListener implements MouseListener {
@@ -164,42 +162,38 @@ public class ChainActionPointItem extends LevelEditorItem {
 
         @Override
         public void mouseClicked(MouseEvent mouseEvent) {
-            try {
-                final Vector2 position = new Vector2(0, 0);
-                positions_.add(position);
+            final Vector2 position = new Vector2(0, 0);
+            positions_.add(position);
 
-                final JFormattedTextField pos_x = new JFormattedTextField(LevelEditorFile.FLOAT);
-                pos_x.setText(LevelEditorFile.FLOAT.valueToString(position.x));
-                pos_x.addPropertyChangeListener("value", new PropertyChangeListener() {
-                    @Override
-                    public void propertyChange(PropertyChangeEvent e) {
-                        if (!e.getNewValue().equals(e.getOldValue())) {
-                            position.x = Float.parseFloat(e.getNewValue().toString());
-                            editor_.getFile().setDirty(true);
-                        }
+            final JSpinner pos_x = new JSpinner();
+            pos_x.setModel(new SpinnerNumberModel((int)position.x, 0, Constants.virtual_screen_width, 1));
+            pos_x.getModel().addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent changeEvent) {
+                    if (pos_x.getPreviousValue() != pos_x.getValue()) {
+                        position.x = Float.parseFloat(pos_x.getValue().toString());
+                        editor_.getFile().setDirty(true);
                     }
-                });
-                box.add(new JLabel("X-Position"));
-                box.add(pos_x);
+                }
+            });
+            box.add(new JLabel("X-Position"));
+            box.add(pos_x);
 
-                final JFormattedTextField pos_y = new JFormattedTextField(LevelEditorFile.FLOAT);
-                pos_y.setText(LevelEditorFile.FLOAT.valueToString(position.y));
-                pos_y.addPropertyChangeListener("value", new PropertyChangeListener() {
-                    @Override
-                    public void propertyChange(PropertyChangeEvent e) {
-                        if (!e.getNewValue().equals(e.getOldValue())) {
-                            position.y = Float.parseFloat(e.getNewValue().toString());
-                            editor_.getFile().setDirty(true);
-                        }
+            final JSpinner pos_y = new JSpinner();
+            pos_y.setModel(new SpinnerNumberModel((int)position.y, 0, Constants.virtual_screen_height, 1));
+            pos_y.getModel().addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent changeEvent) {
+                    if (pos_y.getPreviousValue() != pos_y.getValue()) {
+                        position.y = Float.parseFloat(pos_y.getValue().toString());
+                        editor_.getFile().setDirty(true);
                     }
-                });
-                box.add(new JLabel("Y-Position"));
-                box.add(pos_y);
+                }
+            });
+            box.add(new JLabel("Y-Position"));
+            box.add(pos_y);
 
-                box.revalidate();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            box.revalidate();
         }
 
         @Override
@@ -237,6 +231,16 @@ public class ChainActionPointItem extends LevelEditorItem {
         }
 
         return node;
+    }
+
+    @Override
+    public void move(Vector2 to) {
+        float moveX = to.x - position_.x;
+        float moveY = to.y - position_.y;
+        for (Vector2 position : positions_) {
+            position.add(moveX, moveY);
+        }
+        super.move(to);
     }
 
     @Override

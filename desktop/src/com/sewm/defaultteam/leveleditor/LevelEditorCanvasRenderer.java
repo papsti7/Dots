@@ -4,7 +4,6 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,7 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LevelEditorCanvasRenderer implements ApplicationListener {
-    Stage stage_;
     Viewport viewport_;
 	LevelEditor editor_;
 	SpriteBatch sprite_batch_;
@@ -61,20 +59,19 @@ public class LevelEditorCanvasRenderer implements ApplicationListener {
 
 	@Override
 	public void render() {
-		Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        LevelEditorItem dragged = editor_.getDraggedItem();
         LevelEditorItem selected = editor_.getProperties().getSelectedItem();
+
         sprite_batch_.begin();
+        sprite_batch_.draw(textures_.get(LevelEditor.BACKGROUND), 0, 0);
 
         if (selected != null) {
-            sprite_batch_.enableBlending();
             Color c = sprite_batch_.getColor();
             sprite_batch_.setColor(c.r, c.g, c.b, 0.3f);
         }
 
         for (LevelEditorItem item : editor_.getFile().getItems()) {
-            if (!item.equals(selected)) {
+            if (!item.equals(selected) && !item.equals(dragged)) {
                 item.draw(sprite_batch_);
             }
         }
@@ -82,7 +79,10 @@ public class LevelEditorCanvasRenderer implements ApplicationListener {
         if (selected != null) {
             Color c = sprite_batch_.getColor();
             sprite_batch_.setColor(c.r, c.g, c.b, 1f);
-            editor_.getProperties().getSelectedItem().draw(sprite_batch_);
+
+            if (!selected.equals(dragged)) {
+                selected.draw(sprite_batch_);
+            }
         }
 	    sprite_batch_.end();
     }

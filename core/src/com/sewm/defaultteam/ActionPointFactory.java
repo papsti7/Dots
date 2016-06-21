@@ -61,7 +61,7 @@ public class ActionPointFactory {
             {
                 for (int element = 0; element < number; element++)
                 {
-                    Vector2 new_pos = new Vector2(Utils.random_.nextInt(Gdx.graphics.getWidth()-64), Utils.random_.nextInt(Gdx.graphics.getHeight()-64));
+                    Vector2 new_pos = new Vector2(Utils.random_.nextInt((int)Constants.virtual_screen_width-64), Utils.random_.nextInt((int)Constants.virtual_screen_height-64));
                     new_pos.add(32,32);
 
                     if (element == 0)
