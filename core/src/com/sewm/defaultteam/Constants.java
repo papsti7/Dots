@@ -11,6 +11,7 @@ public final class Constants {
     public static final boolean debug = false;
     public static final boolean immortal = false;
     public static final boolean infinite_action_points = false;
+    public static final boolean random_enemy_movement = false;
 
     public static float player_spawn_x = Gdx.graphics.getWidth()/2.f + Gdx.graphics.getWidth() / 40.f;
     public static float player_spawn_y = Gdx.graphics.getHeight()/2.f + Gdx.graphics.getWidth() / 40.f;
@@ -19,7 +20,7 @@ public final class Constants {
 
     public static float enemy_width = Gdx.graphics.getWidth() / 20.f;
     public static float enemy_height = Gdx.graphics.getWidth() / 20.f;
-    public static final float enemy_damage = 8;
+    public static final float enemy_damage = 4.5f;
 
     public static float target_radius = Gdx.graphics.getWidth() / 80.f;
     public static final float target_spawn_interval = 2.f;

@@ -27,6 +27,7 @@ public class ChainAP extends ActionPoint {
             deactivate();
         }
 
+        next_ = this;
         body_ = new Rectangle(x, y, Constants.action_point_width, Constants.action_point_height);
         text_ = new TextObject(WorldRenderer.font_small_, WorldRenderer.spriteBatch_, x, y, String.valueOf(number));
     }

@@ -1,5 +1,8 @@
 package com.sewm.defaultteam.leveleditor;
 
+import com.badlogic.gdx.math.Vector2;
+import com.sewm.defaultteam.leveleditor.items.NormalEnemyItem;
+
 import org.junit.Test;
 
 import java.awt.AWTException;
@@ -71,6 +74,117 @@ public class LevelEditorTest extends UITest {
 
         getRobot().waitForIdle();
         assertEquals(itemsBefore, editor.getFile().getItems().size());
+    }
+
+    @Test
+    public void testMove() {
+        selectTool(NORMAL_ENEMY_EASY);
+        getRobot().click(canvas, canvas.getWidth() / 4, canvas.getHeight() / 4);
+        getRobot().waitForIdle();
+
+        Vector2 pos = null;
+        for (LevelEditorItem item : editor.getFile().getItems()) {
+            if (item instanceof NormalEnemyItem) {
+                pos = new Vector2(item.getX(), item.getY());
+                break;
+            }
+        }
+        assertNotNull(pos);
+
+        // move
+        selectTool(MOVE);
+        getRobot().mousePress(canvas, canvas.getWidth() / 4, canvas.getHeight() / 4);
+        getRobot().mouseMove(canvas, canvas.getWidth() * 3 / 4, canvas.getHeight() * 3 / 4);
+        getRobot().mouseRelease();
+
+        getRobot().waitForIdle();
+        for (LevelEditorItem item : editor.getFile().getItems()) {
+            if (item instanceof NormalEnemyItem) {
+                assertNotSame(pos, new Vector2(item.getX(), item.getY()));
+                break;
+            }
+        }
+    }
+
+    @Test
+    public void testToolsAndPropertyPanels() throws ComponentNotFoundException, MultipleComponentsFoundException {
+        int count = editor.getFile().getItems().size();
+
+        final int cols = 8;
+        final int rows = 9;
+
+        // place items
+        selectTool(TARGET);
+        for (int i = 1; i < cols; i++) {
+            getRobot().click(canvas, canvas.getWidth() * i / cols, canvas.getHeight() / rows);
+            count++;
+        }
+        getRobot().waitForIdle();
+        assertEquals(count, editor.getFile().getItems().size());
+
+        selectTool(CHAIN_ACTION_POINT);
+        for (int i = 1; i < cols; i++) {
+            getRobot().click(canvas, canvas.getWidth() * i / cols, canvas.getHeight() * 2 / rows);
+            count++;
+        }
+        getRobot().waitForIdle();
+        assertEquals(count, editor.getFile().getItems().size());
+
+        selectTool(NORMAL_ENEMY_EASY);
+        for (int i = 1; i < cols; i++) {
+            getRobot().click(canvas, canvas.getWidth() * i / cols, canvas.getHeight() * 3 / rows);
+            count++;
+        }
+        getRobot().waitForIdle();
+        assertEquals(count, editor.getFile().getItems().size());
+
+        selectTool(NORMAL_ENEMY_MEDIUM);
+        for (int i = 1; i < cols; i++) {
+            getRobot().click(canvas, canvas.getWidth() * i / cols, canvas.getHeight() * 4 / rows);
+            count++;
+        }
+        getRobot().waitForIdle();
+        assertEquals(count, editor.getFile().getItems().size());
+
+        selectTool(NORMAL_ENEMY_HARD);
+        for (int i = 1; i < cols; i++) {
+            getRobot().click(canvas, canvas.getWidth() * i / cols, canvas.getHeight() * 5 / rows);
+            count++;
+        }
+        getRobot().waitForIdle();
+        assertEquals(count, editor.getFile().getItems().size());
+
+        selectTool(STATIC_ENEMY_EASY);
+        for (int i = 1; i < cols; i++) {
+            getRobot().click(canvas, canvas.getWidth() * i / cols, canvas.getHeight() * 6 / rows);
+            count++;
+        }
+        getRobot().waitForIdle();
+        assertEquals(count, editor.getFile().getItems().size());
+
+        selectTool(STATIC_ENEMY_MEDIUM);
+        for (int i = 1; i < cols; i++) {
+            getRobot().click(canvas, canvas.getWidth() * i / cols, canvas.getHeight() * 7 / rows);
+            count++;
+        }
+        getRobot().waitForIdle();
+        assertEquals(count, editor.getFile().getItems().size());
+
+        selectTool(STATIC_ENEMY_HARD);
+        for (int i = 1; i < cols; i++) {
+            getRobot().click(canvas, canvas.getWidth() * i / cols, canvas.getHeight() * 8 / rows);
+            count++;
+        }
+        getRobot().waitForIdle();
+        assertEquals(count, editor.getFile().getItems().size());
+
+        // select items
+        selectTool(SELECT);
+        for (int c = 1; c < cols; c++) {
+            for (int r = 1; r < rows; r++) {
+                getRobot().click(canvas, canvas.getWidth() * c / cols, canvas.getHeight() * r / rows);
+            }
+        }
     }
 
     @Test

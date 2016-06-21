@@ -61,7 +61,7 @@ public class WorldController {
         */
     }
 
-    public void checkActionPoints()
+    private void checkActionPoints()
     {
         float time = Gdx.graphics.getDeltaTime();
         if (first_ != null)
@@ -94,7 +94,7 @@ public class WorldController {
 
 
 
-    public void updateEntities() {
+    private void updateEntities() {
         for (GameEntity entity : entities_)
         {
             entity.update(new Vector2(player_.surrounding_.x, player_.surrounding_.y));
@@ -166,7 +166,7 @@ public class WorldController {
         target_spawn_interval_ = Constants.target_spawn_interval * (Utils.random_.nextFloat() * 0.4f + 0.8f);
     }
 
-    public void checkTarget(){
+    private void checkTarget(){
         if(target_spawn_interval_ != 0)
         {
             float delta_time = Gdx.graphics.getDeltaTime();

@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class Target extends GameEntity {
 
-    public Target()
+    private Target()
     {
         //body_ = new Circle(50.f,50.f,Constants.target_radius);
         speed_base_ = 1;

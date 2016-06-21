@@ -32,8 +32,10 @@ public class GameOverScreen implements Screen {
     float menu_button_x_;
     float text_size_x2;
     float text_size_y2;
+    boolean touched;
     @Override
     public void show() {
+        touched = Gdx.input.isTouched();
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/arial.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = Gdx.graphics.getHeight()/10;
@@ -71,8 +73,12 @@ public class GameOverScreen implements Screen {
         spriteBatch_.end();
 
         Rectangle button_2 = new Rectangle(menu_button_x_,menu_button_y_2_, button_texture_.getWidth(), button_texture_.getHeight());
+        if (touched && !Gdx.input.isTouched())
+        {
+            touched = false;
+        }
         Vector2 touch_point = new Vector2(Gdx.input.getX(),Gdx.graphics.getHeight() - Gdx.input.getY());
-        if (Gdx.input.isTouched()) {
+        if (Gdx.input.isTouched()&& !touched) {
             if (button_2.contains(touch_point)) {
                 StartPoint.getInstance().setScreen(new MenuScreen());
             }
